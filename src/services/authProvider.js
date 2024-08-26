@@ -44,7 +44,11 @@ const AuthProvider = ({ children }) => {
 
 };
 
+const getToken = () => { return localStorage.getItem("site")}
+/**
+ * methods: .token, .user, .login(), .logout()
+ */
 const useAuth = () => { return useContext(AuthContext); };
 
 export default AuthProvider;
-export { useAuth };
+export { useAuth, getToken };

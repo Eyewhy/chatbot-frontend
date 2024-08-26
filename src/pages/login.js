@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { useAuth } from "../services/authProvider"
 
-function Login() {
+function LoginPage() {
     const {
         register,
         handleSubmit,
@@ -53,4 +53,4 @@ function Login() {
     )
 }
 
-export default Login
+export default LoginPage

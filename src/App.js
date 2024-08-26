@@ -7,8 +7,13 @@ import AuthProvider from './services/authProvider'
 import PrivateRoute from './services/route';
 
 // Pages
-import Login from './pages/login'
-import Home from './pages/home'
+import LoginPage from './pages/login'
+import HomePage from './pages/home'
+import ChatPage from './pages/chats';
+import HelperPage from './pages/helper';
+import QnaPage from './pages/qna';
+import ReferralPage from './pages/referral';
+
 
 const backend = 'http://127.0.0.1:8000'
 
@@ -18,14 +23,17 @@ function App() {
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<LoginPage />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/home" element={<Home />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/chats" element={<ChatPage />} />
+              <Route path="/helper" element={<HelperPage />} />
+              <Route path="/qna" element={<QnaPage />} />
+              <Route path="/referral" element={<ReferralPage />} />
             </Route>  
           </Routes>
         </AuthProvider>  
       </Router>
-      
     </div>
   );
 }

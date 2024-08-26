@@ -1,3 +1,11 @@
+# TODO
+- [ ] individual view chat
+- [ ] individual view helper
+- [ ] upload qna
+- [ ] upload helper file
+- [ ] refresh embeddings
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,4 +1,4 @@
-import { backend } from "../App";
+import apiRequest from "./apirequest"
 
 /**
  * Logs the user in.
@@ -7,25 +7,13 @@ import { backend } from "../App";
  * @returns {String} token
  */
 async function loginRequest(username, password) {
-    try {
-        let res = await fetch(`${backend}/users/auth/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": document.cookie?.match(/csrftoken=([\w-]+)/)?.[1],
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            })
-        })
-        let data = await res.json();
-        if (res.ok === false) return 'error';
-        return 'Token ' + data['token'];
-    } catch (e) {
-        console.log(e);
-        return 'error';
-    };
+    const body = {
+        username: username,
+        password: password,
+    }
+    const res = await apiRequest('users/auth/', 'POST', body, false);
+    if (res === 'error') return 'error';
+    return 'Token ' + res['token'];
 }
 
 export { loginRequest };

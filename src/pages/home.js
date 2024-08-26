@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar"
 
-function Home () {
+function HomePage () {
     return (
         <>
             <Navbar active=""/>
@@ -11,4 +11,4 @@ function Home () {
     )
 }
 
-export default Home
+export default HomePage
