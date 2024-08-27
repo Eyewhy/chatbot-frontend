@@ -1,4 +1,5 @@
 import apiRequest from "./apirequest";
+import { toast } from "react-toastify";
 
 /**
  * GET individual user's chat.
@@ -50,7 +51,13 @@ async function qnaRequest(id=null) {
 }
 
 async function refreshQnaRequest() {
-    return apiRequest('qnadocument/reload/','GET')
+    toast("Documents reloading...")
+    return apiRequest('qnadocument/reload/','GET').then((res) => {
+       if (res === 'error') {
+            return toast("Oops, update failed.")
+        }
+        toast("Documents reloaded successfully.") 
+    })
 }
 
 

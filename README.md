@@ -2,8 +2,9 @@
 - [ ] individual view chat
 - [ ] individual view helper
 - [ ] upload qna
+- [ ] delete qna
 - [ ] upload helper file
-- [ ] refresh embeddings
+- [x] refresh embeddings
 
 
 # Getting Started with Create React App

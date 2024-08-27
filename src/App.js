@@ -1,6 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Auth
 import AuthProvider from './services/authProvider'
@@ -15,7 +17,7 @@ import QnaPage from './pages/qna';
 import ReferralPage from './pages/referral';
 
 
-const backend = 'http://127.0.0.1:8000'
+const backend = 'http://52.76.56.140'
 
 function App() {
   return (
@@ -32,8 +34,9 @@ function App() {
               <Route path="/referral" element={<ReferralPage />} />
             </Route>  
           </Routes>
-        </AuthProvider>  
+        </AuthProvider>
       </Router>
+      <ToastContainer theme="dark"/>
     </div>
   );
 }

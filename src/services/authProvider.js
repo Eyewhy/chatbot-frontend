@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
         setToken("");
         localStorage.removeItem("site");
-        navigate("/login");
+        navigate("/");
     }
     return (
         <AuthContext.Provider value={{ token, user, login, logout}}>
