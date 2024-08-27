@@ -5,7 +5,7 @@ import { loginRequest } from "../api/auth"
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(localStorage.getItem("user" || null));
     const [token, setToken] = useState(localStorage.getItem("site") || "");
     const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
             setUser(username);
             setToken(res);
             localStorage.setItem("site", res);
+            localStorage.setItem("user", username);
             navigate("/referral");
 
             return res;
@@ -34,6 +35,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
         setToken("");
         localStorage.removeItem("site");
+        localStorage.removeItem("user");
         navigate("/");
     }
 

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Field from "../components/field";
 import { helperRequest } from "../api/get";
-import { updateHelper } from "../api/post";
+import { updateHelper, deleteHelper } from "../api/others";
 import keyToDisplay from "../services/keyToDisplay";
 
 function HelperDetail () {
@@ -26,26 +26,26 @@ function HelperDetail () {
             'id': data['id'],
             'time': data['time']
         };
-        delete data['biodata'];
-        delete data['id'];
-        delete data['time'];
-        delete data['organization'];
-        delete data['scanned'];
-        return newData
+
+        let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned'];
+        deleteFields.forEach(item => {
+            delete data[item];
+        });
+
+        return newData;
     }
 
-    function save() {
-        console.log(changes);
-        updateHelper(id, changes)
-    }
+    const save = () => { console.log(changes); updateHelper(id, changes); }
 
+    const deleteButton = () => { deleteHelper(id); };
 
     return (
         <>
             <div class="d-flex p-2 justify-content-between align-items-center">
                 <h2>Helper ID {otherData['id']}</h2>
-                <a class="lead btn btn-secondary" href={otherData['biodata']}>Biodata</a>
+                <a class="lead btn btn-primary" href={otherData['biodata']}>Biodata</a>
                 <span>Uploaded at {otherData['time']}</span>
+                <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>
                 <button class="btn btn-success px-4" onClick={save}>Save</button>
             </div>
             

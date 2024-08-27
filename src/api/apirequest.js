@@ -4,7 +4,7 @@ import { backend } from "../App";
 /**
  * 
  * @param {str} url no leading /
- * @param {str} method "GET" or "POST"
+ * @param {str} method "GET", "POST", "DELETE"
  * @param {object} body JSON body if POST
  * @param {boolean} parse_json if response has JSON
  * @param {boolean} auth needs authentication
@@ -39,4 +39,32 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     };
 }
 
+async function fileRequest(url, file) {
+    const token = getToken();
+    console.log(file.name);
+    const fetchParams = {
+        method: "POST",
+        body: file,
+        
+        headers: {
+            "X-CSRFToken": document.cookie?.match(/csrftoken=([\w-]+)/)?.[1],
+            "Content-Type": file.type,
+            "Content-Length": `${file.size}`,
+            "Content-Disposition": `attachment; filename="${file.name}"`,
+            "authorization": token,
+        },
+    }
+    try {
+        let res = await fetch(`${backend}/${url}`, fetchParams)
+        console.log(res);
+        if (res.ok === false) return 'error';
+
+        return res; // end here if no parsing required
+    } catch (e) {
+        console.log(e);
+        return 'error';
+    };
+}
+
 export default apiRequest
+export { fileRequest }

@@ -51,7 +51,7 @@ function Field( {changes, setChanges, keyy, val, displayName} ) {
             :
                 <td class="d-flex justify-content-between align-items-center">
                     <span>{value}</span>
-                    <button class="btn btn-secondary px-4" onClick={editButton}>Edit</button>
+                    <button class="btn btn-outline-secondary px-4" onClick={editButton}>Edit</button>
                 </td>
             }
         </tr>

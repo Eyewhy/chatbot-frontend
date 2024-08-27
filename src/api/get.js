@@ -53,7 +53,6 @@ async function qnaRequest(id=null) {
 async function refreshQnaRequest() {
     toast("Documents reloading...")
     return apiRequest('qnadocument/reload/','GET', null, false).then((res) => {
-        console.log(res)
         if (res === 'error') return toast("Oops, update failed.");
         toast("Documents reloaded successfully.");
     })
