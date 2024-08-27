@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
             setUser(username);
             setToken(res);
             localStorage.setItem("site", res);
-            navigate("/home");
+            navigate("/referral");
 
             return res;
         });
@@ -36,8 +36,13 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem("site");
         navigate("/");
     }
+
+    const checkLoggedIn = () => {
+        return (token === "") ? false : true;
+    }
+
     return (
-        <AuthContext.Provider value={{ token, user, login, logout}}>
+        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn}}>
             {children}
         </AuthContext.Provider>
     );

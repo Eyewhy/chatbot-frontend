@@ -1,9 +1,10 @@
-import Navbar from "../components/navbar"
-import { referralRequest } from "../api/get";
 import React, { useMemo, useState, useEffect } from "react";
+
 import Table from "../components/table";
 
-function ReferralPage() {
+import { referralRequest } from "../api/get";
+
+function ReferralPage( {setActivePage} ) {
     const columns = useMemo(() => [
         {
             Header: "User",
@@ -40,15 +41,16 @@ function ReferralPage() {
     ],[]);
 
     const [data, setData] = useState([]);
-    useEffect(() => {( async () => {
+    useEffect(() => {
+        setActivePage("referral");
+        ( async () => {
             let data = await referralRequest();
             console.log(data);
             setData(data);
         })();
-    }, [])
+    },[])
     return (
         <>
-            <Navbar active="referral"/>
             <p class="lead m-2">Referrals</p>
             <Table columns={columns} data={data} />
         </>

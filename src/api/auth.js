@@ -11,7 +11,7 @@ async function loginRequest(username, password) {
         username: username,
         password: password,
     }
-    const res = await apiRequest('users/auth/', 'POST', body, false);
+    const res = await apiRequest('users/auth/', 'POST', body, true, false);
     if (res === 'error') return 'error';
     return 'Token ' + res['token'];
 }

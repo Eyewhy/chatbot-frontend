@@ -6,10 +6,11 @@ import { backend } from "../App";
  * @param {str} url no leading /
  * @param {str} method "GET" or "POST"
  * @param {object} body JSON body if POST
+ * @param {boolean} parse_json if response has JSON
  * @param {boolean} auth needs authentication
  * @returns 
  */
-async function apiRequest(url, method, body=null, auth=true) {
+async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     const token = getToken();
 
     const fetchParams = {
@@ -25,8 +26,12 @@ async function apiRequest(url, method, body=null, auth=true) {
     }
     try {
         let res = await fetch(`${backend}/${url}`, fetchParams)
-        let data = await res.json();
+        console.log(res);
         if (res.ok === false) return 'error';
+
+        if (!parse_json) return res; // end here if no parsing required
+
+        let data = await res.json(); // end here if parsing required
         return data;
     } catch (e) {
         console.log(e);

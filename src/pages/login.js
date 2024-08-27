@@ -1,5 +1,7 @@
-import React , { useState } from "react";
+import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { useAuth } from "../services/authProvider"
 
@@ -7,24 +9,29 @@ function LoginPage() {
     const {
         register,
         handleSubmit,
-        formState: {errors}
+        formState: {errors, ...formState}
     } = useForm();
 
-    const [feedback, setFeedback] = useState("Welcome to Admin Panel.");
-
     const auth = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (auth.checkLoggedIn()) navigate('/referral')
+    },[])
+
+
 
     async function onSubmit(data) {
         // TODO request backend
         console.log(data.username);
         console.log(data.password);
         if (data.username === "" || data.password === "") {
-            setFeedback("Please provide a valid input!");
+            toast("Please provide a valid input!");
             return;
         }
         auth.login(data.username, data.password).then((res) => {
             if (res === 'error') {
-                setFeedback("Login Failed!");
+                toast("Login Failed!");
                 return;
             };    
         });
@@ -38,17 +45,13 @@ function LoginPage() {
                 <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
                     <span class="lead">Username</span>
                     <input type="text" class="m-1" {
-                        ...register("username", {required:true})
-                    }/>
+                        ...register("username", {required:true})}/>
                     <span class="lead">Password</span>
                     <input type="password" class="m-1" {
-                        ...register("password", {required:true})
-                    }/>
+                        ...register("password", {required:true})}/>
                     <input type="submit" class="m-1" value="Login"/>
-                    <small>{feedback}</small>
-                </form>    
+                </form>
             </div>
-            
         </div>
     )
 }

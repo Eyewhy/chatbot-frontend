@@ -1,9 +1,10 @@
-import Navbar from "../components/navbar";
-import { chatUserRequest } from "../api/get";
 import React, { useMemo, useState, useEffect } from "react";
+
 import Table from "../components/table";
 
-function ChatPage () {
+import { chatUserRequest } from "../api/get";
+
+function ChatPage ( {setActivePage} ) {
     const columns = useMemo(() => [
         {
             Header: "Username",
@@ -25,15 +26,16 @@ function ChatPage () {
     ],[]);
 
     const [data, setData] = useState([]);
-    useEffect(() => {( async () => {
+    useEffect(() => {
+        setActivePage("chats");
+        ( async () => {
             let data = await chatUserRequest();
             console.log(data);
             setData(data);
         })();
-    }, [])
+    },[])
     return (
         <>
-            <Navbar active="chats"/>
             <p class="lead m-2">Recently Active Users</p>
             <Table columns={columns} data={data} />
         </>

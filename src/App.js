@@ -13,27 +13,39 @@ import LoginPage from './pages/login'
 import HomePage from './pages/home'
 import ChatPage from './pages/chats';
 import HelperPage from './pages/helper';
+import HelperDetail from './pages/helperDetail';
 import QnaPage from './pages/qna';
 import ReferralPage from './pages/referral';
+import Navbar from './components/navbar';
+
+import React, { useState } from 'react';
 
 
 const backend = 'http://52.76.56.140'
 
 function App() {
+  const [activePage, setActivePage] = useState("");
   return (
-    <div class="bg-dark text-light vw-100 vh-100" data-bs-theme="dark">
+    <div class="bg-dark text-light" data-bs-theme="dark">
       <Router>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route element={<PrivateRoute />}>
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/chats" element={<ChatPage />} />
-              <Route path="/helper" element={<HelperPage />} />
-              <Route path="/qna" element={<QnaPage />} />
-              <Route path="/referral" element={<ReferralPage />} />
-            </Route>  
-          </Routes>
+          <Navbar active={activePage}/>
+          <main class="d-flex justify-content-center">
+            <div class="w-75">
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path="/home" element={<HomePage setActivePage={setActivePage}/>} />
+                  <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
+                  </Route>
+                  <Route path="/helper" element={<HelperPage setActivePage={setActivePage}/>} />
+                  <Route path="/helper/:id" element={<HelperDetail setActivePage={setActivePage}/>} />
+                  <Route path="/qna" element={<QnaPage setActivePage={setActivePage}/>} />
+                  <Route path="/referral" element={<ReferralPage setActivePage={setActivePage}/>} />
+                </Route>  
+              </Routes>  
+            </div>  
+          </main>
         </AuthProvider>
       </Router>
       <ToastContainer theme="dark"/>

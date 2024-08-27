@@ -1,9 +1,10 @@
-import Navbar from "../components/navbar"
-import { helperRequest } from "../api/get";
 import React, { useMemo, useState, useEffect } from "react";
+
 import Table from "../components/table";
 
-function HelperPage () {
+import { helperRequest } from "../api/get";
+
+function HelperPage ( {setActivePage }) {
     const columns = useMemo(() => [
         {
             Header: "ID",
@@ -26,16 +27,18 @@ function HelperPage () {
     ],[]);
 
     const [data, setData] = useState([]);
-    useEffect(() => {( async () => {
+    useEffect(() => {
+        setActivePage("helper");
+        ( async () => {
             let data = await helperRequest();
             console.log("data");
             console.log(data);
             setData(data);
         })();
-    }, [])
+    },[])
+    
     return (
         <>
-            <Navbar active="Helper"/>
             <p class="lead m-2">Helper Info</p>
             <Table columns={columns} data={data} />
         </>
