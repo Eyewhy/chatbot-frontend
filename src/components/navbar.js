@@ -39,10 +39,14 @@ function Navbar ({ active }) {
               </a>
             </li>
           </ul>
-        <div>
-          <span class="navbar-text"> Welcome, {auth.user}</span>
-          <button class="btn btn-outline-success mx-2" onClick={auth.logout}>Logout</button>
-        </div>
+        {(auth.user === null) ? 
+          <span class="navbar-text"> Please Login </span>
+        :
+          <div>
+            <span class="navbar-text"> Welcome, {auth.user}</span>
+            <button class="btn btn-outline-success mx-2" onClick={auth.logout}>Logout</button>
+          </div>
+        }
         </div>
       </div>
     </nav>
