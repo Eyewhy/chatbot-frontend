@@ -10,7 +10,7 @@ function ChatPage ( {setActivePage} ) {
         {
             Header: "Username",
             accessor: "username",
-            Cell: props => <a href={`/chats/${props.row.original.id}`}>{props.value}</a>
+            Cell: props => <a href={`#chats/${props.row.original.id}`}>{props.value}</a>
         },
         {
             Header: "Last Message",

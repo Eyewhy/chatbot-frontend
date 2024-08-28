@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "homepage": "https://eyewhy.github.io/chatbot-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

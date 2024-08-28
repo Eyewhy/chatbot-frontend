@@ -22,7 +22,7 @@ import Navbar from './components/navbar';
 import React, { useState } from 'react';
 
 
-const backend = 'http://52.76.56.140'
+const backend = 'http://54.151.186.26'
 
 function App() {
   const [activePage, setActivePage] = useState("");

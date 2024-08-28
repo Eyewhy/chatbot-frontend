@@ -10,7 +10,7 @@ function ReferralPage( {setActivePage} ) {
         {
             Header: "User",
             accessor: "username",
-            Cell: (props) => (<a href={`/chats/${(props.row.original.chatbot_user)}`}>{props.value}</a>)
+            Cell: (props) => (<a href={`#chats/${(props.row.original.chatbot_user)}`}>{props.value}</a>)
         },
         {
             Header: "Helper IDs",
@@ -18,7 +18,7 @@ function ReferralPage( {setActivePage} ) {
             Cell: (props) => {
                 return props.value.map(id => (
                     <span>
-                        <a key={id} href={"/helper/" + id}>{id}</a>&ensp;
+                        <a key={id} href={"#helper/" + id}>{id}</a>&ensp;
                     </span>
                 )
             )}
