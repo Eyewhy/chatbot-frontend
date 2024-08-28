@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/eyewhy.github.io/chatbot-frontend/static/css/main.984605d5.css",
-    "main.js": "/eyewhy.github.io/chatbot-frontend/static/js/main.73399a0c.js",
-    "static/js/453.8ab44547.chunk.js": "/eyewhy.github.io/chatbot-frontend/static/js/453.8ab44547.chunk.js",
-    "index.html": "/eyewhy.github.io/chatbot-frontend/index.html",
-    "main.984605d5.css.map": "/eyewhy.github.io/chatbot-frontend/static/css/main.984605d5.css.map",
-    "main.73399a0c.js.map": "/eyewhy.github.io/chatbot-frontend/static/js/main.73399a0c.js.map",
-    "453.8ab44547.chunk.js.map": "/eyewhy.github.io/chatbot-frontend/static/js/453.8ab44547.chunk.js.map"
+    "main.css": "/chatbot-frontend/static/css/main.984605d5.css",
+    "main.js": "/chatbot-frontend/static/js/main.9221423d.js",
+    "static/js/453.8ab44547.chunk.js": "/chatbot-frontend/static/js/453.8ab44547.chunk.js",
+    "index.html": "/chatbot-frontend/index.html",
+    "main.984605d5.css.map": "/chatbot-frontend/static/css/main.984605d5.css.map",
+    "main.9221423d.js.map": "/chatbot-frontend/static/js/main.9221423d.js.map",
+    "453.8ab44547.chunk.js.map": "/chatbot-frontend/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.984605d5.css",
-    "static/js/main.73399a0c.js"
+    "static/js/main.9221423d.js"
   ]
 }
