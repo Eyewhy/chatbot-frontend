@@ -26,7 +26,7 @@ function HelperDetail () {
         let newData = {
             'biodata': data['biodata'],
             'id': data['id'],
-            'time': data['time']
+            'time': data['time'],
         };
 
         let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned'];
@@ -69,7 +69,6 @@ function HelperDetail () {
                     ))}
                 </tbody>
             </table>
-            
         </>
     )
 }
