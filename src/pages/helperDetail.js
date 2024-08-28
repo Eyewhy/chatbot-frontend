@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Field from "../components/field";
 import { helperRequest } from "../api/get";
@@ -10,6 +10,8 @@ function HelperDetail () {
     const [data, setData] = useState({});
     const [changes, setChanges] = useState({});
     const [otherData, setOtherData] = useState({});
+    const [state, setState] = useState(false);
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -18,7 +20,7 @@ function HelperDetail () {
             setOtherData(splitData(data));
             setData(data);
         })();
-    }, [id]);
+    }, [id, state]);
 
     const splitData = (data) => {
         let newData = {
@@ -35,14 +37,18 @@ function HelperDetail () {
         return newData;
     }
 
-    const save = () => { console.log(changes); updateHelper(id, changes); }
+    const save = () => { updateHelper(id, changes).then((res) => {
+        if (res !== 'error') setState(!state);
+    }); }
 
-    const deleteButton = () => { deleteHelper(id); };
+    const deleteButton = () => { deleteHelper(id).then((res) => {
+        if (res !== 'error') navigate ('/helper');
+    }); };
 
     return (
         <>
             <div class="d-flex p-2 justify-content-between align-items-center">
-                <h2>Helper ID {otherData['id']}</h2>
+                <span class="lead">Helper ID {otherData['id']}</span>
                 <a class="lead btn btn-primary" href={otherData['biodata']}>Biodata</a>
                 <span>Uploaded at {otherData['time']}</span>
                 <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>

@@ -12,6 +12,7 @@ import PrivateRoute from './services/route';
 import LoginPage from './pages/login'
 import HomePage from './pages/home'
 import ChatPage from './pages/chats';
+import ChatDetail from './pages/chatDetail';
 import HelperPage from './pages/helper';
 import HelperDetail from './pages/helperDetail';
 import QnaPage from './pages/qna';
@@ -37,6 +38,8 @@ function App() {
                 <Route element={<PrivateRoute />}>
                   <Route path="/home" element={<HomePage setActivePage={setActivePage}/>} />
                   <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
+                  </Route>
+                  <Route path="/chats/:id" element={<ChatDetail setActivePage={setActivePage}/>} >
                   </Route>
                   <Route path="/helper" element={<HelperPage setActivePage={setActivePage}/>} />
                   <Route path="/helper/:id" element={<HelperDetail setActivePage={setActivePage}/>} />

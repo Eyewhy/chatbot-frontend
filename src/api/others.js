@@ -13,8 +13,8 @@ async function uploadHelper(file) {
 async function updateHelper(id, body) {
     if (Object.keys(body).length === 0) return toast("No changes to save.");
     return apiRequest(`helperinfo/${id}/`, 'POST', body, false).then((res) => {
-        if (res === 'error') return toast("Oops, save failed. Refresh to try again.");
-        toast("Helper Info updated successfully. Refresh to see changes.");
+        if (res === 'error') return toast("Oops, save failed. Please try again.");
+        toast("Helper Info updated successfully.");
     });
 }
 
@@ -43,4 +43,17 @@ async function deleteQna(id) {
     })
 }
 
-export { uploadHelper, updateHelper, deleteHelper, uploadQna, deleteQna }
+async function deleteChatbotUser(id) {
+    return apiRequest(`chatbotuser/${id}`, 'DELETE', null, false).then((res) => {
+        if (res === 'error') return toast("Oops, delete failed.");
+        toast("Deleted successfully.");
+    })
+}
+
+async function deleteReferral(id) {
+    return apiRequest(`referral/${id}`, 'DELETE', null, false).then((res) => {
+        if (res === 'error') return toast("Oops, delete failed.");
+        toast("Deleted successfully.");
+    })
+}
+export { uploadHelper, updateHelper, deleteHelper, uploadQna, deleteQna, deleteChatbotUser, deleteReferral }

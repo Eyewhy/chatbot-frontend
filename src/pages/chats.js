@@ -3,6 +3,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import Table from "../components/table";
 
 import { chatUserRequest } from "../api/get";
+import { deleteChatbotUser } from "../api/others";
 
 function ChatPage ( {setActivePage} ) {
     const columns = useMemo(() => [
@@ -22,10 +23,19 @@ function ChatPage ( {setActivePage} ) {
         {
             Header: "Platform",
             accessor: "platform"
+        },
+        {
+            Header: "Delete",
+            accessor: "id",
+            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+                deleteButton(props.value);
+            }}>Delete</button>
         }
     ],[]);
 
     const [data, setData] = useState([]);
+    const [state, setState] = useState(false);
+
     useEffect(() => {
         setActivePage("chats");
         ( async () => {
@@ -33,7 +43,14 @@ function ChatPage ( {setActivePage} ) {
             console.log(data);
             setData(data);
         })();
-    },[])
+    },[state])
+
+    const deleteButton = (id) => {
+        deleteChatbotUser(id).then((res) => {
+            if (res !== 'error') setState(!state);
+        })
+    }
+
     return (
         <>
             <p class="lead m-2">Recently Active Users</p>

@@ -20,12 +20,13 @@ function QnaPage ( {setActivePage} ) {
             Header: "Delete",
             accessor: "id",
             Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
-                deleteQna(props.row.original.id);
+                deleteButton(props.value);
             }}>Delete</button>
         }
     ],[]);
 
     const [data, setData] = useState([]);
+    const [state, setState] = useState(false);
 
     useEffect(() => {
         setActivePage("qna");
@@ -34,12 +35,21 @@ function QnaPage ( {setActivePage} ) {
             console.log(data);
             setData(data);
         })();
-    },[])
+    },[state])
 
     const handleFileChange = (event) => {
         if (!event.target.files) return;
-        uploadQna(event.target.files[0]);
+        uploadQna(event.target.files[0]).then((res) => {
+            if (res !== 'error') setState(!state);
+        });
     }
+
+    const deleteButton = (id) => {
+        deleteQna(id).then((res) => {
+            if (res !== 'error') setState(!state);
+        })
+    }
+
     return (
         <>
             <div class="d-flex justify-content-between">
