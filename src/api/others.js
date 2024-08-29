@@ -12,11 +12,13 @@ async function uploadHelper(file) {
 
 async function updateHelper(id, body) {
     if (Object.keys(body).length === 0) return toast("No changes to save.");
-
+    
+    // data verification
     if ("availability" in body) {
         let allowed_values = ['overseas', 'advance_placement_scheme', 'transfer'];
         if (!allowed_values.includes(body['availability'])) return toast("Availability can only be one of 'overseas', 'advance_placement_scheme', 'transfer'");
     }
+    
     return apiRequest(`helperinfo/${id}/`, 'POST', body, false).then((res) => {
         if (res === 'error') return toast("Oops, save failed. Please try again.");
         toast("Helper Info updated successfully.");
