@@ -53,7 +53,9 @@ function HelperPage ( {setActivePage }) {
 
     const handleFileChange = (event) => {
         if (!event.target.files) return;
-        uploadHelper(event.target.files[0]);
+        uploadHelper(event.target.files[0]).then((res) => {
+            if (res !== 'error') setState(!state);
+        });
     }
     
     return (
