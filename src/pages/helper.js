@@ -41,7 +41,6 @@ function HelperPage ( {setActivePage }) {
         setActivePage("helper");
         ( async () => {
             let data = await helperRequest();
-            console.log("data");
             console.log(data);
             setData(data);
         })();

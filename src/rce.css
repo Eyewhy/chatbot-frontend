@@ -1,0 +1,12 @@
+.rce-mbox {
+    background-color: black;
+}
+.rce-mbox-left-notch {
+    fill: black;
+}
+.rce-mbox-right-notch {
+    fill: black;
+}
+.rce-mbox-time {
+    color: grey;
+}

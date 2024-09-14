@@ -1,6 +1,8 @@
 import apiRequest from "./apirequest";
 import { toast } from "react-toastify";
 
+import formatTime from "../services/timeAgo";
+
 /**
  * GET individual user's chat.
  * @param {int} user_id The user's ID that you want the chat of
@@ -11,7 +13,7 @@ async function chatRequest(user_id) {
 }
 
 async function chatUserRequest() {
-    return apiRequest(`chatbotuser/`, 'GET');
+    return formatTime(apiRequest(`chatbotuser/`, 'GET'));
 }
 
 /**
@@ -21,7 +23,7 @@ async function chatUserRequest() {
  */
 async function helperRequest(id=null) {
     if (id === null) 
-        return apiRequest('helperinfo/', 'GET');
+        return formatTime(apiRequest('helperinfo/', 'GET'));
     else
         return apiRequest(`helperinfo/${id}/`, 'GET');
 }
@@ -33,7 +35,7 @@ async function helperRequest(id=null) {
  */
 async function referralRequest(id=null) {
     if (id === null) 
-        return apiRequest('referral/', 'GET');
+        return formatTime(apiRequest('referral/', 'GET'));
     else
         return apiRequest(`referral/${id}/`, 'GET');
 }
@@ -45,7 +47,7 @@ async function referralRequest(id=null) {
  */
 async function qnaRequest(id=null) {
     if (id === null) 
-        return apiRequest('qnadocument/', 'GET');
+        return formatTime(apiRequest('qnadocument/', 'GET'));
     else
         return apiRequest(`qnadocument/${id}/`, 'GET');
 }

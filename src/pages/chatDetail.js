@@ -1,33 +1,19 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { createRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import Table from "../components/table";
+import 'react-chat-elements/dist/main.css'
+import { MessageList } from 'react-chat-elements'
 
 import { chatRequest } from "../api/get";
 import { deleteChatbotUser } from "../api/others";
+import messagesToChat from "../services/messagesToChat";
+
+import '../rce.css';
 
 function ChatDetail () {
-    const columns = useMemo(() => [
-        {
-            Header: "From",
-            accessor: "human_message",
-            Cell: (props) => ((props.value) ? 
-                <span class="text-success">User</span>
-            : 
-                <span class="text-primary">Bot</span>
-            )
-        },
-        {
-            Header: "Text",
-            accessor: "text",
-        },
-        {
-            Header: "Time",
-            accessor: "time"
-        }
-    ],[]);
+    const messageListReferance = createRef();
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({messages:[]});
 
     const { id } = useParams();
 
@@ -36,10 +22,11 @@ function ChatDetail () {
     useEffect(() => {
         ( async () => {
             let data = await chatRequest(id);
+            data['messages'] = messagesToChat(data['messages']);
             console.log(data);
             setData(data);
         })();
-    },[]);
+    },[id]);
     
     const deleteButton = () => {
         deleteChatbotUser(id).then((res) => {
@@ -49,13 +36,16 @@ function ChatDetail () {
 
     return (
         <>
-
             <div class="d-flex p-2 justify-content-between align-items-center">
-                <span class="lead">Chat for User ID {id}</span>
+                <span class="lead">{data.username}'s chat</span>
                 <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>
             </div>
-            
-            <Table columns={columns} data={data} />
+            <MessageList
+                referance={messageListReferance}
+                className='message-list bg-dark'
+                lockable={true}
+                toBottomHeight={'100%'}
+                dataSource={data['messages']} />
         </>
     )
 }

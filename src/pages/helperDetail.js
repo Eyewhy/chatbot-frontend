@@ -5,6 +5,7 @@ import Field from "../components/field";
 import { helperRequest } from "../api/get";
 import { updateHelper, deleteHelper } from "../api/others";
 import keyToDisplay from "../services/keyToDisplay";
+import { timeAgo } from "../services/timeAgo";
 
 function HelperDetail () {
     const [data, setData] = useState({});
@@ -20,9 +21,10 @@ function HelperDetail () {
             setOtherData(splitData(data));
             setData(data);
         })();
-    }, [id, state]);
+    }, [state]);
 
     const splitData = (data) => {
+        timeAgo(data);
         let newData = {
             'biodata': data['biodata'],
             'id': data['id'],
@@ -48,9 +50,9 @@ function HelperDetail () {
     return (
         <>
             <div class="d-flex p-2 justify-content-between align-items-center">
-                <span class="lead">Helper ID {otherData['id']}</span>
-                <a class="lead btn btn-primary" href={otherData['biodata']}>Biodata</a>
-                <span>Uploaded at {otherData['time']}</span>
+                <span class="lead">{data['personal_info_name']}'s biodata</span>
+                <span>Uploaded {otherData['time']}</span>
+                <a class="lead btn btn-primary" href={otherData['biodata']}>View Biodata</a>
                 <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>
                 <button class="btn btn-success px-4" onClick={save}>Save</button>
             </div>
