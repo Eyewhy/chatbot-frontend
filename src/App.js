@@ -10,13 +10,17 @@ import PrivateRoute from './services/route';
 
 // Pages
 import LoginPage from './pages/login'
-import HomePage from './pages/home'
+import ForgotPasswordPage from './pages/forgotPassword';
+import ForgotPasswordConfirmPage from './pages/forgotPasswordConfirm';
+
 import ChatPage from './pages/chats';
 import ChatDetail from './pages/chatDetail';
 import HelperPage from './pages/helper';
 import HelperDetail from './pages/helperDetail';
 import QnaPage from './pages/qna';
 import ReferralPage from './pages/referral';
+import AccountPage from './pages/account';
+
 import Navbar from './components/navbar';
 
 import React, { useState } from 'react';
@@ -35,8 +39,9 @@ function App() {
             <div class="w-75">
               <Routes>
                 <Route path="/" element={<LoginPage />} />
+                <Route path="/reset" element={<ForgotPasswordPage />} />
+                <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
                 <Route element={<PrivateRoute />}>
-                  <Route path="/home" element={<HomePage setActivePage={setActivePage}/>} />
                   <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
                   </Route>
                   <Route path="/chats/:id" element={<ChatDetail setActivePage={setActivePage}/>} >
@@ -45,6 +50,7 @@ function App() {
                   <Route path="/helper/:id" element={<HelperDetail setActivePage={setActivePage}/>} />
                   <Route path="/qna" element={<QnaPage setActivePage={setActivePage}/>} />
                   <Route path="/referral" element={<ReferralPage setActivePage={setActivePage}/>} />
+                  <Route path="/account" element={<AccountPage setActivePage={setActivePage}/>} />
                 </Route>  
               </Routes>  
             </div>  

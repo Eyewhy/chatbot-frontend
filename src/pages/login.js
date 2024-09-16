@@ -22,7 +22,6 @@ function LoginPage() {
 
 
     async function onSubmit(data) {
-        // TODO request backend
         console.log(data.username);
         console.log(data.password);
         if (data.username === "" || data.password === "") {
@@ -51,6 +50,7 @@ function LoginPage() {
                         ...register("password", {required:true})}/>
                     <input type="submit" class="m-1" value="Login"/>
                 </form>
+                <a class="form-text text-decoration-none" href="#reset">Forgot Password</a>
             </div>
         </div>
     )

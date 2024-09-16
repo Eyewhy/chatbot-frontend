@@ -55,7 +55,7 @@ function QnaPage ( {setActivePage} ) {
             <div class="d-flex justify-content-between">
                 <p class="lead m-2">Q&A Documents</p>
                 <button class="btn btn-info mx-2" onClick={refreshQnaRequest}>Update Documents</button>
-                <div class="d-flex align-items-end">
+                <div class="d-flex -items-end">
                     <div class="input-group">
                         <input type="file" class="form-control" id="inputGroup" onChange={handleFileChange}/>
                         <label class="btn btn-success input-group-text" for="inputGroup">Upload Document</label>
