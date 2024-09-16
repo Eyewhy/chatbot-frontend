@@ -12,6 +12,7 @@ import PrivateRoute from './services/route';
 import LoginPage from './pages/login'
 import ForgotPasswordPage from './pages/forgotPassword';
 import ForgotPasswordConfirmPage from './pages/forgotPasswordConfirm';
+import CreateAccountPage from './pages/createAccount';
 
 import ChatPage from './pages/chats';
 import ChatDetail from './pages/chatDetail';
@@ -41,6 +42,8 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/reset" element={<ForgotPasswordPage />} />
                 <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
+                <Route path="/create" element={<CreateAccountPage />}/>
+
                 <Route element={<PrivateRoute />}>
                   <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
                   </Route>

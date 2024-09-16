@@ -50,6 +50,7 @@ function LoginPage() {
                         ...register("password", {required:true})}/>
                     <input type="submit" class="m-1" value="Login"/>
                 </form>
+                <a class="text-white text-decoration-none" href="#create">Create Account</a><br />
                 <a class="form-text text-decoration-none" href="#reset">Forgot Password</a>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { getToken } from "../services/authProvider";
 import { backend } from "../App";
+import { toast } from "react-toastify";
 
 /**
  * 
@@ -27,7 +28,10 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     try {
         let res = await fetch(`${backend}/${url}`, fetchParams)
         console.log(res);
-        if (res.ok === false) return 'error';
+        if (res.ok === false) {
+            toast(JSON.stringify(await res.json()));
+            return 'error';
+        }
 
         if (!parse_json) return res; // end here if no parsing required
 

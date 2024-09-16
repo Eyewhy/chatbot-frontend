@@ -14,7 +14,6 @@ function AccountPage({ setActivePage }) {
     } = useForm();
 
     const auth = useAuth();
-    const navigate = useNavigate();
 
     useEffect(() => {
         setActivePage("");
