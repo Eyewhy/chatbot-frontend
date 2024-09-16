@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { loginRequest } from "../api/auth"
+import { loginRequest, logoutRequest } from "../api/auth"
 
 const AuthContext = createContext();
 
@@ -31,12 +31,17 @@ const AuthProvider = ({ children }) => {
         return res;
     }
 
-    const logout = () => {
-        setUser(null);
-        setToken("");
-        localStorage.removeItem("site");
-        localStorage.removeItem("user");
-        navigate("/");
+    const logout = async () => {
+        const res = await logoutRequest().then((res) => {
+            console.log(res);
+            if (res === 'error') return 'error';
+
+            setUser(null);
+            setToken("");
+            localStorage.removeItem("site");
+            localStorage.removeItem("user");
+            navigate("/");
+        }) 
     }
 
     const checkLoggedIn = () => {
