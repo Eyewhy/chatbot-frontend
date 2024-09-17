@@ -32,7 +32,7 @@ function AccountPage({ setActivePage }) {
 
     return (
         <div style={{maxWidth: "300px"}}>
-            <span class="lead">{auth.user}'s Account</span>
+            <p class="lead">{auth.user}'s Account</p>
             <div class="d-flex flex-column mt-2">
                 <h4>Change Password</h4>
                 

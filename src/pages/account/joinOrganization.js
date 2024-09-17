@@ -26,8 +26,8 @@ function JoinOrganizationPage({ setActivePage }) {
     }
 
     return (
-        <div style={{maxWidth: "300px"}}>
-            <span class="lead">{auth.user}'s Account</span>
+        <div style={{maxWidth: "300px"}} class="m-2">
+            <p class="lead">{auth.user}'s Account</p>
             <div class="d-flex flex-column mt-2">
                 <h4>Join Organization</h4>
                 

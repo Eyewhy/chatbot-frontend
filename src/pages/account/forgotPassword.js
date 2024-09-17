@@ -25,7 +25,7 @@ function ForgotPasswordPage() {
         resetRequest(data.email).then((res) => {
             if (res === 'error') {
                 toast("Email sending failed.");
-            } else { toast("Email sent.")}
+            } else { toast("Email request sent. May take a few minutes to arrive.")}
         });
     }
 

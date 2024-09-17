@@ -47,7 +47,10 @@ function OrganizationPage ( {setActivePage }) {
     ],[]);
 
     const deleteButton = (id) => { deleteUserFromOrganizationRequest(id).then((res) => {
-        if (res !== 'error') setState(!state);
+        if (res !== 'error') {
+            toast('Deleted.')
+            setState(!state);
+        }
     }); };
     
     // FORM
@@ -71,7 +74,7 @@ function OrganizationPage ( {setActivePage }) {
     }
     return (
         <>
-            <span class="lead m-2">Manage Organization</span>
+            <p class="lead m-2">Manage Organization</p>
             <div class="d-flex">
                 <p class="m-2">
                     <b>Organization Name</b><br/>
