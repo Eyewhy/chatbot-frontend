@@ -47,6 +47,7 @@ function OrganizationPage ( {setActivePage }) {
     ],[]);
 
     const deleteButton = (id) => { deleteUserFromOrganizationRequest(id).then((res) => {
+        console.log(res);
         if (res !== 'error') {
             toast('Deleted.')
             setState(!state);

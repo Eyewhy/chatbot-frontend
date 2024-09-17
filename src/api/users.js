@@ -16,7 +16,7 @@ async function addToOrganizationRequest(name, pass) {
 }
 
 async function deleteUserFromOrganizationRequest(id) {
-    return apiRequest(`organization/userinfo/${id}/`, 'DELETE');
+    return apiRequest(`organization/userinfo/${id}/`, 'DELETE', null, false);
 }
 
 export {organizationDetailRequest, changePassphraseRequest, addToOrganizationRequest, deleteUserFromOrganizationRequest}
