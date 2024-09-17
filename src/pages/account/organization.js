@@ -85,7 +85,7 @@ function OrganizationPage ( {setActivePage }) {
                     <b>Organization Passphrase</b><br/>
                     {data['passphrase']}
                 </p>
-                <p class="m-2 ml-4">
+                <p class="m-2 ms-5">
                     <b>Biodatas Scanned</b><br/>
                     {data['documents_scanned']}
                 </p>

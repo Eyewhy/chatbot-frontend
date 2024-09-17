@@ -49,6 +49,7 @@ const keyToDisplay = {
     'skills_cooking_cuisine': 'Cuisine',
     'skills_care_of_pets_willing': 'Pet care (willing)',
     'skills_care_of_pets_experience': 'Pet care (experience)',
+    'skills_spoken_language_categories': 'language categories',
     'skills_spoken_language_abilities': 'spoken languages',
     'skills_other_skills': 'other skills',
     'employment_history_overseas_date': 'overseas employment date',
