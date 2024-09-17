@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { resetConfirmRequest } from "../api/auth";
-import { useAuth } from "../services/authProvider";
+import { resetConfirmRequest } from "../../api/auth";
+import { useAuth } from "../../services/authProvider";
 
 function ForgotPasswordConfirmPage() {
     const {
@@ -22,15 +22,14 @@ function ForgotPasswordConfirmPage() {
     },[])
 
     async function onSubmit(data) {
-        console.log(data.pass1);
         if (data.pass1 !== data.pass2) {
             toast('Passwords do not match!')
             return;
         }
         resetConfirmRequest(uid, token, data.pass1, data.pass2).then((res) => {
-            if (res === 'error') {
-                toast('Password reset failed.');
-            } else { toast('Password reset successful. Please return to the login page.')}
+            if (res !== 'error') { 
+                toast('Password reset successful. Please return to the login page.')
+            }
         });
     }
 

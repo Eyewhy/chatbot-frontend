@@ -1,10 +1,9 @@
 import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { changePasswordRequest } from "../api/auth";
-import { useAuth } from "../services/authProvider";
+import { changePasswordRequest } from "../../api/auth";
+import { useAuth } from "../../services/authProvider";
 
 function AccountPage({ setActivePage }) {
     const {
@@ -20,15 +19,14 @@ function AccountPage({ setActivePage }) {
     },[])
 
     async function onSubmit(data) {
-        console.log(data.pass1);
         if (data.pass1 !== data.pass2) {
             toast('Passwords do not match!')
             return;
         }
         changePasswordRequest(data.pass1, data.pass2).then((res) => {
-            if (res === 'error') {
-                toast('Password change failed. May be too similar.');
-            } else { toast('Password change successful. Please return to the login page.')}
+            if (res !== 'error') { 
+                toast('Password change successful. Please return to the login page.')
+            }
         });
     }
 
@@ -48,6 +46,9 @@ function AccountPage({ setActivePage }) {
                     <input type="submit" class="m-1" value="Change Password"/>
                 </form>
                 Password must not be too similar to email or username.
+            </div>
+            <div class="mt-4 d-flex justify-content-center">
+                <a class="btn btn-success mx-2 w-100" href="#/organization">Manage Organization (admin only)</a>    
             </div>
             <div class="mt-4 d-flex justify-content-center">
                 <button class="btn btn-outline-danger mx-2 w-100" onClick={auth.logout}>Logout</button>    

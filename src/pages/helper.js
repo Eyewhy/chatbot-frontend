@@ -10,7 +10,7 @@ function HelperPage ( {setActivePage }) {
         {
             Header: "ID",
             accessor: "id",
-            Cell: props => <a href={`#helper/${props.value}`}>{props.value}</a>
+            Cell: props => <a href={`#/helper/${props.value}`}>{props.value}</a>
         },
         {
             Header: "Name",

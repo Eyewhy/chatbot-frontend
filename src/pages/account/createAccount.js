@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { registerRequest } from "../api/auth";
-import { useAuth } from "../services/authProvider";
+import { registerRequest } from "../../api/auth";
+import { useAuth } from "../../services/authProvider";
 
 function CreateAccountPage() {
     const {
@@ -22,7 +22,6 @@ function CreateAccountPage() {
     },[])
 
     async function onSubmit(data) {
-        console.log(data.pass1);
         if (data.pass1 !== data.pass2) {
             toast('Passwords do not match!')
             return;

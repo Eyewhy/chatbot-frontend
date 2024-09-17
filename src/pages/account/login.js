@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useAuth } from "../services/authProvider"
+import { useAuth } from "../../services/authProvider"
 
 function LoginPage() {
     const {
@@ -22,8 +22,6 @@ function LoginPage() {
 
 
     async function onSubmit(data) {
-        console.log(data.username);
-        console.log(data.password);
         if (data.username === "" || data.password === "") {
             toast("Please provide a valid input!");
             return;
@@ -50,8 +48,8 @@ function LoginPage() {
                         ...register("password", {required:true})}/>
                     <input type="submit" class="m-1" value="Login"/>
                 </form>
-                <a class="text-white text-decoration-none" href="#create">Create Account</a><br />
-                <a class="form-text text-decoration-none" href="#reset">Forgot Password</a>
+                <a class="text-white text-decoration-none" href="#/create">Create Account</a><br />
+                <a class="form-text text-decoration-none" href="#/reset">Forgot Password</a>
             </div>
         </div>
     )

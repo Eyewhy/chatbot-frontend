@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Table from "../components/table";
 
@@ -10,7 +11,7 @@ function ReferralPage( {setActivePage} ) {
         {
             Header: "User",
             accessor: "username",
-            Cell: (props) => (<a href={`#chats/${(props.row.original.chatbot_user)}`}>{props.value}</a>)
+            Cell: (props) => (<a href={`#/chats/${(props.row.original.chatbot_user)}`}>{props.value}</a>)
         },
         {
             Header: "Helper IDs",
@@ -18,7 +19,7 @@ function ReferralPage( {setActivePage} ) {
             Cell: (props) => {
                 return props.value.map(id => (
                     <span>
-                        <a key={id} href={"#helper/" + id}>{id}</a>&ensp;
+                        <a key={id} href={"#/helper/" + id}>{id}</a>&ensp;
                     </span>
                 )
             )}
@@ -50,11 +51,13 @@ function ReferralPage( {setActivePage} ) {
 
     const [data, setData] = useState([]);
     const [state, setState] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setActivePage("referral");
+        setActivePage('referral');
         ( async () => {
             let data = await referralRequest();
+            if (data === 'error') navigate('/join');
             console.log(data);
             setData(data);
         })();

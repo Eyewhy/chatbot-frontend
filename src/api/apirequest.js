@@ -29,7 +29,7 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         let res = await fetch(`${backend}/${url}`, fetchParams)
         console.log(res);
         if (res.ok === false) {
-            toast(JSON.stringify(await res.json()));
+            toast(`Error: ${await res.text()}`);
             return 'error';
         }
 

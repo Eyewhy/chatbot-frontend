@@ -17,15 +17,11 @@ async function loginRequest(username, password) {
 }
 
 async function logoutRequest() {
-    const res = await apiRequest('auth/logout/', 'POST', {}, false);
-    if (res === 'error') return 'error';
-    return 'succcess';
+    return apiRequest('auth/logout/', 'POST', {}, false);
 }
 
 async function resetRequest(email) {
-    const res = await apiRequest('auth/password/reset/', 'POST', {'email':email}, false);
-    if (res === 'error') return 'error';
-    return 'succcess';
+    return apiRequest('auth/password/reset/', 'POST', {'email':email}, false);
 }
 
 async function resetConfirmRequest(uid, token, new_ps1, new_ps2) {
@@ -35,9 +31,7 @@ async function resetConfirmRequest(uid, token, new_ps1, new_ps2) {
         'new_password1':new_ps1,
         'new_password2':new_ps2
     }
-    const res = await apiRequest('auth/password/reset/confirm/', 'POST', body, false);
-    if (res === 'error') return 'error';
-    return 'succcess';
+    return apiRequest('auth/password/reset/confirm/', 'POST', body, false);
 }
 
 async function changePasswordRequest(new_ps1, new_ps2) {
@@ -45,9 +39,7 @@ async function changePasswordRequest(new_ps1, new_ps2) {
         'new_password1':new_ps1,
         'new_password2':new_ps2
     }
-    const res = await apiRequest('auth/password/change/', 'POST', body, false);
-    if (res === 'error') return 'error';
-    return 'succcess';
+    return apiRequest('auth/password/change/', 'POST', body, false);
 }
 
 async function registerRequest(username, ps1, ps2, email) {
@@ -57,9 +49,7 @@ async function registerRequest(username, ps1, ps2, email) {
         'password2': ps2,
         'email': email,
     }
-    const res = await apiRequest('auth/registration/', 'POST', body, false);
-    if (res === 'error') return 'error';
-    return 'succcess';
+    return apiRequest('auth/registration/', 'POST', body, false);
 }
 
 export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, changePasswordRequest, registerRequest };

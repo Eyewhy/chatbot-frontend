@@ -9,18 +9,24 @@ import AuthProvider from './services/authProvider'
 import PrivateRoute from './services/route';
 
 // Pages
-import LoginPage from './pages/login'
-import ForgotPasswordPage from './pages/forgotPassword';
-import ForgotPasswordConfirmPage from './pages/forgotPasswordConfirm';
-import CreateAccountPage from './pages/createAccount';
+// login not required
+import LoginPage from './pages/account/login'
+import ForgotPasswordPage from './pages/account/forgotPassword';
+import ForgotPasswordConfirmPage from './pages/account/forgotPasswordConfirm';
+import CreateAccountPage from './pages/account/createAccount';
 
+// login required
+import AccountPage from './pages/account/account';
+import OrganizationPage from './pages/account/organization';
+import JoinOrganizationPage from './pages/account/joinOrganization';
+
+// Actually useful
 import ChatPage from './pages/chats';
 import ChatDetail from './pages/chatDetail';
 import HelperPage from './pages/helper';
 import HelperDetail from './pages/helperDetail';
 import QnaPage from './pages/qna';
 import ReferralPage from './pages/referral';
-import AccountPage from './pages/account';
 
 import Navbar from './components/navbar';
 
@@ -45,6 +51,10 @@ function App() {
                 <Route path="/create" element={<CreateAccountPage />}/>
 
                 <Route element={<PrivateRoute />}>
+                  <Route path="/account" element={<AccountPage setActivePage={setActivePage}/>} />
+                  <Route path="/organization" element={<OrganizationPage setActivePage={setActivePage}/>} />
+                  <Route path="/join" element={<JoinOrganizationPage setActivePage={setActivePage}/>} />
+
                   <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
                   </Route>
                   <Route path="/chats/:id" element={<ChatDetail setActivePage={setActivePage}/>} >
@@ -53,7 +63,6 @@ function App() {
                   <Route path="/helper/:id" element={<HelperDetail setActivePage={setActivePage}/>} />
                   <Route path="/qna" element={<QnaPage setActivePage={setActivePage}/>} />
                   <Route path="/referral" element={<ReferralPage setActivePage={setActivePage}/>} />
-                  <Route path="/account" element={<AccountPage setActivePage={setActivePage}/>} />
                 </Route>  
               </Routes>  
             </div>  
