@@ -16,7 +16,7 @@ function formatTimeSync (itemList, attr='time'){
     })
 }
 
-function timeAgo (item, attr) {item[attr] = format(new Date(item[attr]));};
+function timeAgo (item, attr='time') {item[attr] = format(new Date(item[attr]));};
 
 export default formatTime
 export { timeAgo, formatTimeSync }
