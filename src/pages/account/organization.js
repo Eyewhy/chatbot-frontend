@@ -78,6 +78,16 @@ function OrganizationPage ( {setActivePage }) {
             <p class="lead m-2">Manage Organization</p>
             <div class="d-flex">
                 <p class="m-2">
+                    <b>Biodata Scanned</b><br/>
+                    {data['documents_scanned']}
+                </p>
+                <p class="m-2">
+                    <b>Q&A Refreshed</b><br/>
+                    {data['embeddings_generated']}
+                </p>
+            </div>
+            <div class="d-flex">
+                <p class="m-2">
                     <b>Organization Name</b><br/>
                     {data['name']}
                 </p>

@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
      */
     const login = async (username, password) => {
         const res = await loginRequest(username, password).then((res) => {
-            console.log(res);
             if (res === 'error') return 'error';
             
             setUser(username);
@@ -33,9 +32,6 @@ const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         const res = await logoutRequest().then((res) => {
-            console.log(res);
-            if (res === 'error') return 'error';
-
             setUser(null);
             setToken("");
             localStorage.removeItem("site");
