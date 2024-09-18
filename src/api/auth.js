@@ -52,4 +52,8 @@ async function registerRequest(username, ps1, ps2, email) {
     return apiRequest('auth/registration/', 'POST', body, false);
 }
 
-export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, changePasswordRequest, registerRequest };
+async function userRequest() {
+    return apiRequest('auth/user/', 'GET');
+}
+
+export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, changePasswordRequest, registerRequest, userRequest };

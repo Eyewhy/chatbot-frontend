@@ -78,32 +78,32 @@ function OrganizationPage ( {setActivePage }) {
             <p class="lead m-2">Manage Organization</p>
             <div class="d-flex">
                 <p class="m-2">
-                    <b>Organization Name</b><br/>
-                    {data['name']}
+                    <h4>Organization Name</h4>
+                    <span class="lead">{data['name']}</span>
                 </p>
                 <p class="m-2">
-                    <b>Organization Passphrase</b><br/>
-                    {data['passphrase']}
+                    <h4>Organization Passphrase</h4>
+                    <span class="lead">{data['passphrase']}</span>
                 </p>
                 <p class="m-2 ms-5">
-                    <b>Biodatas Scanned</b><br/>
-                    {data['documents_scanned']}
+                    <h4>Biodatas Scanned</h4>
+                    <span class="lead">{data['documents_scanned']}</span>
                 </p>
                 <p class="m-2">
-                    <b>Q&A Refreshes</b><br/>
-                    {data['embeddings_generated']}
+                    <h4>Q&A Refreshes</h4>
+                    <span class="lead">{data['embeddings_generated']}</span>
                 </p>
             </div>
             <span class="m-2">Provide the organization name & passphrase to users to allow them to join your organization.</span>
             
             <div class="m-2 mt-3" style={{maxWidth: "300px"}}>
-                <span class="lead">Change Passphrase</span>
+                <h4>Change Passphrase</h4>
                 
                 <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span>Passphrase</span>
+                    <span class="lead">Passphrase</span>
                     <input type="text" class="m-1" {
                         ...register("pass1", {required:true})}/>
-                    <span>Confirm Passphrase</span>
+                    <span class="lead">Confirm Passphrase</span>
                     <input type="text" class="m-1" {
                         ...register("pass2", {required:true})}/>
                     <input type="submit" class="m-1" value="Change Passphrase"/>
@@ -111,7 +111,7 @@ function OrganizationPage ( {setActivePage }) {
                 Passphrase must be at least 8 characters.
             </div>
 
-            <p class="lead m-2 mt-3">Users</p>
+            <h4 class="m-2 mt-3">Users</h4>
             <Table columns={columns} data={data['members']} />
         </>
     )

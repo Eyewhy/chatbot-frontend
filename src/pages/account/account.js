@@ -1,8 +1,8 @@
-import React , { useEffect } from "react";
+import React , { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { changePasswordRequest } from "../../api/auth";
+import { userRequest, changePasswordRequest } from "../../api/auth";
 import { useAuth } from "../../services/authProvider";
 
 function AccountPage({ setActivePage }) {
@@ -13,17 +13,23 @@ function AccountPage({ setActivePage }) {
     } = useForm();
 
     const auth = useAuth();
+    const [data, setData] = useState({});
 
     useEffect(() => {
         setActivePage("");
+        ( async () => {
+            let data = await userRequest();
+            console.log(data);
+            setData(data);
+        })();
     },[])
 
-    async function onSubmit(data) {
-        if (data.pass1 !== data.pass2) {
+    async function onSubmit(form) {
+        if (form.pass1 !== form.pass2) {
             toast('Passwords do not match!')
             return;
         }
-        changePasswordRequest(data.pass1, data.pass2).then((res) => {
+        changePasswordRequest(form.pass1, form.pass2).then((res) => {
             if (res !== 'error') { 
                 toast('Password change successful. Please return to the login page.')
             }
@@ -31,8 +37,12 @@ function AccountPage({ setActivePage }) {
     }
 
     return (
-        <div style={{maxWidth: "300px"}}>
-            <p class="lead my-2">{auth.user}'s Account</p>
+        <div style={{maxWidth: "300px"}} class="m-2">
+            <p class="lead">{auth.user}'s Account</p>
+            <p>
+                <h4>Email</h4>
+                <span class="lead">{data['email']}</span>
+            </p>
             <div class="d-flex flex-column mt-2">
                 <h4>Change Password</h4>
                 
