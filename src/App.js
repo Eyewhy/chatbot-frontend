@@ -33,7 +33,7 @@ import Navbar from './components/navbar';
 import React, { useState } from 'react';
 
 
-const backend = 'http://54.151.186.26'
+const backend = 'https://backend.acei.com.sg'
 
 function App() {
   const [activePage, setActivePage] = useState("");
