@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import Field from "../../components/field";
-import { SkillToggle, BooleanToggle, TextField, NumberField } from "../../components/helperComponents";
+import { SkillToggle, BooleanToggle, TextField, NumberField, OptionField } from "../../components/helperComponents";
 
 import { helperRequest } from "../../api/get";
 import { updateHelper, deleteHelper } from "../../api/others";
-import keyToDisplay from "../../services/keyToDisplay";
 import { timeAgo } from "../../services/timeAgo";
 
 function HelperDetail () {
@@ -66,14 +64,14 @@ function HelperDetail () {
 
             <table class="table">
                 <tbody>
-                    <th><td>Personal Information</td></th>
+                    <tr><th>Personal Information</th></tr>
                     <tr>
                         <TextField label="Name" data={data} setData={setNewData} accessor="personal_info_name" />
                         <TextField label="Reference" data={data} setData={setNewData} accessor="personal_info_ref" />
                     </tr>
                     <tr>
-                        <TextField label="Type (availability)" data={data} setData={setNewData} accessor="availability" />
-                        <TextField label="Nationality" data={data} setData={setNewData} accessor="personal_info_nationality" />
+                        <OptionField label="Type (availability)" data={data} setData={setNewData} accessor="availability" options={['overseas', 'advance_placement_scheme', 'transfer']}/>
+                        <OptionField label="Nationality" data={data} setData={setNewData} accessor="personal_info_nationality" options={["filipino", "indonesian", "myanmarese", "indian", "sri lankan", "bangladeshi", "cambodian", "malaysian", "thai", "vietnamese", "other"]}/>
                     </tr>
                     <tr>
                         <TextField label="Height" data={data} setData={setNewData} accessor="personal_info_height" />
@@ -88,13 +86,13 @@ function HelperDetail () {
                         <TextField label="Ethnic Group" data={data} setData={setNewData} accessor="personal_info_ethnic_group" />
                     </tr>
 
-                    <th><td>Education</td></th>
+                    <tr><th>Education</th></tr>
                     <tr>
                         <BooleanToggle label="Formal Education" data={data} setData={setNewData} accessor="education_formal_education" />
                         <TextField label="Highest Level" data={data} setData={setNewData} accessor="education_highest_education_level" />
                     </tr>
 
-                    <th><td>Family</td></th>
+                    <tr><th>Family</th></tr>
                     <tr>
                         <TextField label="Siblings" data={data} setData={setNewData} accessor="family_siblings" />
                         <td/><td/>
@@ -108,7 +106,7 @@ function HelperDetail () {
                         <TextField label="Child Details" data={data} setData={setNewData} accessor="family_children_details" />
                     </tr>
 
-                    <th><td>Salary</td></th>
+                    <tr><th>Salary</th></tr>
                     <tr>
                         <NumberField label="Monthly Salary (SGD)" data={data} setData={setNewData} accessor="salary_monthly_salary" />
                         <NumberField label="Placement Fee (SGD)" data={data} setData={setNewData} accessor="salary_placement_fee" />
@@ -122,7 +120,7 @@ function HelperDetail () {
                         <td/><td/>
                     </tr>
 
-                    <th><td>Skills</td></th>
+                    <tr><th>Skills</th></tr>
                     <tr>
                         <TextField label="Language Abilities" data={data} setData={setNewData} accessor="skills_spoken_language_abilities" />
                         <TextField label="Language Categories" data={data} setData={setNewData} accessor="skills_spoken_language_categories" />
@@ -145,12 +143,12 @@ function HelperDetail () {
                         <TextField label="Others" data={data} setData={setNewData} accessor="skills_other_skills" />
                     </tr>
 
-                    <th><td>Employment History (Singapore)</td></th>
+                    <tr><th>Employment (Singapore)</th></tr>
                     <tr>
                         <BooleanToggle label="Previous Work Experience" data={data} setData={setNewData} accessor="employment_history_singapore_previous_work_experience" />
                         <TextField label="Work Permit Number" data={data} setData={setNewData} accessor="employment_history_singapore_work_permit_no" />
                     </tr>
-                    <th><td>Employment History (Overseas)</td></th>
+                    <tr><th>Employment (Overseas)</th></tr>
                     <tr>
                         <TextField label="Date" data={data} setData={setNewData} accessor="employment_history_overseas_date" />
                         <TextField label="Country" data={data} setData={setNewData} accessor="employment_history_overseas_country" />
@@ -164,7 +162,7 @@ function HelperDetail () {
                         <td/><td/>
                     </tr>
 
-                    <th><td>Illness</td></th>
+                    <tr><th>Illness</th></tr>
                     <tr>
                         <TextField label="Dietary Restrictions" data={data} setData={setNewData} accessor="medical_history_dietary_restrictions" />
                         <TextField label="Food Handling Preferences" data={data} setData={setNewData} accessor="medical_history_food_handling_preferences" />
@@ -190,7 +188,7 @@ function HelperDetail () {
                         <TextField label="Physical Disabilities" data={data} setData={setNewData} accessor="medical_history_physical_disabilities" />
                     </tr>
 
-                    <th><td>Interview</td></th>
+                    <tr><th>Interview</th></tr>
                     <tr>
                         <BooleanToggle label="By Phone" data={data} setData={setNewData} accessor="availability_for_interview_by_phone" />
                         <BooleanToggle label="By Video Conference" data={data} setData={setNewData} accessor="availability_for_interview_by_videoconference" />
@@ -200,7 +198,7 @@ function HelperDetail () {
                         <td/><td/>
                     </tr>
 
-                    <th><td>Remarks</td></th>
+                    <tr><th>Remarks</th></tr>
                     <tr>
                         <TextField label="Preference for Rest Day" data={data} setData={setNewData} accessor="remarks_preference_for_rest_day" />
                         <TextField label="Addtional Remarks" data={data} setData={setNewData} accessor="remarks_additional_remarks" />
