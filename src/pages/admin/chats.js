@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-import Table from "../components/table";
+import Table from "../../components/table";
 
-import { chatUserRequest } from "../api/get";
-import { deleteChatbotUser } from "../api/others";
+import { chatUserRequest } from "../../api/get";
+import { deleteChatbotUser } from "../../api/others";
 
 function ChatPage ( {setActivePage} ) {
     const columns = useMemo(() => [

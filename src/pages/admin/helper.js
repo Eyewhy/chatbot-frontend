@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-import Table from "../components/table";
+import Table from "../../components/table";
 
-import { helperRequest } from "../api/get";
-import { uploadHelper, deleteHelper } from "../api/others";
+import { helperRequest } from "../../api/get";
+import { uploadHelper, deleteHelper } from "../../api/others";
 
 function HelperPage ( {setActivePage }) {
     const columns = useMemo(() => [

@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Table from "../components/table";
+import Table from "../../components/table";
 
-import { referralRequest } from "../api/get";
-import { deleteReferral } from "../api/others";
+import { referralRequest } from "../../api/get";
+import { deleteReferral } from "../../api/others";
 
 function ReferralPage( {setActivePage} ) {
     const columns = useMemo(() => [

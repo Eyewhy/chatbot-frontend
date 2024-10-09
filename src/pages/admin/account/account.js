@@ -2,8 +2,8 @@ import React , { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { userRequest, changePasswordRequest } from "../../api/auth";
-import { useAuth } from "../../services/authProvider";
+import { userRequest, changePasswordRequest } from "../../../api/auth";
+import { useAuth } from "../../../services/authProvider";
 
 function AccountPage({ setActivePage }) {
     const {

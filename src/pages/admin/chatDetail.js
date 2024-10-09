@@ -4,11 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
-import { chatRequest } from "../api/get";
-import { deleteChatbotUser } from "../api/others";
-import messagesToChat from "../services/messagesToChat";
+import { chatRequest } from "../../api/get";
+import { deleteChatbotUser } from "../../api/others";
+import messagesToChat from "../../services/messagesToChat";
 
-import '../rce.css';
+import '../../rce.css';
 
 function ChatDetail () {
     const messageListReferance = createRef();

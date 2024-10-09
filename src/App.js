@@ -10,23 +10,23 @@ import PrivateRoute from './services/route';
 
 // Pages
 // login not required
-import LoginPage from './pages/account/login'
-import ForgotPasswordPage from './pages/account/forgotPassword';
-import ForgotPasswordConfirmPage from './pages/account/forgotPasswordConfirm';
-import CreateAccountPage from './pages/account/createAccount';
+import LoginPage from './pages/admin/account/login'
+import ForgotPasswordPage from './pages/admin/account/forgotPassword';
+import ForgotPasswordConfirmPage from './pages/admin/account/forgotPasswordConfirm';
+import CreateAccountPage from './pages/admin/account/createAccount';
 
 // login required
-import AccountPage from './pages/account/account';
-import OrganizationPage from './pages/account/organization';
-import JoinOrganizationPage from './pages/account/joinOrganization';
+import AccountPage from './pages/admin/account/account';
+import OrganizationPage from './pages/admin/account/organization';
+import JoinOrganizationPage from './pages/admin/account/joinOrganization';
 
 // Actually useful
-import ChatPage from './pages/chats';
-import ChatDetail from './pages/chatDetail';
-import HelperPage from './pages/helper';
-import HelperDetail from './pages/helperDetail';
-import QnaPage from './pages/qna';
-import ReferralPage from './pages/referral';
+import ChatPage from './pages/admin/chats';
+import ChatDetail from './pages/admin/chatDetail';
+import HelperPage from './pages/admin/helper';
+import HelperDetail from './pages/admin/helperDetail';
+import QnaPage from './pages/admin/qna';
+import ReferralPage from './pages/admin/referral';
 
 import Navbar from './components/navbar';
 

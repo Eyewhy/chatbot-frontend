@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 
-import Table from "../components/table";
+import Table from "../../components/table";
 
-import { qnaRequest, refreshQnaRequest } from "../api/get";
-import { uploadQna, deleteQna } from "../api/others";
+import { qnaRequest, refreshQnaRequest } from "../../api/get";
+import { uploadQna, deleteQna } from "../../api/others";
 
 function QnaPage ( {setActivePage} ) {
     const columns = useMemo(() => [

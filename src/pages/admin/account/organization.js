@@ -2,10 +2,10 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useForm, handleSubmit } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import Table from "../../components/table";
+import Table from "../../../components/table";
 import { toast } from "react-toastify";
 
-import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../api/users";
+import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../../api/users";
 
 function OrganizationPage ( {setActivePage }) {
     const [data, setData] = useState({'members':[]});

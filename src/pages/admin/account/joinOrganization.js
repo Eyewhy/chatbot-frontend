@@ -2,8 +2,8 @@ import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { addToOrganizationRequest } from "../../api/users";
-import { useAuth } from "../../services/authProvider";
+import { addToOrganizationRequest } from "../../../api/users";
+import { useAuth } from "../../../services/authProvider";
 
 function JoinOrganizationPage({ setActivePage }) {
     const {

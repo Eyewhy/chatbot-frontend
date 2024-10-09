@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { resetRequest } from "../../api/auth";
-import { useAuth } from "../../services/authProvider";
+import { resetRequest } from "../../../api/auth";
+import { useAuth } from "../../../services/authProvider";
 
 function ForgotPasswordPage() {
     const {
