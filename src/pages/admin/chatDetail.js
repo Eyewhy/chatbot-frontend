@@ -4,11 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
+import Header from "../../components/header";
+import { Box, Typography, Button, Paper } from "@mui/material";
+
 import { chatRequest } from "../../api/get";
 import { deleteChatbotUser } from "../../api/others";
 import messagesToChat from "../../services/messagesToChat";
-
-import '../../rce.css';
 
 function ChatDetail () {
     const messageListReferance = createRef();
@@ -36,16 +37,18 @@ function ChatDetail () {
 
     return (
         <>
-            <div class="d-flex p-2 justify-content-between align-items-center">
-                <span class="lead">{data.username}'s chat</span>
-                <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>
-            </div>
-            <MessageList
-                referance={messageListReferance}
-                className='message-list bg-dark'
-                lockable={true}
-                toBottomHeight={'100%'}
-                dataSource={data['messages']} />
+            <Header text={data.username + "'s chat"} render={
+                <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
+            }/>
+            <Paper elevation='2'>
+                <MessageList
+                    referance={messageListReferance}
+                    className='message-list'
+                    lockable={true}
+                    toBottomHeight={'100%'}
+                    dataSource={data['messages']} />    
+            </Paper>
+            
         </>
     )
 }

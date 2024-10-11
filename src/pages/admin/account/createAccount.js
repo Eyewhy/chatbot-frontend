@@ -3,14 +3,18 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { FormInputText } from "../../../components/formComponents";
+import { Button, Paper, Typography, Box } from "@mui/material";
+
 import { registerRequest } from "../../../api/auth";
 import { useAuth } from "../../../services/authProvider";
 
 function CreateAccountPage() {
     const {
-        register,
         handleSubmit,
-        formState: {errors, ...formState}
+        reset,
+        control,
+        setValue
     } = useForm();
 
     const { uid, token } = useParams();
@@ -35,32 +39,33 @@ function CreateAccountPage() {
     }
 
     return (
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <div>
-                <h1>Create Account</h1>
+        <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80vh',
+        }}>
+            <Paper elevation="1" sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap:1,
+                p:2,
+
+            }}>
+                <Typography variant="h5">Create Account</Typography>
                 
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Username</span>
-                    <input type="text" class="m-1" {
-                        ...register("username", {required:true})}/>
-
-                    <span class="lead">Email</span>
-                    <input type="email" class="m-1" {
-                        ...register("email", {required:true})}/>
-
-                    <span class="lead">Password</span>
-                    <input type="password" class="m-1" {
-                        ...register("pass1", {required:true})}/>
-
-                    <span class="lead">Confirm Password</span>
-                    <input type="password" class="m-1" {
-                        ...register("pass2", {required:true})}/>
-                    <input type="submit" class="m-1" value="Register"/>
-                </form>
-                Password must not be too similar to email or username.
+                <FormInputText name="username" control={control} label="Username"/>
+                <FormInputText type="email" name="email" control={control} label="Email"/>
+                <FormInputText type="password" name="pass1" control={control} label="Password"/>
+                <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
+                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Create Account</Button>
+                <Button variant="outlined" href="#/">Back to Login</Button>
                 
-            </div>
-        </div>
+                <Typography variant="caption">
+                    Password must not be too similar to email <br/> or username.
+                </Typography>
+            </Paper>
+        </Box>
     )
 }
 

@@ -2,14 +2,18 @@ import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { FormInputText } from "../../../components/formComponents";
+import { Typography, Box, Button, Paper } from "@mui/material";
+
 import { addToOrganizationRequest } from "../../../api/users";
 import { useAuth } from "../../../services/authProvider";
 
 function JoinOrganizationPage({ setActivePage }) {
     const {
-        register,
         handleSubmit,
-        formState: {errors, ...formState}
+        reset, 
+        control,
+        setValue
     } = useForm();
 
     const auth = useAuth();
@@ -26,22 +30,33 @@ function JoinOrganizationPage({ setActivePage }) {
     }
 
     return (
-        <div style={{maxWidth: "300px"}} class="m-2">
-            <p class="lead my-2">{auth.user}'s Account</p>
-            <div class="d-flex flex-column mt-2">
-                <h4>Join Organization</h4>
-                
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Organization Name</span>
-                    <input type="text" class="m-1" {
-                        ...register("name", {required:true})}/>
-                    <span class="lead">Organization Passphrase</span>
-                    <input type="text" class="m-1" {
-                        ...register("pass", {required:true})}/>
-                    <input type="submit" class="m-1" value="Join Organization"/>
-                </form>
-            </div>
-        </div>
+        <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80vh',
+        }}>
+            <Paper elevation="1" sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap:1,
+                p:2,
+
+            }}>
+                <Box sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                    gap:2
+                }}>
+                    <Typography variant="h5">Join Organization</Typography>
+                    
+                    <FormInputText name="name" control={control} label="Organization Name"/>
+                    <FormInputText name="pass" control={control} label="Organization Passphrase"/>
+                    <Button type="submit" variant={"contained"} onClick={handleSubmit(onSubmit)}>Join Organization</Button>
+                </Box>
+            </Paper>
+        </Box>
+       
     )
 }
 

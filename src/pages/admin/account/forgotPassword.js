@@ -3,14 +3,18 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { FormInputText } from "../../../components/formComponents";
+import { Button, Paper, Typography, Box } from "@mui/material";
+
 import { resetRequest } from "../../../api/auth";
 import { useAuth } from "../../../services/authProvider";
 
 function ForgotPasswordPage() {
     const {
-        register,
         handleSubmit,
-        formState: {errors, ...formState}
+        reset,
+        control,
+        setValue
     } = useForm();
 
     const auth = useAuth();
@@ -30,18 +34,27 @@ function ForgotPasswordPage() {
     }
 
     return (
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <div>
-                <h1>Forgot Password</h1>
+        <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80vh',
+        }}>
+            <Paper elevation="1" sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap:1,
+                p:2,
+
+            }}>
+                <Typography variant="h5">Forgot Password</Typography>
                 
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Email</span>
-                    <input type="email" class="m-1" {
-                        ...register("email", {required:true})}/>
-                    <input type="submit" class="m-1" value="Send Email"/>
-                </form>
-            </div>
-        </div>
+                <FormInputText type="email" name="email" control={control} label="Email"/>
+                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Send Email</Button>
+                <Button variant="outlined" href="#/">Back to Login</Button>
+                
+            </Paper>
+        </Box>
     )
 }
 

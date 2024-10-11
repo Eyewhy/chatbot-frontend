@@ -2,6 +2,8 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../components/table";
+import Header from "../../components/header";
+import { Link, Button, Box } from "@mui/material";
 
 import { referralRequest } from "../../api/get";
 import { deleteReferral } from "../../api/others";
@@ -11,16 +13,16 @@ function ReferralPage( {setActivePage} ) {
         {
             Header: "User",
             accessor: "username",
-            Cell: (props) => (<a href={`#/chats/${(props.row.original.chatbot_user)}`}>{props.value}</a>)
+            Cell: (props) => (<Link href={`#/chats/${(props.row.original.chatbot_user)}`}>{props.value}</Link>)
         },
         {
             Header: "Helper IDs",
             accessor: "helper",
             Cell: (props) => {
                 return props.value.map(id => (
-                    <span>
-                        <a key={id} href={"#/helper/" + id}>{id}</a>&ensp;
-                    </span>
+                    <Box sx={{mr:1}} key={id}>
+                        <Link href={"#/helper/" + id}>{id}</Link>&ensp;
+                    </Box>
                 )
             )}
         },
@@ -43,9 +45,9 @@ function ReferralPage( {setActivePage} ) {
         {
             Header: "Delete",
             accessor: "id",
-            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+            Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
                 deleteButton(props.value);
-            }}>Delete</button>
+            }}>Delete</Button>
         }
     ],[]);
 
@@ -71,7 +73,7 @@ function ReferralPage( {setActivePage} ) {
 
     return (
         <>
-            <p class="lead m-2">Referrals</p>
+            <Header text="Referrals"/>
             <Table columns={columns} data={data} />
         </>
     )

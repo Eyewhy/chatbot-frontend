@@ -2,6 +2,9 @@ import React, { useMemo, useState, useEffect } from "react";
 
 import Table from "../../components/table";
 
+import Header from "../../components/header"
+import { Link, Button } from "@mui/material";
+
 import { chatUserRequest } from "../../api/get";
 import { deleteChatbotUser } from "../../api/others";
 
@@ -10,7 +13,7 @@ function ChatPage ( {setActivePage} ) {
         {
             Header: "Username",
             accessor: "username",
-            Cell: props => <a href={`#/chats/${props.row.original.id}`}>{props.value}</a>
+            Cell: props => <Link href={`#/chats/${props.row.original.id}`}>{props.value}</Link>
         },
         {
             Header: "Last Message",
@@ -27,9 +30,9 @@ function ChatPage ( {setActivePage} ) {
         {
             Header: "Delete",
             accessor: "id",
-            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+            Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
                 deleteButton(props.value);
-            }}>Delete</button>
+            }}>Delete</Button>
         }
     ],[]);
 
@@ -53,7 +56,7 @@ function ChatPage ( {setActivePage} ) {
 
     return (
         <>
-            <p class="lead m-2">Recently Active Users</p>
+            <Header text="Recently Active Users"/>
             <Table columns={columns} data={data} />
         </>
     )

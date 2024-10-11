@@ -1,16 +1,20 @@
 import React, { useMemo, useState, useEffect } from "react";
 
 import Table from "../../components/table";
+import { Link, Button } from "@mui/material";
+import Header from "../../components/header";
+import { FormUploadButton } from "../../components/formComponents";
 
 import { qnaRequest, refreshQnaRequest } from "../../api/get";
 import { uploadQna, deleteQna } from "../../api/others";
+import { Form } from "react-router-dom";
 
 function QnaPage ( {setActivePage} ) {
     const columns = useMemo(() => [
         {
             Header: "Name",
             accessor: "__str__",
-            Cell: props => <a href={props.row.original.file}>{props.value}</a>
+            Cell: props => <Link href={props.row.original.file}>{props.value}</Link>
         },
         {
             Header: "Uploaded",
@@ -19,9 +23,9 @@ function QnaPage ( {setActivePage} ) {
         {
             Header: "Delete",
             accessor: "id",
-            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+            Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
                 deleteButton(props.value);
-            }}>Delete</button>
+            }}>Delete</Button>
         }
     ],[]);
 
@@ -52,19 +56,12 @@ function QnaPage ( {setActivePage} ) {
 
     return (
         <>
-            <div class="d-flex justify-content-between">
-                <p class="lead m-2">Q&A Documents</p>
-                <button class="btn btn-info mx-2" onClick={refreshQnaRequest}>Update Documents</button>
-                <div class="d-flex -items-end">
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroup" onChange={handleFileChange}/>
-                        <label class="btn btn-success input-group-text" for="inputGroup">Upload Document</label>
-                    </div>    
-                </div>
-                
-
-            </div>
-                
+            <Header text="Q&A Documents" render={
+                <>
+                    <Button variant="contained" color="info" onClick={refreshQnaRequest}>Update Documents</Button>
+                    <FormUploadButton onChange={handleFileChange} text="Upload Document" />
+                </>
+            }/>
             <Table columns={columns} data={data} />
         </>
     )

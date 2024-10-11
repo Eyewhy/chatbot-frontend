@@ -1,5 +1,7 @@
 import { useAuth } from "../services/authProvider";
 
+import { AppBar, Toolbar, Typography, Button, Link, Box } from "@mui/material";
+
 /**
  * 
  * @param {str} active one of "chats", "helper", "referral", "qna"
@@ -8,48 +10,63 @@ import { useAuth } from "../services/authProvider";
  */
 function Navbar ({ active }) {
   const auth = useAuth();
+  const sites = [
+    {
+      name: 'Chats',
+      href: '#/chats',
+    },
+    {
+      name: 'Helper Info',
+      href: '#/helper',
+    },
+    {
+      name: 'Referrals',
+      href: '#/referral',
+    },
+    {
+      name: 'Q&A Documents',
+      href: '#/qna',
+    },
+  ];
 
   return (
-    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#/account">Helper-Chatbot</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class={"nav-link" + ((active === "chats") ? " active" : "")} href="#/chats">
-                Chats
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class={"nav-link" + ((active === "helper") ? " active" : "")} href="#/helper">
-                  Helper Info
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class={"nav-link" + ((active === "referral") ? " active" : "")} href="#/referral">
-                  Referrals
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class={"nav-link" + ((active === "qna") ? " active" : "")} href="#/qna">
-                  Q&A Documents
-              </a>
-            </li>
-          </ul>
+    <AppBar position="static">
+      <Toolbar sx={{
+        display:'flex',
+        justifyContent: 'space-between',
+      }}>
+        <Box sx={{
+          display:'flex',
+          alignItems: 'center'
+        }}>
+          <Link
+            variant="h6"
+            href="#/account"
+            sx={{
+              mr: 2,
+              fontWeight: 700,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >Helper Chatbot</Link>
+          {sites.map((site) => {
+            return <Button href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+          })}  
+        </Box>
+        <Box>
         {(auth.user === null) ? 
-          <span class="navbar-text"> Please Login </span>
+          <Typography variant="button"> Please Login </Typography>
         :
-          <div>
-            <span class="navbar-text"> Welcome, {auth.user}</span>
-            <a class="btn btn-outline-success mx-2" href="#/account">Account</a>
-          </div>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+            <Button variant="contained" href="#/account" sx={{px:1}}> Welcome, {auth.user} </Button>
+          </Box>
         }
-        </div>
-      </div>
-    </nav>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
 

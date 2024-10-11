@@ -3,13 +3,17 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { FormInputText } from "../../../components/formComponents";
+import { Button, Paper, Typography, Link, Box } from "@mui/material";
+
 import { useAuth } from "../../../services/authProvider"
 
 function LoginPage() {
     const {
-        register,
         handleSubmit,
-        formState: {errors, ...formState}
+        reset, 
+        control,
+        setValue
     } = useForm();
 
     const auth = useAuth();
@@ -19,9 +23,8 @@ function LoginPage() {
         if (auth.checkLoggedIn()) navigate('/referral')
     },[])
 
-
-
     async function onSubmit(data) {
+        console.log(data);
         if (data.username === "" || data.password === "") {
             toast("Please provide a valid input!");
             return;
@@ -35,23 +38,38 @@ function LoginPage() {
     }
 
     return (
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <div>
-                <h1>Login</h1>
+        <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80vh',
+        }}>
+            <Paper elevation="1" sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap:1,
+                p:2,
+
+            }}>
+                <Typography variant="h5">Sign In</Typography>
                 
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Username</span>
-                    <input type="text" class="m-1" {
-                        ...register("username", {required:true})}/>
-                    <span class="lead">Password</span>
-                    <input type="password" class="m-1" {
-                        ...register("password", {required:true})}/>
-                    <input type="submit" class="m-1" value="Login"/>
-                </form>
-                <a class="text-white text-decoration-none" href="#/create">Create Account</a><br />
-                <a class="form-text text-decoration-none" href="#/reset">Forgot Password</a>
-            </div>
-        </div>
+                <FormInputText name="username" control={control} label="Username"/>
+                <FormInputText type="password" name="password" control={control} label="Password"/>
+                <Button type="submit" variant={"contained"} onClick={handleSubmit(onSubmit)}>Sign In</Button>
+                <Button variant={"outlined"} href="#/reset">Forgot Password</Button>
+                
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}>
+                    <Typography variant="caption">
+                        Need an account? 
+                        <Link underline="none" href="#/create"> Create Account</Link>
+                    </Typography>
+                </Box>
+                    
+            </Paper>
+        </Box>
     )
 }
 

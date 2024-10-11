@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 // Auth
 import AuthProvider from './services/authProvider'
@@ -38,7 +42,7 @@ const backend = 'https://backend.acei.com.sg'
 function App() {
   const [activePage, setActivePage] = useState("");
   return (
-    <div class="bg-dark text-light" data-bs-theme="dark">
+    <div class="" data-bs-theme="light">
       <Router>
         <AuthProvider>
           <Navbar active={activePage}/>
@@ -69,7 +73,7 @@ function App() {
           </main>
         </AuthProvider>
       </Router>
-      <ToastContainer theme="dark"/>
+      <ToastContainer theme="light"/>
     </div>
   );
 }

@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { SkillToggle, BooleanToggle, TextField, NumberField, OptionField } from "../../components/helperComponents";
 
+import { Button, Typography } from "@mui/material";
+import Header from "../../components/header";
+
 import { helperRequest } from "../../api/get";
 import { updateHelper, deleteHelper } from "../../api/others";
 import { timeAgo } from "../../services/timeAgo";
@@ -54,13 +57,14 @@ function HelperDetail () {
 
     return (
         <>
-            <div class="d-flex p-2 justify-content-between align-items-center">
-                <span class="lead">{data['personal_info_name']}'s biodata</span>
-                <span>Uploaded {otherData['time']}</span>
-                <a class="lead btn btn-primary" href={otherData['biodata']}>View Biodata</a>
-                <button class="btn btn-danger px-4" onClick={deleteButton}>Delete</button>
-                <button class="btn btn-success px-4" onClick={save}>Save</button>
-            </div>
+            <Header text={data['personal_info_name'] + "'s biodata"} render={
+                <>
+                    <Typography>Uploaded {otherData['time']}</Typography>
+                    <Button variant="contained" color="info" href={otherData['biodata']}>View Biodata</Button>
+                    <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
+                    <Button variant="contained" color="success" onClick={save}>Save</Button>  
+                </>
+            } />
 
             <table class="table">
                 <tbody>

@@ -2,14 +2,19 @@ import React , { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+import { FormInputText } from "../../../components/formComponents";
+import Header from "../../../components/header";
+import { Typography, Button, Box } from "@mui/material";
+
 import { userRequest, changePasswordRequest } from "../../../api/auth";
 import { useAuth } from "../../../services/authProvider";
 
 function AccountPage({ setActivePage }) {
     const {
-        register,
         handleSubmit,
-        formState: {errors, ...formState}
+        reset,
+        control,
+        setValue
     } = useForm();
 
     const auth = useAuth();
@@ -37,33 +42,41 @@ function AccountPage({ setActivePage }) {
     }
 
     return (
-        <div style={{maxWidth: "300px"}} class="m-2">
-            <p class="lead">{auth.user}'s Account</p>
-            <p>
-                <h4>Email</h4>
-                <span class="lead">{data['email']}</span>
-            </p>
-            <div class="d-flex flex-column mt-2">
-                <h4>Change Password</h4>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap:2,
+            maxWidth: '400px'
+        }}>
+                <Header text={auth.user + "'s Account"}/>
+                <Box>     
+                    <Typography variant="h5">Email</Typography>
+                    <Typography>{data['email']}</Typography>
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap:1
+                }}>
+                    <Typography variant="h5">Change Password</Typography>
+                    
+                    <FormInputText type="password" name="pass1" control={control} label="Password"/>
+                    <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
+                    <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
+                    <Typography variant="caption">
+                        Password must not be too similar to email or username.
+                    </Typography>
+                </Box>
+                <Box sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                    gap:1
+                }}>
+                    <Button type="submit" color="success" variant="contained" href="#/organization">Manage Organization (Admin only)</Button>
+                    <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>    
+                </Box>
                 
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Password</span>
-                    <input type="password" class="m-1" {
-                        ...register("pass1", {required:true})}/>
-                    <span class="lead">Confirm Password</span>
-                    <input type="password" class="m-1" {
-                        ...register("pass2", {required:true})}/>
-                    <input type="submit" class="m-1" value="Change Password"/>
-                </form>
-                Password must not be too similar to email or username.
-            </div>
-            <div class="mt-4 d-flex justify-content-center">
-                <a class="btn btn-success mx-2 w-100" href="#/organization">Manage Organization (admin only)</a>    
-            </div>
-            <div class="mt-4 d-flex justify-content-center">
-                <button class="btn btn-outline-danger mx-2 w-100" onClick={auth.logout}>Logout</button>    
-            </div>
-        </div>
+        </Box>
     )
 }
 

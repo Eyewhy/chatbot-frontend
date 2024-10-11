@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Table from "../../../components/table";
 import { toast } from "react-toastify";
 
+import { Typography, Button, Box } from "@mui/material";
+import Header from "../../../components/header";
+import { FormInputText } from "../../../components/formComponents";
+
 import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../../api/users";
 
 function OrganizationPage ( {setActivePage }) {
@@ -40,9 +44,9 @@ function OrganizationPage ( {setActivePage }) {
         {
             Header: "Delete",
             accessor: "id",
-            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+            Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
                 deleteButton(props.row.original.id);
-            }}>Delete</button>
+            }}>Delete</Button>
         }
     ],[]);
 
@@ -56,7 +60,7 @@ function OrganizationPage ( {setActivePage }) {
     
     // FORM
     const {
-        register,
+        control,
         handleSubmit,
         formState: {errors, ...formState}
     } = useForm();
@@ -74,46 +78,50 @@ function OrganizationPage ( {setActivePage }) {
         });
     }
     return (
-        <>
-            <p class="lead m-2">Manage Organization</p>
-            <div class="d-flex">
-                <p class="m-2">
-                    <h4>Organization Name</h4>
-                    <span class="lead">{data['name']}</span>
-                </p>
-                <p class="m-2">
-                    <h4>Organization Passphrase</h4>
-                    <span class="lead">{data['passphrase']}</span>
-                </p>
-                <p class="m-2 ms-5">
-                    <h4>Biodatas Scanned</h4>
-                    <span class="lead">{data['documents_scanned']}</span>
-                </p>
-                <p class="m-2">
-                    <h4>Q&A Refreshes</h4>
-                    <span class="lead">{data['embeddings_generated']}</span>
-                </p>
-            </div>
-            <span class="m-2">Provide the organization name & passphrase to users to allow them to join your organization.</span>
+        <Box sx={{
+            display:'flex',
+            flexDirection:'column',
+            gap:2
+        }}>
+            <Header text="Manage Organization"/>
+            <Box sx={{display:'flex'}}>
+                <Box sx={{mr:2}}>
+                    <Typography variant="h6">Organization Name</Typography>
+                    <Typography variant="subtitle1">{data['name']}</Typography>
+                </Box>
+                <Box sx={{mr:5}}>
+                    <Typography variant="h6">Organization Passphrase</Typography>
+                    <Typography variant="subtitle1">{data['passphrase']}</Typography>
+                </Box>
+                <Box sx={{mr:2}}>
+                    <Typography variant="h6">Biodatas Scanned</Typography>
+                    <Typography variant="subtitle1">{data['documents_scanned']}</Typography>
+                </Box>
+                <Box>
+                    <Typography variant="h6">Q&A Refreshes</Typography>
+                    <Typography variant="subtitle1">{data['embeddings_generated']}</Typography>
+                </Box>
+            </Box>
+            <Typography>Provide the organization name & passphrase to users to allow them to join your organization.</Typography>
             
-            <div class="m-2 mt-3" style={{maxWidth: "300px"}}>
-                <h4>Change Passphrase</h4>
+            <Box style={{
+                maxWidth: "300px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap:2 
+            }}>
+                <Typography variant="h5">Change Passphrase</Typography>
                 
-                <form class="d-flex flex-column" onSubmit={handleSubmit(onSubmit)}>
-                    <span class="lead">Passphrase</span>
-                    <input type="text" class="m-1" {
-                        ...register("pass1", {required:true})}/>
-                    <span class="lead">Confirm Passphrase</span>
-                    <input type="text" class="m-1" {
-                        ...register("pass2", {required:true})}/>
-                    <input type="submit" class="m-1" value="Change Passphrase"/>
-                </form>
-                Passphrase must be at least 8 characters.
-            </div>
+                <FormInputText name="pass1" control={control} label="Passphrase"/>
+                <FormInputText name="pass2" control={control} label="Confirm Passphrase"/>
+                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Passphrase</Button>
 
-            <h4 class="m-2 mt-3">Users</h4>
+                <Typography variant="caption">Passphrase must be at least 8 characters.</Typography>
+            </Box>
+
+            <Typography variant="h5">Users</Typography>
             <Table columns={columns} data={data['members']} />
-        </>
+        </Box>
     )
 }
 

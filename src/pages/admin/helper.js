@@ -1,6 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 
 import Table from "../../components/table";
+import Header from "../../components/header";
+import { FormUploadButton } from "../../components/formComponents";
+import { Link, Button } from "@mui/material";
 
 import { helperRequest } from "../../api/get";
 import { uploadHelper, deleteHelper } from "../../api/others";
@@ -10,7 +13,7 @@ function HelperPage ( {setActivePage }) {
         {
             Header: "ID",
             accessor: "id",
-            Cell: props => <a href={`#/helper/${props.value}`}>{props.value}</a>
+            Cell: props => <Link href={`#/helper/${props.value}`}>{props.value}</Link>
         },
         {
             Header: "Name",
@@ -23,14 +26,14 @@ function HelperPage ( {setActivePage }) {
         {
             Header: "File Uploaded",
             accessor: "time",
-            Cell: props => <a href={props.row.original.biodata}>{props.value}</a>
+            Cell: props => <Link href={props.row.original.biodata}>{props.value}</Link>
         },
         {
             Header: "Delete",
             accessor: "biodata",
-            Cell: props => <button class="btn btn-outline-danger" onClick={(e) => {
+            Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
                 deleteButton(props.row.original.id);
-            }}>Delete</button>
+            }}>Delete</Button>
         }
     ],[]);
 
@@ -50,6 +53,7 @@ function HelperPage ( {setActivePage }) {
         if (res !== 'error') setState(!state);
     }); };
 
+
     const handleFileChange = (event) => {
         if (!event.target.files) return;
         uploadHelper(event.target.files[0]).then((res) => {
@@ -59,17 +63,9 @@ function HelperPage ( {setActivePage }) {
     
     return (
         <>
-            <div class="d-flex justify-content-between">
-                <span class="lead m-2">Helper Info</span>
-                <div class="d-flex align-items-end">
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroup" onChange={handleFileChange}/>
-                        <label class="btn btn-success input-group-text" for="inputGroup">Upload Biodata</label>
-                    </div>    
-                </div>
-            </div>
-
-            
+            <Header text="Helper Info" render={
+                <FormUploadButton onChange={handleFileChange} text="Upload Biodata"/>
+            } />
             <Table columns={columns} data={data} />
         </>
     )
