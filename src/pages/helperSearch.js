@@ -26,7 +26,7 @@ function HelperSearch() {
 
     useEffect(() => {
         getData();
-    })
+    },[])
 
     const salaryRange = [550,1500];
     const recencyRange = [1,30];
@@ -43,10 +43,10 @@ function HelperSearch() {
             
             <Box sx={{display:'flex', gap:2}}>
                 <FormInputSelect name="type" setOptions={setSearchParam} label="Type" options={[
-                    'New', 'Transfer', 'Advance Placement'
+                    'New', 'Transfer', 'Advance Placement', 'Ex-Singapore'
                 ]}/>
                 <FormInputSelect name="nationality" setOptions={setSearchParam} label="Nationality" options={[
-                    "Filipino", "Indonesian", "Myanmarese", "Indian", "Sri Lankan", "Bangladeshi", "Cambodian", "Malaysian", "Thai", "Vietnamese", "Others"
+                    "Filipino", "Indonesian", "Myanmarese", "Indian", "Sri Lankan", "Bangladeshi", "Cambodian", "Malaysian", "Thai", "Vietnamese"
                 ]}/>
                 <FormInputSelect name="language" setOptions={setSearchParam} label="Language" options={[
                     "English", "Chinese", "Malay", "Hindi", "Tamil"
