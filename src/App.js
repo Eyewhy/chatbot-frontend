@@ -67,6 +67,7 @@ function App() {
                 <Route path="/reset" element={<ForgotPasswordPage />} />
                 <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
                 <Route path="/create" element={<CreateAccountPage />}/>
+                <Route path="/search" element={<HelperSearch/>} />
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
@@ -78,7 +79,6 @@ function App() {
                   <Route path="/helper/:id" element={<HelperDetail/>} />
                   <Route path="/qna" element={<QnaPage/>} />
                   <Route path="/referral" element={<ReferralPage/>} />
-                  <Route path="/search" element={<HelperSearch/>} />
                 </Route>  
               </Routes>  
             </MainBox>  

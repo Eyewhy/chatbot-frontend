@@ -83,7 +83,7 @@ function FormInputSlider ({ name, setOptions, label, range, step, valueText }) {
     setValue(newValue);
   }
   const commitChange = (event, newValue) => {
-    setOptions(name, newValue);
+    (newValue === range[1]) ? setOptions(name, null) : setOptions(name, newValue);
   }
 
   return (

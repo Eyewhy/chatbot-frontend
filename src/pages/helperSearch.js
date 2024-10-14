@@ -5,14 +5,14 @@ import { FormInputSelect, FormInputSlider } from "../components/formComponents"
 import Header from "../components/header";
 import HelperCard from "../components/helperCard"
 
-import { helperRequest } from "../api/get";
+import searchForHelper from "../api/helperSearch";
 
 function HelperSearch() {
     const [search, setSearch] = useState({});
     const [results, setResults] = useState([]);
 
     async function getData(params) {
-        let data = await helperRequest();
+        let data = await searchForHelper(params);
         console.log(data);
         setResults(data);
     }
@@ -21,11 +21,11 @@ function HelperSearch() {
         search[param] = value;
         setSearch(search);
         console.log(search);
-        getData(0);
+        getData(search);
     }
 
     useEffect(() => {
-        getData();
+        getData({});
     },[])
 
     const salaryRange = [550,1500];
@@ -66,8 +66,8 @@ function HelperSearch() {
             
             <Grid2 container spacing={2}>
                 {results.map((helper) => {
-                    return (<Grid2 size={{lg:3, md:4, sm:4, xs:5}}>
-                        <HelperCard key={helper['id']} data={helper}/>
+                    return (<Grid2 key={helper['id']} size={{lg:3, md:4, sm:4, xs:5}}>
+                        <HelperCard data={helper}/>
                     </Grid2>)
                 })}
             </Grid2>

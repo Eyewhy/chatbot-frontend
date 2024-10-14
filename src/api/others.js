@@ -57,4 +57,6 @@ async function deleteReferral(id) {
         toast("Deleted successfully.");
     })
 }
+
+
 export { uploadHelper, updateHelper, deleteHelper, uploadQna, deleteQna, deleteChatbotUser, deleteReferral }
