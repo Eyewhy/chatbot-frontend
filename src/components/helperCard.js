@@ -15,7 +15,7 @@ function HelperCard({ data }) {
             <Box>
                 <Typography>{data['personal_info_name']}</Typography>
                 <Typography>{data['personal_info_nationality']} maid</Typography>
-                <Typography>Type: {data['availability']}</Typography>
+                <Typography>Type: {data['personal_info_type']}</Typography>
             </Box>
         </Paper>
     )

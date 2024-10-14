@@ -1,5 +1,4 @@
 const keyToDisplay = {
-    'availability': 'Availability',
     'time': 'Uploaded',
     'personal_info_ref': 'Ref',
     'personal_info_name': 'Name',

@@ -74,8 +74,8 @@ function HelperDetail () {
                         <TextField label="Reference" data={data} setData={setNewData} accessor="personal_info_ref" />
                     </tr>
                     <tr>
-                        <OptionField label="Type (availability)" data={data} setData={setNewData} accessor="availability" options={['overseas', 'advance_placement_scheme', 'transfer']}/>
-                        <OptionField label="Nationality" data={data} setData={setNewData} accessor="personal_info_nationality" options={["filipino", "indonesian", "myanmarese", "indian", "sri lankan", "bangladeshi", "cambodian", "malaysian", "thai", "vietnamese", "other"]}/>
+                        <OptionField label="Type (availability)" data={data} setData={setNewData} accessor="personal_info_type" options={['new', 'advance_placement_scheme', 'transfer', 'ex-singapore']}/>
+                        <OptionField label="Nationality" data={data} setData={setNewData} accessor="personal_info_nationality" options={["filipino", "indonesian", "myanmarese", "indian", "sri lankan", "bangladeshi", "cambodian", "malaysian", "thai", "vietnamese"]}/>
                     </tr>
                     <tr>
                         <TextField label="Height" data={data} setData={setNewData} accessor="personal_info_height" />
