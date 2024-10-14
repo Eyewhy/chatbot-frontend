@@ -8,7 +8,7 @@ import { Link, Button } from "@mui/material";
 import { helperRequest } from "../../api/get";
 import { uploadHelper, deleteHelper } from "../../api/others";
 
-function HelperPage ( {setActivePage }) {
+function HelperPage () {
     const columns = useMemo(() => [
         {
             Header: "ID",
@@ -41,7 +41,6 @@ function HelperPage ( {setActivePage }) {
     const [state, setState] = useState(false);
 
     useEffect(() => {
-        setActivePage("helper");
         ( async () => {
             let data = await helperRequest();
             console.log(data);

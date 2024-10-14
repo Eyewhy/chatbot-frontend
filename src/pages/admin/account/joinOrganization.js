@@ -1,4 +1,4 @@
-import React , { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import { Typography, Box, Button, Paper } from "@mui/material";
 import { addToOrganizationRequest } from "../../../api/users";
 import { useAuth } from "../../../services/authProvider";
 
-function JoinOrganizationPage({ setActivePage }) {
+function JoinOrganizationPage() {
     const {
         handleSubmit,
         reset, 
@@ -18,10 +18,6 @@ function JoinOrganizationPage({ setActivePage }) {
 
     const auth = useAuth();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setActivePage("");
-    },[])
 
     async function onSubmit(data) {
         addToOrganizationRequest(data.name, data.pass).then((res) => {

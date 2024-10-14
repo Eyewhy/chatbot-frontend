@@ -9,7 +9,7 @@ import { Typography, Button, Box } from "@mui/material";
 import { userRequest, changePasswordRequest } from "../../../api/auth";
 import { useAuth } from "../../../services/authProvider";
 
-function AccountPage({ setActivePage }) {
+function AccountPage() {
     const {
         handleSubmit,
         reset,
@@ -21,7 +21,6 @@ function AccountPage({ setActivePage }) {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        setActivePage("");
         ( async () => {
             let data = await userRequest();
             console.log(data);
@@ -45,37 +44,44 @@ function AccountPage({ setActivePage }) {
         <Box sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap:2,
-            maxWidth: '400px'
+            alignItems: 'center'
         }}>
+            <Box>
                 <Header text={auth.user + "'s Account"}/>
-                <Box>     
-                    <Typography variant="h5">Email</Typography>
-                    <Typography>{data['email']}</Typography>
-                </Box>
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap:1
+                    gap:2,
                 }}>
-                    <Typography variant="h5">Change Password</Typography>
-                    
-                    <FormInputText type="password" name="pass1" control={control} label="Password"/>
-                    <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                    <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
-                    <Typography variant="caption">
-                        Password must not be too similar to email or username.
-                    </Typography>
-                </Box>
-                <Box sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                    gap:1
-                }}>
-                    <Button type="submit" color="success" variant="contained" href="#/organization">Manage Organization (Admin only)</Button>
-                    <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>    
-                </Box>
-                
+                    <Box>     
+                        <Typography variant="h5">Email</Typography>
+                        <Typography>{data['email']}</Typography>
+                    </Box>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap:1
+                    }}>
+                        <Typography variant="h5">Change Password</Typography>
+                        
+                        <FormInputText type="password" name="pass1" control={control} label="Password"/>
+                        <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
+                        <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
+                        <Typography variant="caption">
+                            Password must not be too similar to email or username.
+                        </Typography>
+                    </Box>
+                    <Box sx={{
+                        display:'flex',
+                        flexDirection:'column',
+                        gap:1
+                    }}>
+                        <Button type="submit" color="info" variant="outlined" href="#/organization">Manage Organization (Admin only)</Button>
+                        <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>    
+                    </Box>    
+                </Box>    
+            </Box>
+            
         </Box>
     )
 }

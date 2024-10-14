@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useForm, handleSubmit } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../../components/table";
@@ -11,13 +11,12 @@ import { FormInputText } from "../../../components/formComponents";
 
 import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../../api/users";
 
-function OrganizationPage ( {setActivePage }) {
+function OrganizationPage () {
     const [data, setData] = useState({'members':[]});
     const [state, setState] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setActivePage("");
         ( async () => {
             await organizationDetailRequest().then((res) => {
                 if (res === 'error') navigate('/account');
@@ -108,7 +107,7 @@ function OrganizationPage ( {setActivePage }) {
                 maxWidth: "300px",
                 display: 'flex',
                 flexDirection: 'column',
-                gap:2 
+                gap:8
             }}>
                 <Typography variant="h5">Change Passphrase</Typography>
                 

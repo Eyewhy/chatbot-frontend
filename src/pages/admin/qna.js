@@ -7,9 +7,8 @@ import { FormUploadButton } from "../../components/formComponents";
 
 import { qnaRequest, refreshQnaRequest } from "../../api/get";
 import { uploadQna, deleteQna } from "../../api/others";
-import { Form } from "react-router-dom";
 
-function QnaPage ( {setActivePage} ) {
+function QnaPage () {
     const columns = useMemo(() => [
         {
             Header: "Name",
@@ -33,7 +32,6 @@ function QnaPage ( {setActivePage} ) {
     const [state, setState] = useState(false);
 
     useEffect(() => {
-        setActivePage("qna");
         ( async () => {
             let data = await qnaRequest();
             console.log(data);
@@ -58,7 +56,7 @@ function QnaPage ( {setActivePage} ) {
         <>
             <Header text="Q&A Documents" render={
                 <>
-                    <Button variant="contained" color="info" onClick={refreshQnaRequest}>Update Documents</Button>
+                    <Button variant="contained" color="success" onClick={refreshQnaRequest}>Update Documents</Button>
                     <FormUploadButton onChange={handleFileChange} text="Upload Document" />
                 </>
             }/>

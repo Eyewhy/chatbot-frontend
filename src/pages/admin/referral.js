@@ -8,7 +8,7 @@ import { Link, Button, Box } from "@mui/material";
 import { referralRequest } from "../../api/get";
 import { deleteReferral } from "../../api/others";
 
-function ReferralPage( {setActivePage} ) {
+function ReferralPage() {
     const columns = useMemo(() => [
         {
             Header: "User",
@@ -56,7 +56,6 @@ function ReferralPage( {setActivePage} ) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setActivePage('referral');
         ( async () => {
             let data = await referralRequest();
             if (data === 'error') navigate('/join');

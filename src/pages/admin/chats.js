@@ -8,7 +8,7 @@ import { Link, Button } from "@mui/material";
 import { chatUserRequest } from "../../api/get";
 import { deleteChatbotUser } from "../../api/others";
 
-function ChatPage ( {setActivePage} ) {
+function ChatPage () {
     const columns = useMemo(() => [
         {
             Header: "Username",
@@ -40,7 +40,6 @@ function ChatPage ( {setActivePage} ) {
     const [state, setState] = useState(false);
 
     useEffect(() => {
-        setActivePage("chats");
         ( async () => {
             let data = await chatUserRequest();
             console.log(data);

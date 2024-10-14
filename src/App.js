@@ -24,7 +24,10 @@ import AccountPage from './pages/admin/account/account';
 import OrganizationPage from './pages/admin/account/organization';
 import JoinOrganizationPage from './pages/admin/account/joinOrganization';
 
-// Actually useful
+// search site
+import HelperSearch from './pages/helperSearch';
+
+// admin
 import ChatPage from './pages/admin/chats';
 import ChatDetail from './pages/admin/chatDetail';
 import HelperPage from './pages/admin/helper';
@@ -34,20 +37,31 @@ import ReferralPage from './pages/admin/referral';
 
 import Navbar from './components/navbar';
 
-import React, { useState } from 'react';
+import React from 'react';
 
+import { Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const backend = 'https://backend.acei.com.sg'
 
 function App() {
-  const [activePage, setActivePage] = useState("");
+  const MainBox = styled(Box)(({theme}) => ({
+    paddingLeft: '15%',
+    paddingRight: '15%',
+    width:'100%',
+    [theme.breakpoints.down('lg')]: {
+      paddingLeft:'1%',
+      paddingRight:'1%',
+    },
+  }))
+
   return (
     <div class="" data-bs-theme="light">
       <Router>
         <AuthProvider>
-          <Navbar active={activePage}/>
-          <main class="d-flex justify-content-center">
-            <div class="w-75">
+          <Navbar/>
+          <main>
+            <MainBox>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/reset" element={<ForgotPasswordPage />} />
@@ -55,21 +69,19 @@ function App() {
                 <Route path="/create" element={<CreateAccountPage />}/>
 
                 <Route element={<PrivateRoute />}>
-                  <Route path="/account" element={<AccountPage setActivePage={setActivePage}/>} />
-                  <Route path="/organization" element={<OrganizationPage setActivePage={setActivePage}/>} />
-                  <Route path="/join" element={<JoinOrganizationPage setActivePage={setActivePage}/>} />
-
-                  <Route path="/chats" element={<ChatPage setActivePage={setActivePage}/>} >
-                  </Route>
-                  <Route path="/chats/:id" element={<ChatDetail setActivePage={setActivePage}/>} >
-                  </Route>
-                  <Route path="/helper" element={<HelperPage setActivePage={setActivePage}/>} />
-                  <Route path="/helper/:id" element={<HelperDetail setActivePage={setActivePage}/>} />
-                  <Route path="/qna" element={<QnaPage setActivePage={setActivePage}/>} />
-                  <Route path="/referral" element={<ReferralPage setActivePage={setActivePage}/>} />
+                  <Route path="/account" element={<AccountPage/>} />
+                  <Route path="/organization" element={<OrganizationPage/>} />
+                  <Route path="/join" element={<JoinOrganizationPage/>} />
+                  <Route path="/chats" element={<ChatPage/>} />
+                  <Route path="/chats/:id" element={<ChatDetail/>} />
+                  <Route path="/helper" element={<HelperPage/>} />
+                  <Route path="/helper/:id" element={<HelperDetail/>} />
+                  <Route path="/qna" element={<QnaPage/>} />
+                  <Route path="/referral" element={<ReferralPage/>} />
+                  <Route path="/search" element={<HelperSearch/>} />
                 </Route>  
               </Routes>  
-            </div>  
+            </MainBox>  
           </main>
         </AuthProvider>
       </Router>

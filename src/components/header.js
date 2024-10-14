@@ -8,7 +8,9 @@ function Header ( {text, render} ) {
             my:2,
         }}>
             <Typography variant="h5">{text}</Typography>
-            {render}
+            <Box sx={{display:'flex', gap:2}}>
+                {render}
+            </Box>
         </Box>
     )
 }

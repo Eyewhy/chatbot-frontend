@@ -57,7 +57,7 @@ function HelperDetail () {
 
     return (
         <>
-            <Header text={data['personal_info_name'] + "'s biodata"} render={
+            <Header text={`${data['personal_info_name']} 's biodata`} render={
                 <>
                     <Typography>Uploaded {otherData['time']}</Typography>
                     <Button variant="contained" color="info" href={otherData['biodata']}>View Biodata</Button>
