@@ -59,8 +59,8 @@ function Navbar () {
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',
-              }}
-            >Helper Chatbot</Link>
+              }}>
+              Helper Chatbot</Link>
             {sites.map((site) => {
               return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
             })}  

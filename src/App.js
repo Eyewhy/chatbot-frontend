@@ -26,6 +26,7 @@ import JoinOrganizationPage from './pages/admin/account/joinOrganization';
 
 // search site
 import HelperSearch from './pages/helperSearch';
+import HelperBiodata from './pages/helperBiodata';
 
 // admin
 import ChatPage from './pages/admin/chats';
@@ -67,7 +68,9 @@ function App() {
                 <Route path="/reset" element={<ForgotPasswordPage />} />
                 <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
                 <Route path="/create" element={<CreateAccountPage />}/>
+
                 <Route path="/search" element={<HelperSearch/>} />
+                <Route path="/biodata/:id" element={<HelperBiodata />}/>
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { Box, Grid2 } from "@mui/material"
+import { Box, Grid2, IconButton } from "@mui/material"
 import { FormInputSelect, FormInputSlider } from "../components/formComponents"
 import Header from "../components/header";
 import HelperCard from "../components/helperCard"
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 import searchForHelper from "../api/helperSearch";
 
@@ -41,7 +42,15 @@ function HelperSearch() {
             gap:2
         }}>
             
-            <Box sx={{display:'flex', gap:2}}>
+            <Box sx={{
+                display:'flex',
+                alignItems: 'center',
+                gap:2,
+                position: 'sticky',
+                top: 0,
+                background: 'white',
+                p:1
+            }}>
                 <FormInputSelect name="type" setOptions={setSearchParam} label="Type" options={[
                     'New', 'Transfer', 'Advance Placement', 'Ex-Singapore'
                 ]}/>
@@ -62,6 +71,9 @@ function HelperSearch() {
                 <FormInputSelect name="agency" setOptions={setSearchParam} label="Agency" options={['ASSET']}/>
                 <FormInputSlider name="salary" setOptions={setSearchParam}label="Max Salary" range={salaryRange} step={50} valueText={salaryText}/>
                 <FormInputSlider name="recency" setOptions={setSearchParam}label="Recency" range={recencyRange} step={1} valueText={recencyText}/>
+                <IconButton color="info" aria-label="Shortlist" size="large">
+                    <ShoppingBagIcon fontSize="large"/>
+                </IconButton>
             </Box>
             
             <Grid2 container spacing={2}>
