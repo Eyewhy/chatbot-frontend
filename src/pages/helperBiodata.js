@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Paper, Box, Typography } from "@mui/material";
+
+import { Paper, Box, Typography, Button } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
 import { InfoTable, SkillTable, MedicalTable } from "../components/tables";
 
@@ -44,22 +47,6 @@ function HelperBiodata () {
     ['Feedback', 'employment_history_feedback_from_previous_employers']
   ]
 
-  const medicalTable = [
-    ['Food Handling Preferences', 'medical_history_food_handling_preferences'],
-    ['Allergies', 'medical_history_allergies'],
-    ['Mental Illness','medical_history_past_and_existing_illnesses_mental_illness'],
-    ['Epilepsy','medical_history_past_and_existing_illnesses_epilepsy'],
-    ['Asthma', 'medical_history_past_and_existing_illnesses_asthma'] ,
-    ['Diabetes', 'medical_history_past_and_existing_illnesses_diabetes'],
-    ['Hypertension', 'medical_history_past_and_existing_illnesses_hypertension'],
-    ['Tuberculosis', 'medical_history_past_and_existing_illnesses_tuberculosis'],
-    ['Heart Disease', 'medical_history_past_and_existing_illnesses_heart_disease'],
-    ['Malaria', 'medical_history_past_and_existing_illnesses_malaria'],
-    ['Operations', 'medical_history_past_and_existing_illnesses_operations'],
-    ['Physical Disabilities', 'medical_history_physical_disabilities'],
-    ['Dietary Restrictions', 'medical_history_dietary_restrictions'],
-  ]
-
   const miscTable = [
     ['Rest Day Preference', 'remarks_preference_for_rest_day'],
     ['Remarks', 'remarks_additional_remarks'],
@@ -101,7 +88,7 @@ function HelperBiodata () {
   return (
     <Box sx={{
       display:'flex',
-      justifyContent: 'start',
+      justifyContent: 'center',
       mt:2,
       gap: 2
     }}>
@@ -116,11 +103,13 @@ function HelperBiodata () {
         <Paper elevation={2} sx={{
           display: 'flex',
           flexDirection: 'column',
+          alignItems:'center',
           gap:2,
           p:2,
         }}>
-          <Paper elevation={2} sx={{height:'300px'}}>Placeholder for image</Paper>
+          <Paper elevation={2} sx={{height:'200px', width:'150px'}}>Placeholder for image</Paper>
           <InfoTable rows={mainInfoTable} data={data}/>
+          <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />}>Add to Shortlist</Button>
         </Paper>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -130,6 +119,7 @@ function HelperBiodata () {
         }}>
           Maid Agency Info
           <InfoTable rows={agencyTableRows} data={testAgencyInfo}/>  
+          <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
         </Paper>
       </Box>
       <Box sx={{
@@ -144,31 +134,37 @@ function HelperBiodata () {
             gap:2,
             p:2,
           }}>
-            <Typography>Personal Information</Typography>
-            <InfoTable rows={personalInfoTable} data={data} />
+            <HeaderGraphy>Personal Information</HeaderGraphy>
+            <InfoTable rows={personalInfoTable} data={data} width='50%' />
 
-            <Typography>Salary</Typography>
-            <InfoTable rows={salaryTable} data={data} />
+            <HeaderGraphy >Salary</HeaderGraphy>
+            <InfoTable rows={salaryTable} data={data} width='50%' />
 
-            <Typography>Family</Typography>
-            <InfoTable rows={familyTable} data={data} />
+            <HeaderGraphy>Family</HeaderGraphy>
+            <InfoTable rows={familyTable} data={data} width='50%' />
 
-            <Typography>Skills</Typography>
+            <HeaderGraphy>Skills</HeaderGraphy>
             <SkillTable data={data} />
 
-            <Typography>Employment</Typography>
+            <HeaderGraphy>Employment</HeaderGraphy>
             <InfoTable rows={employmentTable} data={data} />
 
-            <Typography>Remarks</Typography>
+            <HeaderGraphy>Medical Information</HeaderGraphy>
+            <MedicalTable data={data} />
+
+            <HeaderGraphy>Remarks</HeaderGraphy>
             <InfoTable rows={miscTable} data={data} />
-            
-            <Typography>Medical History</Typography>
-            <MedicalTable rows={medicalTable} data={data} />
           </Box>
         </Paper>
       </Box>
     </Box> 
   )
+}
+
+function HeaderGraphy({children}) {
+  return <Typography variant="button" color="primary" fontSize="medium" align='center'>
+    {children}
+  </Typography>
 }
 
 export default HelperBiodata
