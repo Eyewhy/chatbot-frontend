@@ -3,11 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { SkillToggle, BooleanToggle, TextField, NumberField, OptionField } from "../../components/helperComponents";
 
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
 import Header from "../../components/header";
+import { FormUploadButton } from "../../components/formComponents";
 
 import { helperRequest } from "../../api/get";
-import { updateHelper, deleteHelper } from "../../api/others";
+import { updateHelper, deleteHelper,uploadHelperImage } from "../../api/others";
 import { timeAgo } from "../../services/timeAgo";
 
 function HelperDetail () {
@@ -55,6 +56,13 @@ function HelperDetail () {
         setData(data);
     }
 
+    const handleFileChange = (event) => {
+        if (!event.target.files) return;
+        uploadHelperImage(id, event.target.files[0]).then((res) => {
+            if (res !== 'error') setState(!state);
+        });
+    }
+
     return (
         <>
             <Header text={`${data['personal_info_name']} 's biodata`} render={
@@ -65,9 +73,21 @@ function HelperDetail () {
                     <Button variant="contained" color="success" onClick={save}>Save</Button>  
                 </>
             } />
-
+            <Box sx={{
+                display:'flex'
+            }}>
+                <Box sx={{
+                    display:'flex',
+                    flexDirection:'column',
+                }}>
+                    <Box component='img' src={data['image']} sx={{height:'300px', width:'200px'}}/>
+                    <FormUploadButton onChange={handleFileChange} text="Change Image"/>
+                </Box>    
+            </Box>
+            
             <table class="table">
                 <tbody>
+                    
                     <tr><th>Personal Information</th></tr>
                     <tr>
                         <TextField label="Name" data={data} setData={setNewData} accessor="personal_info_name" />

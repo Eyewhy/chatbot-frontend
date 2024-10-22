@@ -107,7 +107,7 @@ function HelperBiodata () {
           gap:2,
           p:2,
         }}>
-          <Paper elevation={2} sx={{height:'200px', width:'150px'}}>Placeholder for image</Paper>
+          <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
           <InfoTable rows={mainInfoTable} data={data}/>
           <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />}>Add to Shortlist</Button>
         </Paper>

@@ -8,23 +8,24 @@ function HelperCard({ data }) {
             p:2,
             display:'flex',
             flexDirection:'column',
+            alignItems: 'center',
             gap:2
         }}>
+
             <Link href={`#/biodata/${data['id']}`}>
-                <Paper elevation={2} sx={{minHeight:'300px'}}>
-                    <Typography>Placeholder for Image</Typography>
-                </Paper>
+                <Paper component='img' elevation={2} sx={{height:'300px', width:'200px'}} src={data['image']} />
             </Link>
             
             <Box sx={{
                 display:'flex',
                 justifyContent:'space-between',
-                alignItems: 'center'
+                alignItems: 'center',
+                width: 1
             }}> 
                 <Box>
-                    <Typography>{data['personal_info_name']}</Typography>
-                    <Typography>{data['personal_info_nationality']} maid</Typography>
-                    <Typography>Type: {data['personal_info_type']}</Typography>
+                    <Typography noWrap>{data['personal_info_name']}</Typography>
+                    <Typography noWrap>{data['personal_info_nationality']} maid</Typography>
+                    <Typography noWrap>Type: {data['personal_info_type']}</Typography>
                 </Box>
                 <IconButton sx={{height:'40px'}} size="medium" aria-label="Add to Shortlist" color="primary">
                     <AddIcon fontSize="medium"/>

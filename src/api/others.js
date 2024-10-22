@@ -10,6 +10,14 @@ async function uploadHelper(file) {
     })
 }
 
+async function uploadHelperImage(id, file) {
+    if (! ['jpg', 'jpeg'].includes(file.name.split('.').pop())) return toast("Please upload a jpg/jpeg!");
+    return fileRequest(`helperinfo/${id}/image/`, file).then((res) => {
+        if (res === 'error') return toast("Oops, upload failed. Is it a jpeg?");
+        toast("Image updated succesfully.");
+    })
+}
+
 async function updateHelper(id, body) {
     if (Object.keys(body).length === 0) return toast("No changes to save.");
     
@@ -20,7 +28,7 @@ async function updateHelper(id, body) {
 }
 
 async function deleteHelper(id) {
-    return apiRequest(`helperinfo/${id}`, 'DELETE', null, false).then((res) => {
+    return apiRequest(`helperinfo/${id}/`, 'DELETE', null, false).then((res) => {
         if (res === 'error') return toast("Oops, delete failed.");
         toast("Deleted successfully.");
     })
@@ -59,4 +67,4 @@ async function deleteReferral(id) {
 }
 
 
-export { uploadHelper, updateHelper, deleteHelper, uploadQna, deleteQna, deleteChatbotUser, deleteReferral }
+export { uploadHelper, updateHelper, uploadHelperImage, deleteHelper, uploadQna, deleteQna, deleteChatbotUser, deleteReferral }

@@ -79,7 +79,7 @@ function HelperSearch() {
             <Grid2 container spacing={2}>
                 {results.map((helper) => {
                     return (<Grid2 key={helper['id']} size={{lg:3, md:4, sm:4, xs:5}}>
-                        <HelperCard data={helper}/>
+                        <HelperCard key={helper['id']} data={helper}/>
                     </Grid2>)
                 })}
             </Grid2>
