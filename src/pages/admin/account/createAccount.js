@@ -1,6 +1,6 @@
 import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { FormInputText } from "../../../components/formComponents";
@@ -12,12 +12,9 @@ import { useAuth } from "../../../services/authProvider";
 function CreateAccountPage() {
     const {
         handleSubmit,
-        reset,
         control,
-        setValue
     } = useForm();
 
-    const { uid, token } = useParams();
     const auth = useAuth();
     const navigate = useNavigate();
 

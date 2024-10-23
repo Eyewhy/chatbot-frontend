@@ -11,9 +11,7 @@ import { useAuth } from "../../../services/authProvider";
 function JoinOrganizationPage() {
     const {
         handleSubmit,
-        reset, 
         control,
-        setValue
     } = useForm();
 
     const auth = useAuth();

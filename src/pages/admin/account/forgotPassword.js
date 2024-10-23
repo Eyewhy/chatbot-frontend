@@ -12,9 +12,7 @@ import { useAuth } from "../../../services/authProvider";
 function ForgotPasswordPage() {
     const {
         handleSubmit,
-        reset,
         control,
-        setValue
     } = useForm();
 
     const auth = useAuth();

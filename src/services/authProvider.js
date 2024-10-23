@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
 
 const getToken = () => { return localStorage.getItem("site")}
 /**
- * methods: .token, .user, .login(), .logout()
+ * methods: .token, .user, .login(), .logout(), .checkLoggedIn()
  */
 const useAuth = () => { return useContext(AuthContext); };
 

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { FormInputText } from "../../../components/formComponents";
-import Header from "../../../components/header";
+import { Header } from "../../../components/mui";
 import { Typography, Button, Box } from "@mui/material";
 
 import { userRequest, changePasswordRequest } from "../../../api/auth";
@@ -12,9 +12,7 @@ import { useAuth } from "../../../services/authProvider";
 function AccountPage() {
     const {
         handleSubmit,
-        reset,
         control,
-        setValue
     } = useForm();
 
     const auth = useAuth();

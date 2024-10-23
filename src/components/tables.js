@@ -1,4 +1,4 @@
-import { TableContainer, TableBody, TableRow, TableCell, Table, Paper, TableHead} from "@mui/material"
+import { TableContainer, TableBody, TableRow, TableCell, Table, Paper, TableHead, Link } from "@mui/material"
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -114,4 +114,53 @@ function SkillTable ({data}) {
     </TableContainer>
 }
 
-export { InfoTable, SkillTable, MedicalTable }
+function AgencyTable ({data}) {
+    const tableRows = [    
+        ['Name', 'name'],
+        ['Phone', 'contact_number'],
+    ]
+
+    return <TableContainer component={Paper}>
+        <Table size="small">
+            <TableBody>
+            {tableRows.map((item) => {
+                return <TableRow>
+                    <TableCell>{item[0]}</TableCell>
+                    <TableCell sx={{whiteSpace: 'pre-wrap'}}>{data[item[1]]}</TableCell>
+                </TableRow>
+            })}
+            <TableRow>
+                <TableCell>Website</TableCell>
+                <TableCell><Link href={data['website']}>{data['name']}</Link></TableCell>
+            </TableRow>
+            </TableBody>
+        </Table>
+    </TableContainer>
+}
+
+function AgencyAddressTable ({data}) {
+    const addressTableRows = [
+        ['Address', 'address'],
+        ['Office Hours', 'office_hours'],
+        ['Phone Number', 'contact_number'],
+    ]
+
+    return <TableContainer component={Paper}>
+        <Table size="small">
+            <TableBody>
+            {addressTableRows.map((item) => {
+                return <TableRow>
+                    <TableCell>{item[0]}</TableCell>
+                    <TableCell sx={{whiteSpace: 'pre-wrap'}}>{data[item[1]]}</TableCell>
+                </TableRow>
+            })}
+            <TableRow>
+                <TableCell>Website</TableCell>
+                <TableCell><Link href={data['website']}>{data['website']}</Link></TableCell>
+            </TableRow>
+            </TableBody>
+        </Table>
+    </TableContainer>
+}
+
+export { InfoTable, SkillTable, MedicalTable, AgencyTable, AgencyAddressTable }

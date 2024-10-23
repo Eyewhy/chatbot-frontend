@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 
 import Table from "../../components/table";
 import { Link, Button } from "@mui/material";
-import Header from "../../components/header";
+import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 
 import { qnaRequest, refreshQnaRequest } from "../../api/get";

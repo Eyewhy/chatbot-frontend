@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../components/table";
-import Header from "../../components/header";
+import { Header } from "../../components/mui";
 import { Link, Button, Box } from "@mui/material";
 
 import { referralRequest } from "../../api/get";

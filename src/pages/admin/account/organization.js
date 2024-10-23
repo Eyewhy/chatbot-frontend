@@ -6,7 +6,7 @@ import Table from "../../../components/table";
 import { toast } from "react-toastify";
 
 import { Typography, Button, Box } from "@mui/material";
-import Header from "../../../components/header";
+import { Header } from "../../../components/mui";
 import { FormInputText } from "../../../components/formComponents";
 
 import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../../api/users";

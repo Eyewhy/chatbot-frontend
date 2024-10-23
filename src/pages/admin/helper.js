@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 
 import Table from "../../components/table";
-import Header from "../../components/header";
+import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 import { Link, Button } from "@mui/material";
 

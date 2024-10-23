@@ -2,18 +2,22 @@ import { useState, useEffect } from "react";
 
 import { Box, Grid2, IconButton } from "@mui/material"
 import { FormInputSelect, FormInputSlider } from "../components/formComponents"
-import Header from "../components/header";
+import { Header } from "../components/mui";
 import HelperCard from "../components/helperCard"
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-import searchForHelper from "../api/helperSearch";
+import { searchForHelper } from "../api/helperSearch";
+
+import { useAuth } from "../services/authProvider";
 
 function HelperSearch() {
     const [search, setSearch] = useState({});
     const [results, setResults] = useState([]);
 
+    const auth = useAuth();
+
     async function getData(params) {
-        let data = await searchForHelper(params);
+        let data = await searchForHelper(auth.checkLoggedIn(), params);
         console.log(data);
         setResults(data);
     }

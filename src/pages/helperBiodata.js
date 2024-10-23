@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Paper, Box, Typography, Button } from "@mui/material";
+import { Paper, Box, Typography, Button, Link } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
-import { InfoTable, SkillTable, MedicalTable } from "../components/tables";
+import { InfoTable, SkillTable, MedicalTable, AgencyTable } from "../components/tables";
+import { HeaderGraphy } from "../components/mui";
 
-import { helperRequest } from "../api/get";
+import { publicHelperRequest, publicOrganizationRequest } from "../api/public";
+import { useAuth } from "../services/authProvider";
 import { timeAgo } from "../services/timeAgo";
+
 
 function HelperBiodata () {
   const personalInfoTable = [
@@ -56,7 +59,6 @@ function HelperBiodata () {
   ]
 
   const mainInfoTable = [
-    ['Name', 'personal_info_name'],
     ['Type', 'personal_info_type'],
     ['Nationality', 'personal_info_nationality'],
     ['Languages', 'skills_spoken_language_categories'],
@@ -64,28 +66,21 @@ function HelperBiodata () {
     ['Recency', 'time']
   ]
 
-  const agencyTableRows = [
-    ['Name', 'name'],
-    ['Contact', 'contact'],
-    ['Phone', 'number']
-  ]
-
-  const testAgencyInfo = {
-    name: 'ASSET Maid Agency',
-    contact: 'John Doe',
-    number: '0598324098'
-  }
-
   const [data, setData] = useState({});
+  const [agency, setAgency] = useState({description:''});
   const { id } = useParams();
 
+  const auth = useAuth();
+
   useEffect(() => {( async () => {
-    let res = await helperRequest(id);
+    let res = await publicHelperRequest(auth.checkLoggedIn(), id);
     timeAgo(res);
     setData(res);
+    let res2 = await publicOrganizationRequest(res['organization']);
+    setAgency(res2);
   })();}, []);
 
-  return (
+  return (<>
     <Box sx={{
       display:'flex',
       justifyContent: 'center',
@@ -98,7 +93,8 @@ function HelperBiodata () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        height:'1000px'
+        height:'1000px',
+        width: '20%'
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -107,25 +103,40 @@ function HelperBiodata () {
           gap:2,
           p:2,
         }}>
+          <HeaderGraphy>{data['personal_info_name']}</HeaderGraphy>
           <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
           <InfoTable rows={mainInfoTable} data={data}/>
           <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />}>Add to Shortlist</Button>
         </Paper>
+        <Link href={`#/organization/${data['organization']}`} underline="none">
         <Paper elevation={2} sx={{
           display: 'flex',
           flexDirection: 'column',
           gap:2,
           p:2,
         }}>
-          Maid Agency Info
-          <InfoTable rows={agencyTableRows} data={testAgencyInfo}/>  
-          <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
-        </Paper>
+          <Typography>Maid Agency Info</Typography>
+          <AgencyTable data={agency}/>
+
+
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap:1
+          }}>
+
+            <Button variant="outlined" color="primary">View Agency Info</Button>
+            <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
+          </Box>
+          </Paper>
+        </Link>
       </Box>
+
       <Box sx={{
         display:'flex',
         flexDirection:'column',
         gap:2,
+        maxWidth:'50%'
       }}>
         <Paper elevation={2}>
           <Box sx={{
@@ -158,13 +169,7 @@ function HelperBiodata () {
         </Paper>
       </Box>
     </Box> 
-  )
-}
-
-function HeaderGraphy({children}) {
-  return <Typography variant="button" color="primary" fontSize="medium" align='center'>
-    {children}
-  </Typography>
+  </>)
 }
 
 export default HelperBiodata

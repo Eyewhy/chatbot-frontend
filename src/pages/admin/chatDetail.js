@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
-import Header from "../../components/header";
+import { Header } from "../../components/mui";
 import { Box, Typography, Button, Paper } from "@mui/material";
 
 import { chatRequest } from "../../api/get";

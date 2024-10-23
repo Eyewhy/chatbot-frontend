@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { SkillToggle, BooleanToggle, TextField, NumberField, OptionField } from "../../components/helperComponents";
 
 import { Button, Typography, Box } from "@mui/material";
-import Header from "../../components/header";
+import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 
 import { helperRequest } from "../../api/get";

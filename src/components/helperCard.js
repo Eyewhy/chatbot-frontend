@@ -13,7 +13,14 @@ function HelperCard({ data }) {
         }}>
 
             <Link href={`#/biodata/${data['id']}`}>
-                <Paper component='img' elevation={2} sx={{height:'300px', width:'200px'}} src={data['image']} />
+                {data['image'] ? 
+                    <Paper component='img' elevation={2} sx={{height:'300px', width:'200px'}} src={data['image']} />   
+                :
+                    <Paper elevation={2} sx={{height:'300px', width:'200px', p:1}}>
+                        Please Sign In to View Image
+                    </Paper>   
+                }
+                
             </Link>
             
             <Box sx={{

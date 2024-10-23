@@ -27,6 +27,7 @@ import JoinOrganizationPage from './pages/admin/account/joinOrganization';
 // search site
 import HelperSearch from './pages/helperSearch';
 import HelperBiodata from './pages/helperBiodata';
+import AgencyData from './pages/agency';
 
 // admin
 import ChatPage from './pages/admin/chats';
@@ -71,6 +72,7 @@ function App() {
 
                 <Route path="/search" element={<HelperSearch/>} />
                 <Route path="/biodata/:id" element={<HelperBiodata />}/>
+                <Route path="/organization/:id" element={<AgencyData />}/>
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
