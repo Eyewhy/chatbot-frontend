@@ -7,18 +7,21 @@ import HelperCard from "../components/helperCard"
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 import { searchForHelper } from "../api/helperSearch";
+import { publicOrganizationRequest } from "../api/public";
+import { cleanHelperSearch, processAgencyData } from "../services/helperSearch";
 
 import { useAuth } from "../services/authProvider";
 
 function HelperSearch() {
     const [search, setSearch] = useState({});
     const [results, setResults] = useState([]);
+    const [agencies, setAgencies] = useState({});
 
     const auth = useAuth();
 
     async function getData(params) {
+        params = cleanHelperSearch(params, agencies);
         let data = await searchForHelper(auth.checkLoggedIn(), params);
-        console.log(data);
         setResults(data);
     }
 
@@ -30,7 +33,14 @@ function HelperSearch() {
     }
 
     useEffect(() => {
+        const getAgencyData = async () => {
+            let agencyData = await publicOrganizationRequest();
+            agencyData = processAgencyData(agencyData);
+            setAgencies(agencyData);    
+        }
+        
         getData({});
+        getAgencyData();
     },[])
 
     const salaryRange = [550,1500];
@@ -72,7 +82,7 @@ function HelperSearch() {
                     "Disabled Care",
                     "Pet Care",
                 ]}/>
-                <FormInputSelect name="agency" setOptions={setSearchParam} label="Agency" options={['ASSET']}/>
+                <FormInputSelect name="agency" setOptions={setSearchParam} label="Agency" options={Object.keys(agencies)}/>
                 <FormInputSlider name="salary" setOptions={setSearchParam}label="Max Salary" range={salaryRange} step={50} valueText={salaryText}/>
                 <FormInputSlider name="recency" setOptions={setSearchParam}label="Recency" range={recencyRange} step={1} valueText={recencyText}/>
                 <IconButton color="info" aria-label="Shortlist" size="large">

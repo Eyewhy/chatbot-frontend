@@ -12,7 +12,8 @@ async function publicHelperRequest(authed, id) {
         return apiRequest(`public/helperinfo/${id}/`, 'GET');
 }
 
-async function publicOrganizationRequest(id) {
+async function publicOrganizationRequest(id=null) {
+    if (id == null) return apiRequest('public/organization/', 'GET');
     return apiRequest(`public/organization/${id}/`, 'GET');
 }
 

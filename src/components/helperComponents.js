@@ -1,56 +1,86 @@
 import { useState } from "react"
 
+import { Button, Typography, TextField, TableCell, TableRow, TableHead, FormControl, InputLabel, Select, MenuItem, ListItemText, Box } from "@mui/material";
+
+function Cell({children, colSpan}) {
+    return <TableCell sx={{border:'none'}} colSpan={colSpan}>
+        {children}
+    </TableCell>
+}
+
+function Head({children}) {
+    return <TableRow>
+        <Cell colSpan={2}>
+            <Typography variant="h6">{children}</Typography>
+        </Cell>
+    </TableRow>
+}
+
 function ToggleButton( {accessor, label, data, setData} ) {
     const [isTrue, setTrue] = useState(data[accessor]);
     return (
-        <button class={((data[accessor]) ? "btn-primary": "btn-outline-primary") + " btn px-2 py-1 me-3"} onClick={() => {
+        <Button  sx={{
+            px:1,
+            mr:1,
+        }} 
+        variant={(data[accessor]) ? "contained":"text"} color="primary"
+        onClick={() => {
             setData(accessor, !data[accessor]);
             setTrue(!isTrue);
         }}>
             {label}
-        </button>
+        </Button>
     );
 }
 
 function SkillToggle ( {label, accessor, data, setData} ) {
-    return (<>
-        <td class="lead">{label}</td>
-        <td>
-            <ToggleButton accessor={accessor+"_willing"} label="Willing" setData={setData} data={data}/>
-            <ToggleButton accessor={accessor+"_experience"} label="Experience" setData={setData} data={data}/>    
-        </td>
-    </>);
+    return (
+        <Cell>
+            <Box sx={{display:'flex', justifyContent:'space-between'}}>
+               <Typography>{label}</Typography>
+               <Box>
+                    <ToggleButton accessor={accessor+"_willing"} label="Willing" setData={setData} data={data}/>
+                    <ToggleButton accessor={accessor+"_experience"} label="Experience" setData={setData} data={data}/>    
+                </Box>
+            </Box>
+             
+        </Cell>
+    );
 }
 
 function BooleanToggle ( {label, accessor, data, setData} ) {
-    return (<>
-        <td class="lead">{label}</td>
-        <td>
-            <ToggleButton accessor={accessor} label="✓" setData={setData} data={data}/>
-        </td>
-    </>);
+    return (
+        <Cell>
+            <Box sx={{display:'flex', justifyContent:'space-between'}}>
+                <Typography>{label}</Typography>
+                <ToggleButton accessor={accessor} label="✓" setData={setData} data={data}/>
+            </Box>
+        </Cell>
+    );
 }
 
-function TextField ( {label, accessor, data, setData} ) {
-    return (<>
-        <td class="lead">{label}</td>
-        <td>
-            <input class="form-control" defaultValue={data[accessor]} onChange={(e) => {
+function TextInputField ( {label, accessor, data, setData} ) {
+    return (
+        <Cell>
+            <TextField fullWidth size="small" variant="standard" 
+            value={data[accessor]} defaultValue="loading" label={label} 
+            onChange={(e) => {
                 setData(accessor, e.target.value);
             }}/>
-        </td>
-    </>);
+        </Cell>
+    );
 }
 
 
 function NumberField ( {label, accessor, data, setData} ) {
     return (<>
-        <td class="lead">{label}</td>
-        <td>
-            <input class="form-control" type="number" defaultValue={data[accessor]} onChange={(e) => {
+        <Cell>
+            <TextField type="number" size="small" variant="standard"
+            value={data[accessor]} defaultValue="0" label={label}
+            onChange={(e) => {
                 setData(accessor, e.target.value);
             }}/>
-        </td>
+        </Cell>
     </>);
 }
 
@@ -58,19 +88,28 @@ function OptionField ( {label, accessor, data, setData, options} ) {
     const [option, setOption] = useState(data[accessor])
 
     return (<>
-        <td class="lead">{label}</td>
-        <td>
-            <select class="form-select" value={data[accessor]} onChange={(e) => {
-                setData(accessor, e.target.value);
-                setOption(e.target.value);
-            }}>
-                {options.map((item) => {
-                    return <option key={item}>{item}</option>
-                })}
-            </select>
-        </td>
+        <Cell>
+            <FormControl fullWidth size='small'>
+                <InputLabel>{label}</InputLabel>
+                <Select
+                    value={data[accessor]}
+                    label={label}
+                    default=''
+                    onChange={(e) => {
+                        setData(accessor, e.target.value);
+                        setOption(e.target.value);
+                    }}
+                >
+                    {options.map((option) => {
+                    return <MenuItem key={option} value={option}>
+                        <ListItemText primary={option}/>
+                    </MenuItem>
+                    })}
+                </Select>
+            </FormControl>
+        </Cell>
         
     </>);
 }
 
-export { SkillToggle, BooleanToggle, TextField, NumberField, OptionField }
+export { SkillToggle, BooleanToggle, TextInputField, NumberField, OptionField, Head }
