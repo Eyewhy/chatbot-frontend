@@ -1,17 +1,18 @@
 import { useState } from "react"
 
-import { Button, Typography, TextField, TableCell, TableRow, TableHead, FormControl, InputLabel, Select, MenuItem, ListItemText, Box } from "@mui/material";
+import { Button, Typography, TextField, TableCell, TableRow, FormControl, InputLabel, Select, MenuItem, ListItemText, Box } from "@mui/material";
+import { HeaderGraphy } from "./mui";
 
-function Cell({children, colSpan}) {
-    return <TableCell sx={{border:'none'}} colSpan={colSpan}>
+function Cell( {children, colSpan} ) {
+    return <TableCell sx={{border:'none'}} colSpan={colSpan} width='50%'>
         {children}
     </TableCell>
 }
 
-function Head({children}) {
+function Head( {children} ) {
     return <TableRow>
         <Cell colSpan={2}>
-            <Typography variant="h6">{children}</Typography>
+            <HeaderGraphy>{children}</HeaderGraphy>
         </Cell>
     </TableRow>
 }

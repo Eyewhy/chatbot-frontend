@@ -93,7 +93,7 @@ function HelperBiodata () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        height:'1000px',
+        height:'90vh',
         width: '20%'
       }}>
         <Paper elevation={2} sx={{
