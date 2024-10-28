@@ -1,4 +1,4 @@
-import apiRequest, { fileRequest } from "./apirequest";
+import apiRequest, { fileRequest } from "../apirequest";
 import { toast } from "react-toastify";
 
 async function uploadHelper(file) {

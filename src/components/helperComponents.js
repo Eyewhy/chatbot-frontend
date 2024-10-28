@@ -72,6 +72,17 @@ function TextInputField ( {label, accessor, data, setData} ) {
     );
 }
 
+function LargeTextInputField ( {label, accessor, data, setData, colSpan} ) {
+    return (
+        <Cell colSpan={colSpan}>
+            <TextField fullWidth size="small" variant="standard" multiline rows={4}
+            value={data[accessor]} defaultValue="loading" label={label} 
+            onChange={(e) => {
+                setData(accessor, e.target.value);
+            }}/>
+        </Cell>
+    );
+}
 
 function NumberField ( {label, accessor, data, setData} ) {
     return (<>
@@ -113,4 +124,4 @@ function OptionField ( {label, accessor, data, setData, options} ) {
     </>);
 }
 
-export { SkillToggle, BooleanToggle, TextInputField, NumberField, OptionField, Head }
+export { SkillToggle, BooleanToggle, TextInputField, LargeTextInputField,  NumberField, OptionField, Head }

@@ -5,8 +5,8 @@ import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 import { Link, Button } from "@mui/material";
 
-import { helperRequest } from "../../api/get";
-import { uploadHelper, deleteHelper } from "../../api/others";
+import { helperRequest } from "../../api/admin/get";
+import { uploadHelper, deleteHelper } from "../../api/admin/others";
 
 function HelperPage () {
     const columns = useMemo(() => [

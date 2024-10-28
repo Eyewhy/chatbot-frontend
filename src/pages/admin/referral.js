@@ -5,8 +5,8 @@ import Table from "../../components/table";
 import { Header } from "../../components/mui";
 import { Link, Button, Box } from "@mui/material";
 
-import { referralRequest } from "../../api/get";
-import { deleteReferral } from "../../api/others";
+import { referralRequest } from "../../api/admin/get";
+import { deleteReferral } from "../../api/admin/others";
 
 function ReferralPage() {
     const columns = useMemo(() => [

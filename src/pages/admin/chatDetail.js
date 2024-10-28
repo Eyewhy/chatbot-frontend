@@ -7,8 +7,8 @@ import { MessageList } from 'react-chat-elements'
 import { Header } from "../../components/mui";
 import { Box, Typography, Button, Paper } from "@mui/material";
 
-import { chatRequest } from "../../api/get";
-import { deleteChatbotUser } from "../../api/others";
+import { chatRequest } from "../../api/admin/get";
+import { deleteChatbotUser } from "../../api/admin/others";
 import messagesToChat from "../../services/messagesToChat";
 
 function ChatDetail () {

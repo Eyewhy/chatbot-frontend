@@ -2,28 +2,27 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import Table from "../../../components/table";
+import Table from "../../components/table";
 import { toast } from "react-toastify";
 
 import { Typography, Button, Box } from "@mui/material";
-import { Header } from "../../../components/mui";
-import { FormInputText } from "../../../components/formComponents";
+import { Header } from "../../components/mui";
+import { FormInputText } from "../../components/formComponents";
 
-import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../../api/users";
+import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrganizationRequest } from "../../api/admin/organization";
 
 function OrganizationPage () {
     const [data, setData] = useState({'members':[]});
     const [state, setState] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        ( async () => {
-            await organizationDetailRequest().then((res) => {
-                if (res === 'error') navigate('/account');
-                console.log(res)
-                setData(res);
-            });
-        })();
+    useEffect(() => {( async () => {
+        await organizationDetailRequest().then((res) => {
+            if (res === 'error') navigate('/account');
+            console.log(res)
+            setData(res);
+        });
+    })();
     },[state]);
 
     // TABLE

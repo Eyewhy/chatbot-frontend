@@ -14,15 +14,15 @@ import PrivateRoute from './services/route';
 
 // Pages
 // login not required
-import LoginPage from './pages/admin/account/login'
-import ForgotPasswordPage from './pages/admin/account/forgotPassword';
-import ForgotPasswordConfirmPage from './pages/admin/account/forgotPasswordConfirm';
-import CreateAccountPage from './pages/admin/account/createAccount';
+import LoginPage from './pages/account/login'
+import ForgotPasswordPage from './pages/account/forgotPassword';
+import ForgotPasswordConfirmPage from './pages/account/forgotPasswordConfirm';
+import CreateAccountPage from './pages/account/createAccount';
 
 // login required
-import AccountPage from './pages/admin/account/account';
-import OrganizationPage from './pages/admin/account/organization';
-import JoinOrganizationPage from './pages/admin/account/joinOrganization';
+import AccountPage from './pages/account/account';
+import OrganizationPage from './pages/admin/organization';
+import JoinOrganizationPage from './pages/admin/joinOrganization';
 
 // search site
 import HelperSearch from './pages/helperSearch';

@@ -2,11 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { FormInputText } from "../../../components/formComponents";
+import { FormInputText } from "../../components/formComponents";
 import { Typography, Box, Button, Paper } from "@mui/material";
 
-import { addToOrganizationRequest } from "../../../api/users";
-import { useAuth } from "../../../services/authProvider";
+import { addToOrganizationRequest } from "../../api/admin/organization";
 
 function JoinOrganizationPage() {
     const {
@@ -14,7 +13,6 @@ function JoinOrganizationPage() {
         control,
     } = useForm();
 
-    const auth = useAuth();
     const navigate = useNavigate();
 
     async function onSubmit(data) {

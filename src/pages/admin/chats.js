@@ -5,8 +5,8 @@ import Table from "../../components/table";
 import { Header } from "../../components/mui"
 import { Link, Button } from "@mui/material";
 
-import { chatUserRequest } from "../../api/get";
-import { deleteChatbotUser } from "../../api/others";
+import { chatUserRequest } from "../../api/admin/get";
+import { deleteChatbotUser } from "../../api/admin/others";
 
 function ChatPage () {
     const columns = useMemo(() => [

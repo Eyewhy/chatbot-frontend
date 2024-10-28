@@ -2,31 +2,37 @@ import React , { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { FormInputText } from "../../../components/formComponents";
-import { Header } from "../../../components/mui";
+import { FormInputText } from "../../components/formComponents";
+import { Header } from "../../components/mui";
 import { Typography, Button, Box } from "@mui/material";
 
-import { userRequest, changePasswordRequest } from "../../../api/auth";
-import { useAuth } from "../../../services/authProvider";
+import { userRequest, changePasswordRequest, editUserRequest } from "../../api/auth";
+import { useAuth } from "../../services/authProvider";
 
 function AccountPage() {
+    const auth = useAuth();
+    const [data, setData] = useState({});
+
     const {
         handleSubmit,
         control,
+        setValue,
     } = useForm();
-
-    const auth = useAuth();
-    const [data, setData] = useState({});
 
     useEffect(() => {
         ( async () => {
             let data = await userRequest();
             console.log(data);
             setData(data);
+            setValue('username', data['username']);
+            setValue('email', data['email']);
         })();
     },[])
 
-    async function onSubmit(form) {
+    async function submitDetails(form) {
+        editUserRequest(form['username'], form['email']);
+    }
+    async function submitPassword(form) {
         if (form.pass1 !== form.pass2) {
             toast('Passwords do not match!')
             return;
@@ -37,6 +43,7 @@ function AccountPage() {
             }
         });
     }
+
 
     return (
         <Box sx={{
@@ -49,11 +56,17 @@ function AccountPage() {
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap:2,
+                    gap:5,
                 }}>
-                    <Box>     
-                        <Typography variant="h5">Email</Typography>
-                        <Typography>{data['email']}</Typography>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap:1
+                    }}>
+
+                        <FormInputText name="username" control={control} label="Username" defaultValue="username"/>
+                        <FormInputText name="email" control={control} label="Email" defaultValue="email"/>
+                        <Button type="submit" variant="contained" color="info" onClick={handleSubmit(submitDetails)}>Change Details</Button>
                     </Box>
                     <Box sx={{
                         display: 'flex',
@@ -62,9 +75,9 @@ function AccountPage() {
                     }}>
                         <Typography variant="h5">Change Password</Typography>
                         
-                        <FormInputText type="password" name="pass1" control={control} label="Password"/>
+                        <FormInputText type="password" name="pass1" control={control} label="New Password"/>
                         <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                        <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
+                        <Button type="submit" variant="contained" onClick={handleSubmit(submitPassword)}>Change Password</Button>
                         <Typography variant="caption">
                             Password must not be too similar to email or username.
                         </Typography>

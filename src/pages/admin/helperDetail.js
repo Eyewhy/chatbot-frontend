@@ -6,8 +6,8 @@ import { SkillToggle, BooleanToggle, TextInputField, NumberField, OptionField, H
 import { Button, Typography, Box, TableContainer, Table, TableBody, TableRow, Paper } from "@mui/material";
 import { FormUploadButton } from "../../components/formComponents";
 
-import { helperRequest } from "../../api/get";
-import { updateHelper, deleteHelper,uploadHelperImage } from "../../api/others";
+import { helperRequest } from "../../api/admin/get";
+import { updateHelper, deleteHelper,uploadHelperImage } from "../../api/admin/others";
 import { timeAgo } from "../../services/timeAgo";
 
 function HelperDetail () {
@@ -53,7 +53,7 @@ function HelperDetail () {
   const setNewData = (accessor, value) => {
     data[accessor] = value;
     console.log(data);
-    setData(data);
+    setData({...data});
   }
 
   const handleFileChange = (event) => {

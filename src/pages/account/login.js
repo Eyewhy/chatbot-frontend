@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { FormInputText } from "../../../components/formComponents";
+import { FormInputText } from "../../components/formComponents";
 import { Button, Paper, Typography, Link, Box } from "@mui/material";
 
-import { useAuth } from "../../../services/authProvider"
+import { useAuth } from "../../services/authProvider"
 
 function LoginPage() {
     const {

@@ -1,7 +1,7 @@
-import apiRequest from "./apirequest";
+import apiRequest from "../apirequest";
 import { toast } from "react-toastify";
 
-import formatTime from "../services/timeAgo";
+import formatTime from "../../services/timeAgo";
 
 /**
  * GET individual user's chat.

@@ -5,8 +5,8 @@ import { Link, Button } from "@mui/material";
 import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 
-import { qnaRequest, refreshQnaRequest } from "../../api/get";
-import { uploadQna, deleteQna } from "../../api/others";
+import { qnaRequest, refreshQnaRequest } from "../../api/admin/get";
+import { uploadQna, deleteQna } from "../../api/admin/others";
 
 function QnaPage () {
     const columns = useMemo(() => [

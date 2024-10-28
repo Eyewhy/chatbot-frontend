@@ -1,20 +1,21 @@
 import React , { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { FormInputText } from "../../../components/formComponents";
+import { FormInputText } from "../../components/formComponents";
 import { Button, Paper, Typography, Box } from "@mui/material";
 
-import { registerRequest } from "../../../api/auth";
-import { useAuth } from "../../../services/authProvider";
+import { resetConfirmRequest } from "../../api/auth";
+import { useAuth } from "../../services/authProvider";
 
-function CreateAccountPage() {
+function ForgotPasswordConfirmPage() {
     const {
         handleSubmit,
         control,
     } = useForm();
 
+    const { uid, token } = useParams();
     const auth = useAuth();
     const navigate = useNavigate();
 
@@ -27,11 +28,10 @@ function CreateAccountPage() {
             toast('Passwords do not match!')
             return;
         }
-        toast('Creating account...')
-        registerRequest(data.username, data.pass1, data.pass2, data.email).then((res) => {
-            if (res === 'error') {
-                toast('Account creation failed.');
-            } else { toast('Account creation successful. Please return to the login page.')}
+        resetConfirmRequest(uid, token, data.pass1, data.pass2).then((res) => {
+            if (res !== 'error') { 
+                toast('Password reset successful. Please return to the login page.')
+            }
         });
     }
 
@@ -49,13 +49,11 @@ function CreateAccountPage() {
                 p:2,
 
             }}>
-                <Typography variant="h5">Create Account</Typography>
+                <Typography variant="h4">Forgot Password</Typography>
                 
-                <FormInputText name="username" control={control} label="Username"/>
-                <FormInputText type="email" name="email" control={control} label="Email"/>
                 <FormInputText type="password" name="pass1" control={control} label="Password"/>
                 <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Create Account</Button>
+                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
                 <Button variant="outlined" href="#/">Back to Login</Button>
                 
                 <Typography variant="caption">
@@ -66,4 +64,4 @@ function CreateAccountPage() {
     )
 }
 
-export default CreateAccountPage
+export default ForgotPasswordConfirmPage
