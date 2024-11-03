@@ -13,7 +13,7 @@ function ReferralPage() {
         {
             Header: "User",
             accessor: "username",
-            Cell: (props) => (<Link href={`#/chats/${(props.row.original.chatbot_user)}`}>{props.value}</Link>)
+            Cell: (props) => (<Link href={`#/admin/chats/${(props.row.original.chatbot_user)}`}>{props.value}</Link>)
         },
         {
             Header: "Helper IDs",
@@ -21,7 +21,7 @@ function ReferralPage() {
             Cell: (props) => {
                 return props.value.map(id => (
                     <Box sx={{mr:1}} key={id}>
-                        <Link href={"#/helper/" + id}>{id}</Link>&ensp;
+                        <Link href={"#/admin/helper/" + id}>{id}</Link>&ensp;
                     </Box>
                 )
             )}
@@ -58,7 +58,7 @@ function ReferralPage() {
     useEffect(() => {
         ( async () => {
             let data = await referralRequest();
-            if (data === 'error') navigate('/join');
+            if (data === 'error') navigate('/admin/join');
             console.log(data);
             setData(data);
         })();

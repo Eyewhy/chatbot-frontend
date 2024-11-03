@@ -20,7 +20,7 @@ function ForgotPasswordConfirmPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (auth.checkLoggedIn()) navigate('/referral')
+        if (auth.checkLoggedIn()) navigate('/search')
     },[])
 
     async function onSubmit(data) {

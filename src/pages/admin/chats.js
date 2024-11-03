@@ -13,7 +13,7 @@ function ChatPage () {
         {
             Header: "Username",
             accessor: "username",
-            Cell: props => <Link href={`#/chats/${props.row.original.id}`}>{props.value}</Link>
+            Cell: props => <Link href={`#/admin/chats/${props.row.original.id}`}>{props.value}</Link>
         },
         {
             Header: "Last Message",

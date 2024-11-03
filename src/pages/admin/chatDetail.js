@@ -31,7 +31,7 @@ function ChatDetail () {
     
     const deleteButton = () => {
         deleteChatbotUser(id).then((res) => {
-            if (res !== 'error') navigate("/chats");
+            if (res !== 'error') navigate("/admin/chats");
         })
     }
 

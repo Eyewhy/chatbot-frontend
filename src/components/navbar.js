@@ -1,4 +1,5 @@
 import { useAuth } from "../services/authProvider";
+import { useEffect } from "react";
 
 import { AppBar, Toolbar, Typography, Button, Link, Box, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -14,22 +15,33 @@ function Navbar () {
   const auth = useAuth();
   const sites = [
     {
+      name: 'Search',
+      href: '#/search'
+    },
+    {
+      name: 'Agencies',
+      href: '#/organization/1'
+    }
+  ]
+  const adminSites = [
+    {
       name: 'Chats',
-      href: '#/chats',
-    },
-    {
+      href: '#/admin/chats',
+    },{
       name: 'Helper Info',
-      href: '#/helper',
-    },
-    {
+      href: '#/admin/helper',
+    },{
       name: 'Referrals',
-      href: '#/referral',
-    },
-    {
+      href: '#/admin/referral',
+    },{
       name: 'Q&A Documents',
-      href: '#/qna',
+      href: '#/admin/qna',
+    },{
+      name: 'Organization',
+      href: '#/admin/organization',
     },
   ];
+
 
   const NavBox = styled(Box)(({theme}) => ({
     paddingLeft: '15%',
@@ -61,7 +73,12 @@ function Navbar () {
                 textDecoration: 'none',
               }}>
               Helper Chatbot</Link>
-            {sites.map((site) => {
+            {useAuth().isAdmin() ?
+            adminSites.map((site) => {
+              return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+            })
+            :
+            sites.map((site) => {
               return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
             })}  
           </Box>

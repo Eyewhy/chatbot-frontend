@@ -1,12 +1,13 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { loginRequest, logoutRequest } from "../api/auth"
+import { loginRequest, logoutRequest, userRequest } from "../api/auth"
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(localStorage.getItem("user" || null));
     const [token, setToken] = useState(localStorage.getItem("site") || "");
+    const [userInfo, setUserInfo] = useState({});
     const navigate = useNavigate();
 
     /**
@@ -23,10 +24,11 @@ const AuthProvider = ({ children }) => {
             setToken(res);
             localStorage.setItem("site", res);
             localStorage.setItem("user", username);
-            navigate("/referral");
+            navigate("/search");
 
             return res;
         });
+        setUserInfo(await userRequest());
         return res;
     }
 
@@ -44,8 +46,10 @@ const AuthProvider = ({ children }) => {
         return (token === "") ? false : true;
     }
 
+    const isAdmin = () => { return userInfo['is_admin']; };
+
     return (
-        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn}}>
+        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, isAdmin }}>
             {children}
         </AuthContext.Provider>
     );
@@ -54,7 +58,7 @@ const AuthProvider = ({ children }) => {
 
 const getToken = () => { return localStorage.getItem("site")}
 /**
- * methods: .token, .user, .login(), .logout(), .checkLoggedIn()
+ * methods: .token, .user, .login(), .logout(), .checkLoggedIn(), .getUserInfo()
  */
 const useAuth = () => { return useContext(AuthContext); };
 

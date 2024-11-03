@@ -107,6 +107,7 @@ function OptionField ( {label, accessor, data, setData, options} ) {
                     value={data[accessor]}
                     label={label}
                     default=''
+                    variant="standard"
                     onChange={(e) => {
                         setData(accessor, e.target.value);
                         setOption(e.target.value);

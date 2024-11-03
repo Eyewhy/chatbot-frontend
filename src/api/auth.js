@@ -35,6 +35,10 @@ async function resetConfirmRequest(uid, token, new_ps1, new_ps2) {
     return apiRequest('auth/password/reset/confirm/', 'POST', body, false);
 }
 
+async function createConfirmRequest(keyy) {
+    return apiRequest(`auth/registration/account-confirm-email/${keyy}/`, 'POST', {key:keyy}, false, false);
+}
+
 async function changePasswordRequest(new_ps1, new_ps2) {
     const body = {
         'new_password1':new_ps1,
@@ -54,7 +58,7 @@ async function registerRequest(username, ps1, ps2, email) {
 }
 
 async function userRequest() {
-    return apiRequest('auth/user/', 'GET');
+    return apiRequest('user/', 'GET');
 }
 
 async function editUserRequest(username, email) {
@@ -65,4 +69,4 @@ async function editUserRequest(username, email) {
     });
 }
 
-export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, changePasswordRequest, registerRequest, userRequest, editUserRequest };
+export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, createConfirmRequest, changePasswordRequest, registerRequest, userRequest, editUserRequest };

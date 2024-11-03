@@ -19,7 +19,7 @@ function CreateAccountPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (auth.checkLoggedIn()) navigate('/referral')
+        if (auth.checkLoggedIn()) navigate('/search')
     },[])
 
     async function onSubmit(data) {
@@ -31,7 +31,7 @@ function CreateAccountPage() {
         registerRequest(data.username, data.pass1, data.pass2, data.email).then((res) => {
             if (res === 'error') {
                 toast('Account creation failed.');
-            } else { toast('Account creation successful. Please return to the login page.')}
+            } else { toast('Account creation successful. Please wait for email verification before logging in.')}
         });
     }
 

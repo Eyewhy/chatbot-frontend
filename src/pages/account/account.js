@@ -87,7 +87,12 @@ function AccountPage() {
                         flexDirection:'column',
                         gap:1
                     }}>
-                        <Button type="submit" color="info" variant="outlined" href="#/organization">Manage Organization (Admin only)</Button>
+                        {useAuth().isAdmin() ? 
+                            <Button type="submit" color="info" variant="outlined" href="#/admin/organization">Manage Organization (Admin only)</Button>
+                        :
+                            <Button type="submit" color="info" variant="outlined" href="#/admin/join">Join Organization (Admin only)</Button>
+
+                        }
                         <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>    
                     </Box>    
                 </Box>    

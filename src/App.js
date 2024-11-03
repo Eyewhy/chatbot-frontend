@@ -18,6 +18,7 @@ import LoginPage from './pages/account/login'
 import ForgotPasswordPage from './pages/account/forgotPassword';
 import ForgotPasswordConfirmPage from './pages/account/forgotPasswordConfirm';
 import CreateAccountPage from './pages/account/createAccount';
+import ConfirmAccountPage from './pages/account/confirmAccount';
 
 // login required
 import AccountPage from './pages/account/account';
@@ -69,6 +70,7 @@ function App() {
                 <Route path="/reset" element={<ForgotPasswordPage />} />
                 <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
                 <Route path="/create" element={<CreateAccountPage />}/>
+                <Route path="/create/confirm/:keyy" element={<ConfirmAccountPage />}/>
 
                 <Route path="/search" element={<HelperSearch/>} />
                 <Route path="/biodata/:id" element={<HelperBiodata />}/>
@@ -76,14 +78,14 @@ function App() {
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
-                  <Route path="/organization" element={<OrganizationPage/>} />
-                  <Route path="/join" element={<JoinOrganizationPage/>} />
-                  <Route path="/chats" element={<ChatPage/>} />
-                  <Route path="/chats/:id" element={<ChatDetail/>} />
-                  <Route path="/helper" element={<HelperPage/>} />
-                  <Route path="/helper/:id" element={<HelperDetail/>} />
-                  <Route path="/qna" element={<QnaPage/>} />
-                  <Route path="/referral" element={<ReferralPage/>} />
+                  <Route path="/admin/organization" element={<OrganizationPage/>} />
+                  <Route path="/admin/join" element={<JoinOrganizationPage/>} />
+                  <Route path="/admin/chats" element={<ChatPage/>} />
+                  <Route path="/admin/chats/:id" element={<ChatDetail/>} />
+                  <Route path="/admin/helper" element={<HelperPage/>} />
+                  <Route path="/admin/helper/:id" element={<HelperDetail/>} />
+                  <Route path="/admin/qna" element={<QnaPage/>} />
+                  <Route path="/admin/referral" element={<ReferralPage/>} />
                 </Route>  
               </Routes>  
             </MainBox>  

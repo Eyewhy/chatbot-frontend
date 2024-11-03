@@ -47,7 +47,7 @@ function HelperDetail () {
   }); }
 
   const deleteButton = () => { deleteHelper(id).then((res) => {
-    if (res !== 'error') navigate ('/helper');
+    if (res !== 'error') navigate ('/admin/helper');
   }); };
 
   const setNewData = (accessor, value) => {

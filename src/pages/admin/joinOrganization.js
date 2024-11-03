@@ -17,7 +17,7 @@ function JoinOrganizationPage() {
 
     async function onSubmit(data) {
         addToOrganizationRequest(data.name, data.pass).then((res) => {
-            if (res !== 'error') navigate('/referral')
+            if (res !== 'error') navigate('/admin/referral')
         });
     }
 
