@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Grid2, IconButton } from "@mui/material"
 import { FormInputSelect, FormInputSlider } from "../components/formComponents"
@@ -18,10 +19,14 @@ function HelperSearch() {
     const [agencies, setAgencies] = useState({});
 
     const auth = useAuth();
+    const navigate = useNavigate();
 
     async function getData(params) {
         params = cleanHelperSearch(params, agencies);
-        let data = await searchForHelper(auth.checkLoggedIn(), params);
+        let data = await searchForHelper(auth.checkLoggedIn(), params).then((res)=>{
+            if (res === 'error') return navigate("/account");
+            return res;
+        });
         setResults(data);
     }
 

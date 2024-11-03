@@ -20,7 +20,7 @@ function Navbar () {
     },
     {
       name: 'Agencies',
-      href: '#/organization/1'
+      href: '#/organization'
     }
   ]
   const adminSites = [

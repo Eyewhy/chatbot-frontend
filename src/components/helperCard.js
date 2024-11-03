@@ -16,7 +16,7 @@ function HelperCard({ data }) {
                 {data['image'] ? 
                     <Paper component='img' elevation={2} sx={{height:'300px', width:'200px'}} src={data['image']} />   
                 :
-                    <Paper elevation={2} sx={{height:'300px', width:'200px', p:1}}>
+                    <Paper elevation={2} sx={{height:'300px', width:'200px', p:1, textAlign:"center", alignContent:"center"}}>
                         Please Sign In to View Image
                     </Paper>   
                 }

@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(localStorage.getItem("user" || null));
     const [token, setToken] = useState(localStorage.getItem("site") || "");
-    const [userInfo, setUserInfo] = useState({});
+    const [userInfo, setUserInfo] = useState({is_admin: false});
     const navigate = useNavigate();
 
     /**
