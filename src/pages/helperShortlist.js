@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import { useShortlist } from "../services/shortlistProvider";
 
 import { Box, Grid2 } from "@mui/material"

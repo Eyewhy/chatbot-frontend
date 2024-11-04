@@ -5,7 +5,7 @@ import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
 import { Header } from "../../components/mui";
-import { Box, Typography, Button, Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 
 import { chatRequest } from "../../api/admin/get";
 import { deleteChatbotUser } from "../../api/admin/others";

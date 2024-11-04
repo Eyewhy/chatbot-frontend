@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logout = async () => {
-        const res = await logoutRequest().then((res) => {
+        await logoutRequest().then(() => {
             setUser(null);
             setToken("");
             localStorage.removeItem("site");

@@ -15,7 +15,7 @@ const ShortlistProvider = ({ children }) => {
 
     function inShortlist(item) {
         for (let i=0;i<shortlist.length;i++) {
-            if (shortlist[i]['id'] == item['id']) return i;
+            if (shortlist[i]['id'] === item['id']) return i;
         }
         return -1;
     }
