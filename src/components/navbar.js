@@ -41,8 +41,7 @@ function Navbar () {
     },{
       name: 'Search',
       href: '#/search'
-    },
-    {
+    },{
       name: 'Agencies',
       href: '#/organization'
     }

@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 // Auth
 import AuthProvider from './services/authProvider'
-import PrivateRoute from './services/route';
+import { PrivateRoute, AdminRoute } from './services/route';
 
 import ShortlistProvider from './services/shortlistProvider';
 
@@ -34,6 +34,7 @@ import AgencySearch from './pages/agencySearch';
 import AgencyData from './pages/agency';
 
 // admin
+import AdminPage from './pages/admin/admin';
 import ChatPage from './pages/admin/chats';
 import ChatDetail from './pages/admin/chatDetail';
 import HelperPage from './pages/admin/helper';
@@ -84,14 +85,17 @@ function App() {
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
-                  <Route path="/admin/organization" element={<OrganizationPage/>} />
                   <Route path="/admin/join" element={<JoinOrganizationPage/>} />
-                  <Route path="/admin/chats" element={<ChatPage/>} />
-                  <Route path="/admin/chats/:id" element={<ChatDetail/>} />
-                  <Route path="/admin/helper" element={<HelperPage/>} />
-                  <Route path="/admin/helper/:id" element={<HelperDetail/>} />
-                  <Route path="/admin/qna" element={<QnaPage/>} />
-                  <Route path="/admin/referral" element={<ReferralPage/>} />
+                  <Route element={<AdminRoute />}>
+                    <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/admin/organization" element={<OrganizationPage/>} />
+                    <Route path="/admin/chats" element={<ChatPage/>} />
+                    <Route path="/admin/chats/:id" element={<ChatDetail/>} />
+                    <Route path="/admin/helper" element={<HelperPage/>} />
+                    <Route path="/admin/helper/:id" element={<HelperDetail/>} />
+                    <Route path="/admin/qna" element={<QnaPage/>} />
+                    <Route path="/admin/referral" element={<ReferralPage/>} />
+                  </Route>
                 </Route>  
               </Routes>  
           </MainBox></Box>

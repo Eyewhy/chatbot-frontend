@@ -9,4 +9,9 @@ const PrivateRoute = () => {
   return <Outlet />;
 };
 
-export default PrivateRoute;
+const AdminRoute = () => {
+  const user = useAuth();
+  if (!user.isAdmin()) return <Navigate to="/admin/join" />;
+  return <Outlet />;
+};
+export { PrivateRoute, AdminRoute } ;

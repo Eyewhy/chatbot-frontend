@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ReactTable from "../../components/table";
 
@@ -40,9 +41,16 @@ function OrganizationPage () {
   const [data, setData] = useState({});
   const [otherData, setOtherData] = useState({members:[]});
   const [state, setState] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {( async () => {
-    let data = await organizationDetailRequest();
+    let data = await organizationDetailRequest().then((res) => {
+      if (res === 'error') {
+        navigate('/admin');
+        return {};
+      }
+      return res;
+    });
     setOtherData(splitData(data));
     setData(data);
   })();
