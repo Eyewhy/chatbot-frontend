@@ -5,7 +5,7 @@ import { loginRequest, logoutRequest, userRequest } from "../api/auth"
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(localStorage.getItem("user" || null));
+    const [user, setUser] = useState(localStorage.getItem("user") || null);
     const [token, setToken] = useState(localStorage.getItem("site") || "");
     const [userInfo, setUserInfo] = useState({is_admin: false});
     const navigate = useNavigate();

@@ -40,7 +40,7 @@ function ChatDetail () {
             <Header text={data.username + "'s chat"} render={
                 <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
             }/>
-            <Paper elevation='2'>
+            <Paper elevation={2}>
                 <MessageList
                     referance={messageListReferance}
                     className='message-list'

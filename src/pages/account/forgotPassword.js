@@ -38,7 +38,7 @@ function ForgotPasswordPage() {
             justifyContent: 'center',
             minHeight: '80vh',
         }}>
-            <Paper elevation="1" sx={{
+            <Paper elevation={2} sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap:1,

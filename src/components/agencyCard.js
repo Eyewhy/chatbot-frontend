@@ -1,9 +1,20 @@
 import { Paper, Typography, Link, Box } from "@mui/material";
+import { styled } from '@mui/material/styles'
 
 function AgencyCard({ data }) {
+    const ImgPaper = styled(Paper)(({theme}) => ({
+        height: '200px',
+        width:'200px',
+        textAlign: 'center',
+        alignContent: 'center',
+        [theme.breakpoints.down('lg')]: {
+            height: '100px',
+            width: '100px',
+        },
+    }))
+
     return (
         <Paper elevation={2} sx={{
-            minHeight:'400px',
             p:2,
             display:'flex',
             flexDirection:'column',
@@ -13,11 +24,11 @@ function AgencyCard({ data }) {
 
             <Link href={`#/organization/${data['id']}`}>
                 {data['image'] ? 
-                    <Paper component='img' elevation={2} sx={{height:'200px', width:'200px'}} src={data['image']} />   
+                    <ImgPaper component='img' elevation={2} src={data['image']} />   
                 :
-                    <Paper elevation={2} sx={{height:'200px', width:'200px', p:1, textAlign:"center", alignContent:"center"}}>
+                    <ImgPaper elevation={2}>
                         Image Unavailable
-                    </Paper>   
+                    </ImgPaper>   
                 }
                 
             </Link>

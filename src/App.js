@@ -1,5 +1,4 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,6 +10,8 @@ import '@fontsource/roboto/700.css';
 // Auth
 import AuthProvider from './services/authProvider'
 import PrivateRoute from './services/route';
+
+import ShortlistProvider from './services/shortlistProvider';
 
 // Pages
 // login not required
@@ -28,6 +29,7 @@ import JoinOrganizationPage from './pages/admin/joinOrganization';
 // search site
 import HelperSearch from './pages/helperSearch';
 import HelperBiodata from './pages/helperBiodata';
+import HelperShortlist from './pages/helperShortlist';
 import AgencySearch from './pages/agencySearch';
 import AgencyData from './pages/agency';
 
@@ -52,19 +54,20 @@ function App() {
   const MainBox = styled(Box)(({theme}) => ({
     paddingLeft: '15%',
     paddingRight: '15%',
-    width:'100%',
+    width:'70%',
     [theme.breakpoints.down('lg')]: {
       paddingLeft:'1%',
       paddingRight:'1%',
+      width:'100%'
     },
   }))
 
   return (
-    <div class="" data-bs-theme="light">
+    <div>
       <Router>
-        <AuthProvider>
+        <AuthProvider><ShortlistProvider>
           <Navbar/>
-          <main>
+          <Box component="main" sx={{width:'100vw'}}>
             <MainBox>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
@@ -77,6 +80,7 @@ function App() {
                 <Route path="/biodata/:id" element={<HelperBiodata />}/>
                 <Route path="/organization" element={<AgencySearch />}/>
                 <Route path="/organization/:id" element={<AgencyData />}/>
+                <Route path="/shortlist" element={<HelperShortlist />}/>
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
@@ -90,9 +94,8 @@ function App() {
                   <Route path="/admin/referral" element={<ReferralPage/>} />
                 </Route>  
               </Routes>  
-            </MainBox>  
-          </main>
-        </AuthProvider>
+          </MainBox></Box>
+        </ShortlistProvider></AuthProvider>
       </Router>
       <ToastContainer theme="light"/>
     </div>

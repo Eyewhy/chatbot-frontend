@@ -1,9 +1,9 @@
 import { useAuth } from "../services/authProvider";
-import { useEffect } from "react";
 
 import { AppBar, Toolbar, Typography, Button, Link, Box, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import AccountCircle from "@mui/icons-material/AccountCircle"
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 /**
  * 
@@ -17,8 +17,7 @@ function Navbar () {
     {
       name: 'Search',
       href: '#/search'
-    },
-    {
+    },{
       name: 'Agencies',
       href: '#/organization'
     }
@@ -39,7 +38,14 @@ function Navbar () {
     },{
       name: 'Organization',
       href: '#/admin/organization',
+    },{
+      name: 'Search',
+      href: '#/search'
     },
+    {
+      name: 'Agencies',
+      href: '#/organization'
+    }
   ];
 
 
@@ -84,11 +90,16 @@ function Navbar () {
           </Box>
           <Box>
           {(auth.user === null) ? 
-            <Typography variant="button"> Please Login </Typography>
+            <Button sx={{px:1, color:'inherit'}} href="#"> Please Login </Button>
           :
-            <IconButton size="large" href="#/account">
-              <AccountCircle />
-            </IconButton>
+            <>
+              <Button sx={{px:1, color:'inherit'}}size="large" href="#/shortlist" aria-label="Shortlist" endIcon={<ShoppingBagIcon/>}>
+                Shortlist
+              </Button>
+              <IconButton sx={{color:'inherit'}} size="large" href="#/account">
+                <AccountCircle />
+              </IconButton>
+            </>
           }
           </Box>  
         </NavBox>

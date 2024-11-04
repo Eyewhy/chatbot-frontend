@@ -7,7 +7,7 @@ function InfoTable ({rows, data, width}) {
         <Table size="small">
             <TableBody>
             {rows.map((item) => {
-                return <TableRow>
+                return <TableRow key={item[0]}>
                     <TableCell width={width}>{item[0]}</TableCell>
                     <TableCell width={width}>{data[item[1]]}</TableCell>
                 </TableRow>
@@ -47,7 +47,7 @@ function MedicalTable ({ data}) {
                     <TableCell colSpan={2}>{data['medical_history_physical_disabilities'] ? data['medical_history_physical_disabilities'] : 'NIL'}</TableCell>
                 </TableRow>
             {medicalTable.map((item) => {
-                return <TableRow>
+                return <TableRow key={item[0]}>
                     <TableCell>{item[0]}</TableCell>
                     <TableCell align='right'>{data[item[1]] ? 
                         <CheckIcon color="success" /> 
@@ -87,7 +87,7 @@ function SkillTable ({data}) {
             </TableHead>
             <TableBody>
             {genericSkills.map((skill) => {
-                return <TableRow>
+                return <TableRow key={skill[0]}>
                     <TableCell>{skill[0]}</TableCell>
                     <TableCell>{data[`skills_${skill[1]}_willing`] ? 
                         <CheckIcon color="success" /> 
@@ -124,7 +124,7 @@ function AgencyTable ({data}) {
         <Table size="small">
             <TableBody>
             {tableRows.map((item) => {
-                return <TableRow>
+                return <TableRow key={item[0]}>
                     <TableCell>{item[0]}</TableCell>
                     <TableCell sx={{whiteSpace: 'pre-wrap'}}>{data[item[1]]}</TableCell>
                 </TableRow>

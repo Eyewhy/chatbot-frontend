@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Box, Grid2, IconButton } from "@mui/material"
+import { Box, Grid2 } from "@mui/material"
 import { FormInputSelect, FormInputSlider } from "../components/formComponents"
 import { Header } from "../components/mui";
 import HelperCard from "../components/helperCard"
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 import { searchForHelper } from "../api/helperSearch";
 import { publicOrganizationRequest } from "../api/public";
@@ -60,7 +59,6 @@ function HelperSearch() {
             flexDirection:'column',
             gap:2
         }}>
-            
             <Box sx={{
                 display:'flex',
                 alignItems: 'center',
@@ -68,7 +66,8 @@ function HelperSearch() {
                 position: 'sticky',
                 top: 0,
                 background: 'white',
-                p:1
+                p:1,
+                zIndex:10
             }}>
                 <FormInputSelect name="type" setOptions={setSearchParam} label="Type" options={[
                     'New', 'Transfer', 'Advance Placement', 'Ex-Singapore'
@@ -90,14 +89,11 @@ function HelperSearch() {
                 <FormInputSelect name="agency" setOptions={setSearchParam} label="Agency" options={Object.keys(agencies)}/>
                 <FormInputSlider name="salary" setOptions={setSearchParam}label="Max Salary" range={salaryRange} step={50} valueText={salaryText}/>
                 <FormInputSlider name="recency" setOptions={setSearchParam}label="Recency" range={recencyRange} step={1} valueText={recencyText}/>
-                <IconButton color="info" aria-label="Shortlist" size="large">
-                    <ShoppingBagIcon fontSize="large"/>
-                </IconButton>
             </Box>
             
-            <Grid2 container spacing={2}>
+            <Grid2 container spacing={2} sx={{px:1}}>
                 {results.map((helper) => {
-                    return (<Grid2 key={helper['id']} size={{lg:3, md:4, sm:4, xs:5}}>
+                    return (<Grid2 key={helper['id']} size={{lg:3, md:4, sm:4, xs:6}}>
                         <HelperCard key={helper['id']} data={helper}/>
                     </Grid2>)
                 })}

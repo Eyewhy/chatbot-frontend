@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Paper, Box, Typography, Button, Link } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -11,7 +12,7 @@ import { HeaderGraphy } from "../components/mui";
 import { publicHelperRequest, publicOrganizationRequest } from "../api/public";
 import { useAuth } from "../services/authProvider";
 import { timeAgo } from "../services/timeAgo";
-
+import { useShortlist } from "../services/shortlistProvider";
 
 function HelperBiodata () {
   const personalInfoTable = [
@@ -71,6 +72,7 @@ function HelperBiodata () {
   const { id } = useParams();
 
   const auth = useAuth();
+  const shortlist = useShortlist();
 
   useEffect(() => {( async () => {
     let res = await publicHelperRequest(auth.checkLoggedIn(), id);
@@ -79,6 +81,10 @@ function HelperBiodata () {
     let res2 = await publicOrganizationRequest(res['organization']);
     setAgency(res2);
   })();}, []);
+
+  function addToShortlist() {
+      shortlist.addToShortlist(data) ? toast("Added to shortlist.") : toast("Already in Shortlist!");
+  }
 
   return (<>
     <Box sx={{
@@ -94,7 +100,7 @@ function HelperBiodata () {
         flexDirection: 'column',
         gap:2,
         height:'90vh',
-        width: '20%'
+        minWidth: '20%'
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -106,7 +112,7 @@ function HelperBiodata () {
           <HeaderGraphy>{data['personal_info_name']}</HeaderGraphy>
           <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
           <InfoTable rows={mainInfoTable} data={data}/>
-          <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />}>Add to Shortlist</Button>
+          <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />} onClick={addToShortlist}>Add to Shortlist</Button>
         </Paper>
         <Link href={`#/organization/${data['organization']}`} underline="none">
         <Paper elevation={2} sx={{
@@ -136,7 +142,7 @@ function HelperBiodata () {
         display:'flex',
         flexDirection:'column',
         gap:2,
-        maxWidth:'50%'
+        width:'50%'
       }}>
         <Paper elevation={2}>
           <Box sx={{

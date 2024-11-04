@@ -1,7 +1,9 @@
 import React from "react";
 import { useTable } from "react-table";
 
-export default function Table({ columns, data }) {
+import { TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
+
+export default function ReactTable({ columns, data }) {
   // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps, // table props from react-table
@@ -19,28 +21,30 @@ export default function Table({ columns, data }) {
     - react-table doesn't have UI, it's headless. We just need to put the react-table props from the Hooks, and it will do its magic automatically
   */
   return (
-    <table class="table" {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <TableContainer>
+      <Table {...getTableProps()} size='small'>
+        <TableHead>
+          {headerGroups.map(headerGroup => (
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <TableCell {...column.getHeaderProps()}>{column.render("Header")}</TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableHead>
+        <TableBody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <TableRow {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return <TableCell {...cell.getCellProps()} fontSize='large'>{cell.render("Cell")}</TableCell>;
+                })}
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

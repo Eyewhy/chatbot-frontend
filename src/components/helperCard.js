@@ -1,10 +1,36 @@
 import { Paper, Typography, Link, Box, IconButton } from "@mui/material";
+import { styled } from '@mui/material/styles'
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove'
+
+import { toast } from "react-toastify";
+
+import { useShortlist } from "../services/shortlistProvider";
 
 function HelperCard({ data }) {
+    const shortlist = useShortlist();
+    const ImgPaper = styled(Paper)(({theme}) => ({
+        height: '300px',
+        width:'200px',
+        textAlign: 'center',
+        alignContent: 'center',
+        [theme.breakpoints.down('lg')]: {
+            height: '150px',
+            width: '100px',
+        },
+    }))
+
+    function addToShortlist() {
+        shortlist.addToShortlist(data) ? toast("Added to shortlist.") : toast("Already in Shortlist!");
+    }
+
+    function removeFromShortlist() {
+        shortlist.removeFromShortlist(data); 
+        toast("Removed from Shortlist.");
+    }
+
     return (
         <Paper elevation={2} sx={{
-            minHeight:'400px',
             p:2,
             display:'flex',
             flexDirection:'column',
@@ -14,11 +40,11 @@ function HelperCard({ data }) {
 
             <Link href={`#/biodata/${data['id']}`}>
                 {data['image'] ? 
-                    <Paper component='img' elevation={2} sx={{height:'300px', width:'200px'}} src={data['image']} />   
+                    <ImgPaper component='img' elevation={2} src={data['image']} />   
                 :
-                    <Paper elevation={2} sx={{height:'300px', width:'200px', p:1, textAlign:"center", alignContent:"center"}}>
+                    <ImgPaper elevation={2}>
                         Please Sign In to View Image
-                    </Paper>   
+                    </ImgPaper>   
                 }
                 
             </Link>
@@ -34,9 +60,16 @@ function HelperCard({ data }) {
                     <Typography noWrap>{data['personal_info_nationality']} maid</Typography>
                     <Typography noWrap>Type: {data['personal_info_type']}</Typography>
                 </Box>
-                <IconButton sx={{height:'40px'}} size="medium" aria-label="Add to Shortlist" color="primary">
-                    <AddIcon fontSize="medium"/>
-                </IconButton>
+                {(useShortlist().inShortlist(data) === -1) ?
+                    <IconButton size="medium" aria-label="Add to Shortlist" color="primary" onClick={addToShortlist}>
+                        <AddIcon fontSize="medium"/>
+                    </IconButton>
+                :
+                    <IconButton size="medium" aria-label="Remove from Shortlist" color="primary" onClick={removeFromShortlist}>
+                        <RemoveIcon fontSize="medium"/>
+                    </IconButton>
+                }
+                
             </Box>
         </Paper>
     )
