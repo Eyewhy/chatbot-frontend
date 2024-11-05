@@ -57,9 +57,9 @@ function App() {
     paddingRight: '15%',
     width:'70%',
     [theme.breakpoints.down('lg')]: {
-      paddingLeft:'5%',
-      paddingRight:'5%',
-      width:'90%'
+      paddingLeft:'2%',
+      paddingRight:'2%',
+      width:'96%'
     },
   }))
 

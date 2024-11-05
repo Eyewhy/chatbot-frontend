@@ -30,7 +30,6 @@ function AgencyCard({ data }) {
                         Image Unavailable
                     </ImgPaper>   
                 }
-                
             </Link>
             
             <Box sx={{
