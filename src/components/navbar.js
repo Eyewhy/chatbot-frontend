@@ -1,9 +1,12 @@
+import { useState } from "react";
+
 import { useAuth } from "../services/authProvider";
 
-import { AppBar, Toolbar, Typography, Button, Link, Box, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Button, Link, Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import MenuIcon from "@mui/icons-material/Menu";
 
 /**
  * 
@@ -47,6 +50,14 @@ function Navbar () {
     }
   ];
 
+  const [anchorElNav, setAnchorElNav] = useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const NavBox = styled(Box)(({theme}) => ({
     paddingLeft: '15%',
@@ -68,6 +79,41 @@ function Navbar () {
             display:'flex',
             alignItems: 'center',
           }}>
+            <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+              <IconButton
+                size="large"
+                aria-label="Menu Appbar"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                keepMounted
+                transformOrigin={{vertical: 'top', horizontal: 'left'}}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs:'flex', md:'none'}}}
+              >
+                {useAuth().isAdmin() ?
+                  adminSites.map((site) => {
+                    return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
+                      <Button href={site['href']}>{site['name']}</Button>
+                    </MenuItem>
+                  })
+                :
+                  sites.map((site) => {
+                    return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
+                      <Button href={site['href']}>{site['name']}</Button>
+                    </MenuItem>
+                  })}
+              </Menu>
+            </Box>
             <Link
               variant="h6"
               href="#/search"
@@ -78,31 +124,26 @@ function Navbar () {
                 textDecoration: 'none',
               }}>
               Helper Chatbot</Link>
-            {useAuth().isAdmin() ?
-            adminSites.map((site) => {
-              return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
-            })
-            :
-            sites.map((site) => {
-              return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
-            })}  
+            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+              {useAuth().isAdmin() ?
+              adminSites.map((site) => {
+                return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+              })
+              :
+              sites.map((site) => {
+                return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+              })}   
+            </Box>
           </Box>
           <Box>
-          {(auth.user === null) ? 
-            <Button sx={{px:1, color:'inherit'}} href="#"> Please Login </Button>
-          :
-            <>
-              <Button sx={{px:1, color:'inherit'}}size="large" href="#/shortlist" aria-label="Shortlist" endIcon={<ShoppingBagIcon/>}>
-                Shortlist
-              </Button>
-              <IconButton sx={{color:'inherit'}} size="large" href="#/account">
-                <AccountCircle />
-              </IconButton>
-            </>
-          }
+            <IconButton sx={{color:'inherit'}} size="large" href="#/shortlist">
+              <ShoppingBagIcon />
+            </IconButton>
+            <IconButton sx={{color:'inherit'}} size="large" href="#/account">
+              <AccountCircle />
+            </IconButton>
           </Box>  
         </NavBox>
-        
       </Toolbar>
     </AppBar>
   );

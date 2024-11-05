@@ -25,19 +25,20 @@ function AgencyData () {
 
   return (<>
     <Box sx={{
+      flexDirection: {xs:'column', md:'row'},
       display:'flex',
       justifyContent: 'center',
       mt:2,
       gap: 2
     }}>
       <Box sx={{
-        position: 'sticky',
+        position: {md: 'sticky'},
+        height: {md:'90vh'},
         top:0,
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        height:'1000px',
-        width:'20%'
+        minWidth:'20%'
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -59,7 +60,7 @@ function AgencyData () {
         display:'flex',
         flexDirection:'column',
         gap:2,
-        width: '50%'
+        width: {md:'50%'}
       }}>
         <Paper elevation={2}>
           <Box sx={{
@@ -72,6 +73,7 @@ function AgencyData () {
             <Typography variant="h5">{helpers.length} total Helpers available</Typography>
             <Box sx={{
               display: 'flex',
+              flexDirection: {xs:'column', md:'row'},
               gap: 2,
             }}>
               <Box>

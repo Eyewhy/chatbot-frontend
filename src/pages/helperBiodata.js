@@ -89,17 +89,18 @@ function HelperBiodata () {
   return (<>
     <Box sx={{
       display:'flex',
+      flexDirection: {xs:'column', md:'row'},
       justifyContent: 'center',
       mt:2,
       gap: 2
     }}>
       <Box sx={{
-        position: 'sticky',
+        position: {md:'sticky'},
+        height: {md:'90vh'},
         top:0,
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        height:'90vh',
         minWidth: '20%'
       }}>
         <Paper elevation={2} sx={{
@@ -142,7 +143,7 @@ function HelperBiodata () {
         display:'flex',
         flexDirection:'column',
         gap:2,
-        width:'50%'
+        width: {md:'50%'},
       }}>
         <Paper elevation={2}>
           <Box sx={{

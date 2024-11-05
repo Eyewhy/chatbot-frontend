@@ -56,9 +56,9 @@ function HelperCard({ data }) {
                 width: 1
             }}> 
                 <Box>
-                    <Typography noWrap>{data['personal_info_name']}</Typography>
-                    <Typography noWrap>{data['personal_info_nationality']} maid</Typography>
-                    <Typography noWrap>Type: {data['personal_info_type']}</Typography>
+                    <Typography>{data['personal_info_name']}</Typography>
+                    <Typography>{data['personal_info_nationality']} maid</Typography>
+                    <Typography>Type: {data['personal_info_type']}</Typography>
                 </Box>
                 {(useShortlist().inShortlist(data) === -1) ?
                     <IconButton size="medium" aria-label="Add to Shortlist" color="primary" onClick={addToShortlist}>

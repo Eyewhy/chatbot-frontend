@@ -40,7 +40,7 @@ function AgencyCard({ data }) {
                 width: 1
             }}> 
                 <Box>
-                    <Typography noWrap>{data['name']}</Typography>
+                    <Typography>{data['name']}</Typography>
                 </Box>
             </Box>
         </Paper>

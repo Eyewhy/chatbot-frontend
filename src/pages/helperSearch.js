@@ -66,7 +66,7 @@ function HelperSearch() {
                 position: 'sticky',
                 top: 0,
                 background: 'white',
-                p:1,
+                px:1,
                 zIndex:10
             }}>
                 <FormInputSelect name="type" setOptions={setSearchParam} label="Type" options={[

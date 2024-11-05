@@ -1,6 +1,6 @@
 import { useShortlist } from "../services/shortlistProvider";
 
-import { Box, Grid2 } from "@mui/material"
+import { Box, Grid2, Link } from "@mui/material"
 import { Header } from "../components/mui";
 import HelperCard from "../components/helperCard"
 
@@ -20,7 +20,9 @@ function HelperShortlist() {
                     </Grid2>)
                 })}
             </Grid2>
+            <Link href="#/search" textAlign="center" variant="h6">Add more Helpers</Link>
         </Box>
+        
     </>)
 }
 

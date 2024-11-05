@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(localStorage.getItem("user") || null);
     const [token, setToken] = useState(localStorage.getItem("site") || "");
-    const [userInfo, setUserInfo] = useState({is_admin: false});
+    const [_isAdmin, setIsAdmin] = useState(localStorage.getItem("admin") || false);
     const navigate = useNavigate();
 
     /**
@@ -28,7 +28,9 @@ const AuthProvider = ({ children }) => {
 
             return res;
         });
-        setUserInfo(await userRequest());
+        const admin = await userRequest().then((res) => res['is_admin'])
+        setIsAdmin(admin);
+        localStorage.setItem("admin", admin);
         return res;
     }
 
@@ -46,7 +48,7 @@ const AuthProvider = ({ children }) => {
         return (token === "") ? false : true;
     }
 
-    const isAdmin = () => { return userInfo['is_admin']; };
+    const isAdmin = () => { return _isAdmin; };
 
     return (
         <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, isAdmin }}>
