@@ -101,7 +101,7 @@ function HelperBiodata () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        width: {md:'25%'}
+        width: {md:'250px'}
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -121,7 +121,7 @@ function HelperBiodata () {
         display:'flex',
         flexDirection:'column',
         gap:2,
-        width: {md:'50%'},
+        width: {md:'550px'},
       }}>
         <Paper elevation={2}>
           <Box sx={{
@@ -160,7 +160,7 @@ function HelperBiodata () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        width: {md:'25%'}
+        width: {md:'250'}
       }}>
         <Link href={`#/organization/${data['organization']}`} underline="none">
           <Paper elevation={2} sx={{

@@ -60,11 +60,6 @@ function Navbar () {
     paddingRight: '15%',
     width:'70%',
     [theme.breakpoints.down('xl')]: {
-      paddingLeft:'5%',
-      paddingRight:'5%',
-      width:'90%'
-    },
-    [theme.breakpoints.down('md')]: {
       paddingLeft:'2%',
       paddingRight:'2%',
       width:'96%'
