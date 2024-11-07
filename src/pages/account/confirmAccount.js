@@ -15,7 +15,7 @@ function ConfirmAccountPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (auth.checkLoggedIn()) return navigate('/search');
+        if (auth.checkLoggedIn()) return navigate('/account');
         confirmEmail(keyy);
     },[])
 

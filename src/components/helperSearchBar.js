@@ -4,8 +4,12 @@ import { MenuItem } from "@mui/material";
 export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
     const salaryRange = [550,1500];
     const recencyRange = [1,30];
-    const salaryText = (value) => (value === salaryRange[1]) ? 'Unlimited' : `$${value}`;
-    const recencyText = (value) => (value === recencyRange[1]) ? 'Unlimited' : `${value} day(s)`;
+    const salaryText = (value) => (value === salaryRange[1]) ? 'Ꝏ' : `$${value}`;
+    const recencyText = (value) => {
+        if (value === recencyRange[1]) return 'Ꝏ';
+        if (value === 1) return `${value} day`;
+        return `${value} days`;
+    }
 
     const searchBar = [
         {

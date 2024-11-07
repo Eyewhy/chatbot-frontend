@@ -28,9 +28,10 @@ const AuthProvider = ({ children }) => {
 
             return res;
         });
-        const admin = await userRequest().then((res) => res['is_admin'])
-        setIsAdmin(admin);
-        localStorage.setItem("admin", admin);
+        const userInfo = await userRequest();
+        console.log(userInfo);
+        setIsAdmin(userInfo['is_admin']);
+        localStorage.setItem("admin", userInfo['is_admin']);
         return res;
     }
 
@@ -38,8 +39,10 @@ const AuthProvider = ({ children }) => {
         await logoutRequest().then(() => {
             setUser(null);
             setToken("");
+            setIsAdmin(false);
             localStorage.removeItem("site");
             localStorage.removeItem("user");
+            localStorage.setItem("admin", false);
             navigate("/");
         }) 
     }

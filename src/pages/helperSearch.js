@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { Box, Grid2, IconButton, Menu, Typography } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,14 +27,10 @@ function HelperSearch() {
     };
 
     const auth = useAuth();
-    const navigate = useNavigate();
 
     async function getData(params) {
         params = cleanHelperSearch(params, agencies);
-        let data = await searchForHelper(auth.checkLoggedIn(), params).then((res)=>{
-            if (res === 'error') return navigate("/account");
-            return res;
-        });
+        let data = await searchForHelper(auth.checkLoggedIn(), params)
         setResults(data);
     }
 

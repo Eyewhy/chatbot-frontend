@@ -14,7 +14,7 @@ function HelperCard({ data }) {
         width:'200px',
         textAlign: 'center',
         alignContent: 'center',
-        [theme.breakpoints.down('lg')]: {
+        [theme.breakpoints.down('md')]: {
             height: '150px',
             width: '100px',
         },

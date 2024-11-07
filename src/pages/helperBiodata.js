@@ -101,7 +101,7 @@ function HelperBiodata () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        minWidth: '20%'
+        width: {md:'25%'}
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -115,28 +115,6 @@ function HelperBiodata () {
           <InfoTable rows={mainInfoTable} data={data}/>
           <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />} onClick={addToShortlist}>Add to Shortlist</Button>
         </Paper>
-        <Link href={`#/organization/${data['organization']}`} underline="none">
-        <Paper elevation={2} sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap:2,
-          p:2,
-        }}>
-          <Typography>Maid Agency Info</Typography>
-          <AgencyTable data={agency}/>
-
-
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap:1
-          }}>
-
-            <Button variant="outlined" color="primary">View Agency Info</Button>
-            <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
-          </Box>
-          </Paper>
-        </Link>
       </Box>
 
       <Box sx={{
@@ -174,6 +152,40 @@ function HelperBiodata () {
             <InfoTable rows={miscTable} data={data} />
           </Box>
         </Paper>
+      </Box>
+      <Box sx={{
+        position: {md:'sticky'},
+        height: {md:'90vh'},
+        top:0,
+        display: 'flex',
+        flexDirection: 'column',
+        gap:2,
+        width: {md:'25%'}
+      }}>
+        <Link href={`#/organization/${data['organization']}`} underline="none">
+          <Paper elevation={2} sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap:2,
+            p:2,
+          }}>
+            <Typography>Maid Agency Info</Typography>
+
+            <Paper component='img' src={agency['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
+            <AgencyTable data={agency}/>
+
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap:1
+            }}>
+
+              <Button variant="outlined" color="primary">View Agency Info</Button>
+              <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
+            </Box>
+          </Paper>
+        </Link>
       </Box>
     </Box> 
   </>)

@@ -1,5 +1,5 @@
 import './App.css';
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '@fontsource/roboto/300.css';
@@ -56,7 +56,12 @@ function App() {
     paddingLeft: '15%',
     paddingRight: '15%',
     width:'70%',
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.down('xl')]: {
+      paddingLeft:'5%',
+      paddingRight:'5%',
+      width:'90%'
+    },
+    [theme.breakpoints.down('md')]: {
       paddingLeft:'2%',
       paddingRight:'2%',
       width:'96%'
@@ -97,6 +102,7 @@ function App() {
                     <Route path="/admin/referral" element={<ReferralPage/>} />
                   </Route>
                 </Route>  
+                <Route path="*" element={<Navigate to="/search" replace/>} />
               </Routes>  
           </MainBox></Box>
         </ShortlistProvider></AuthProvider>

@@ -12,8 +12,7 @@ function AgencySearch() {
 
     useEffect(() => {
         const getAgencyData = async () => {
-            let agencyData = await publicOrganizationRequest();
-            setAgencies(agencyData);    
+            setAgencies(await publicOrganizationRequest());    
         }
         getAgencyData();
     },[])

@@ -18,7 +18,7 @@ function LoginPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (auth.checkLoggedIn()) navigate('/search')
+        if (auth.checkLoggedIn()) navigate('/account')
     },[])
 
     async function onSubmit(data) {

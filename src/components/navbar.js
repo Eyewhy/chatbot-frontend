@@ -41,12 +41,6 @@ function Navbar () {
     },{
       name: 'Organization',
       href: '#/admin/organization',
-    },{
-      name: 'Search',
-      href: '#/search'
-    },{
-      name: 'Agencies',
-      href: '#/organization'
     }
   ];
 
@@ -60,15 +54,22 @@ function Navbar () {
   };
 
   const NavBox = styled(Box)(({theme}) => ({
+    display: 'flex',
+    justifyContent: 'space-between', 
     paddingLeft: '15%',
     paddingRight: '15%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    width:'100%',
-    [theme.breakpoints.down('lg')]: {
-      paddingLeft:'1%',
-      paddingRight:'1%',
+    width:'70%',
+    [theme.breakpoints.down('xl')]: {
+      paddingLeft:'5%',
+      paddingRight:'5%',
+      width:'90%'
     },
+    [theme.breakpoints.down('md')]: {
+      paddingLeft:'2%',
+      paddingRight:'2%',
+      width:'96%'
+    },
+
   }))
 
   return (

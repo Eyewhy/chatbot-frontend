@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import Table from "../../components/table";
 import { toast } from "react-toastify";
@@ -14,12 +13,9 @@ import { organizationDetailRequest, changePassphraseRequest, deleteUserFromOrgan
 function OrganizationPage () {
     const [data, setData] = useState({'members':[]});
     const [state, setState] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {( async () => {
         await organizationDetailRequest().then((res) => {
-            if (res === 'error') navigate('/account');
-            console.log(res)
             setData(res);
         });
     })();

@@ -38,7 +38,7 @@ function AgencyData () {
         display: 'flex',
         flexDirection: 'column',
         gap:2,
-        minWidth:'20%'
+        width: {md:'25%'}
       }}>
         <Paper elevation={2} sx={{
           display: 'flex',
@@ -60,7 +60,7 @@ function AgencyData () {
         display:'flex',
         flexDirection:'column',
         gap:2,
-        width: {md:'50%'}
+        width: {md:'75%'}
       }}>
         <Paper elevation={2}>
           <Box sx={{

@@ -29,7 +29,10 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         let res = await fetch(`${backend}/${url}`, fetchParams)
         console.log(res);
         if (res.ok === false) {
-            toast(`Error: ${await res.text()}`);
+            let res_text = await res.text();
+            toast(`Error: ${res_text}`);
+            if (res_text === '{"detail":"Invalid token."}') window.location.href = '#/account';
+            
             return 'error';
         }
 
@@ -39,6 +42,7 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         return data;
     } catch (e) {
         console.log(e);
+
         return 'error';
     };
 }
