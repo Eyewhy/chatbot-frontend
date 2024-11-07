@@ -13,7 +13,7 @@ function HelperPage () {
         {
             Header: "ID",
             accessor: "id",
-            Cell: props => <Link href={`#/helper/${props.value}`}>{props.value}</Link>
+            Cell: props => <Link href={`#/admin/helper/${props.value}`}>{props.value}</Link>
         },
         {
             Header: "Name",
