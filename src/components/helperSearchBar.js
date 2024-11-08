@@ -51,7 +51,7 @@ export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
 
     return searchBar.map((object) => {
         return (menu) ? 
-            (<MenuItem sx={{mx:2}}>
+            (<MenuItem sx={{mx:2}} key={object['name']}>
                 {(object['type'] === 'select') ? 
                     <FormInputSelect {...object} setOptions={setSearchParam}/>
                 :
@@ -59,9 +59,9 @@ export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
                 }
             </MenuItem>)
         : ((object['type'] === 'select') ? 
-            <FormInputSelect {...object} setOptions={setSearchParam}/>
+            <FormInputSelect {...object} setOptions={setSearchParam} key={object['name']}/>
         :
-            <FormInputSlider {...object} setOptions={setSearchParam}/>
+            <FormInputSlider {...object} setOptions={setSearchParam} key={object['name']}/>
         )
     })
 }

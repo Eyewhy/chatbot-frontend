@@ -14,6 +14,10 @@ import { toast } from "react-toastify";
 async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     const token = getToken();
 
+    if (method === 'DELETE') {
+        if (!window.confirm('Are you sure you want to delete this entry?')) return 'error';
+    }
+
     const fetchParams = {
         method: method,
         headers: {

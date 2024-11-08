@@ -7,7 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(localStorage.getItem("user") || null);
     const [token, setToken] = useState(localStorage.getItem("site") || "");
-    const [_isAdmin, setIsAdmin] = useState(localStorage.getItem("admin") || false);
+    const [_isAdmin, setIsAdmin] = useState(localStorage.getItem("admin")==='true' || false);
     const navigate = useNavigate();
 
     /**
@@ -27,8 +27,10 @@ const AuthProvider = ({ children }) => {
 
         const userInfo = await userRequest();
 
+        console.log(userInfo['is_admin']);
         setIsAdmin(userInfo['is_admin']);
         localStorage.setItem("admin", userInfo['is_admin']);
+        console.log(localStorage.getItem('admin'));
 
         if (userInfo['is_admin']) navigate('/admin'); else navigate('/search');
         
