@@ -30,9 +30,7 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         console.log(res);
         if (res.ok === false) {
             let res_text = await res.text();
-            toast(`Error: ${res_text}`);
-            if (res_text === '{"detail":"Invalid token."}') window.location.href = '#/account';
-            
+            processResText(res_text);
             return 'error';
         }
 
@@ -72,6 +70,19 @@ async function fileRequest(url, file) {
         console.log(e);
         return 'error';
     };
+}
+
+function processResText(res_text) {
+    // check for json object
+    if (res_text[0] === '{') {
+        res_text = JSON.parse(res_text);
+        res_text = res_text[Object.keys(res_text)[0]];
+    }
+    if (res_text === 'Invalid token.') {
+        res_text = 'Please login again!';
+        window.location.href = '#/account';
+    }
+    toast(`Error: ${res_text}`);
 }
 
 export default apiRequest

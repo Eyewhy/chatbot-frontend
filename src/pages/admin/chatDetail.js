@@ -13,11 +13,8 @@ import messagesToChat from "../../services/messagesToChat";
 
 function ChatDetail () {
     const messageListReferance = createRef();
-
     const [data, setData] = useState({messages:[]});
-
     const { id } = useParams();
-
     const navigate = useNavigate();
 
     useEffect(() => {

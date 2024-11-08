@@ -8,6 +8,7 @@ function messagesToChat (messageList) {
             'date': message['time'],
         })
     })
+    chatList.sort((a,b)=>new Date(a['date']) > new Date(b['date']));
     return chatList;
 }
 

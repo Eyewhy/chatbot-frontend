@@ -11,7 +11,7 @@ function JoinOrganizationPage() {
     const {
         handleSubmit,
         control,
-    } = useForm();
+    } = useForm({name:'',pass:''});
 
     const navigate = useNavigate();
 
@@ -35,17 +35,20 @@ function JoinOrganizationPage() {
                 p:2,
 
             }}>
-                <Box sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                    gap:2
-                }}>
-                    <Typography variant="h5">Join Organization</Typography>
-                    
-                    <FormInputText name="name" control={control} label="Organization Name"/>
-                    <FormInputText name="pass" control={control} label="Organization Passphrase"/>
-                    <Button type="submit" variant={"contained"} onClick={handleSubmit(onSubmit)}>Join Organization</Button>
-                </Box>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Box sx={{
+                        display:'flex',
+                        flexDirection:'column',
+                        gap:2
+                    }}>
+                        <Typography variant="h5">Join Organization</Typography>
+                        
+                        <FormInputText name="name" control={control} label="Organization Name"/>
+                        <FormInputText name="pass" control={control} label="Organization Passphrase"/>
+                        <Button type="submit" variant={"contained"}>Join Organization</Button>
+                    </Box>
+                </form>
+                
             </Paper>
         </Box>
        

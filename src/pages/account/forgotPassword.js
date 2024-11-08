@@ -13,7 +13,7 @@ function ForgotPasswordPage() {
     const {
         handleSubmit,
         control,
-    } = useForm();
+    } = useForm({defaultValues:{email:''}});
 
     const auth = useAuth();
     const navigate = useNavigate();
@@ -38,20 +38,22 @@ function ForgotPasswordPage() {
             justifyContent: 'center',
             minHeight: '80vh',
         }}>
-            <Paper elevation={2} sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap:1,
-                p:2,
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Paper elevation={2} sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap:1,
+                    p:2,
 
-            }}>
-                <Typography variant="h5">Forgot Password</Typography>
-                
-                <FormInputText type="email" name="email" control={control} label="Email"/>
-                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Send Email</Button>
-                <Button variant="outlined" href="#/">Back to Login</Button>
-                
-            </Paper>
+                }}>
+                    <Typography variant="h5">Forgot Password</Typography>
+                    
+                    <FormInputText type="email" name="email" control={control} label="Email"/>
+                    <Button type="submit" variant="contained">Send Email</Button>
+                    <Button variant="outlined" href="#/">Back to Login</Button>
+                    
+                </Paper>
+            </form>
         </Box>
     )
 }

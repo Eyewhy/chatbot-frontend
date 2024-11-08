@@ -13,7 +13,7 @@ function ForgotPasswordConfirmPage() {
     const {
         handleSubmit,
         control,
-    } = useForm();
+    } = useForm({defaultValues:{pass1:'',pass2:''}});
 
     const { uid, token } = useParams();
     const auth = useAuth();
@@ -35,13 +35,13 @@ function ForgotPasswordConfirmPage() {
         });
     }
 
-    return (
-        <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '80vh',
-        }}>
+    return (<Box sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '80vh',
+    }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Paper elevation={2} sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -53,15 +53,15 @@ function ForgotPasswordConfirmPage() {
                 
                 <FormInputText type="password" name="pass1" control={control} label="Password"/>
                 <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Change Password</Button>
+                <Button type="submit" variant="contained">Change Password</Button>
                 <Button variant="outlined" href="#/">Back to Login</Button>
                 
                 <Typography variant="caption">
                     Password must not be too similar to email <br/> or username.
                 </Typography>
             </Paper>
-        </Box>
-    )
+        </form>
+    </Box>)
 }
 
 export default ForgotPasswordConfirmPage

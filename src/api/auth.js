@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
  */
 async function loginRequest(username, password) {
     const body = {
-        username: username,
+        username: username.toLowerCase(),
         password: password,
     }
     const res = await apiRequest('auth/login/', 'POST', body, true, false);
@@ -49,7 +49,7 @@ async function changePasswordRequest(new_ps1, new_ps2) {
 
 async function registerRequest(username, ps1, ps2, email) {
     const body = {
-        'username': username,
+        'username': username.toLowerCase(),
         'password1': ps1,
         'password2': ps2,
         'email': email,
@@ -62,7 +62,7 @@ async function userRequest() {
 }
 
 async function editUserRequest(username, email) {
-    const body = {username: username, email: email}
+    const body = {username: username.toLowerCase(), email: email}
     return apiRequest('user/', 'POST', body, false).then((res) => {
         if (res === 'error') return toast("Oops, save failed. Please try again.");
         toast("User Info updated successfully.");

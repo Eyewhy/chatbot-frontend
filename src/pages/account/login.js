@@ -12,7 +12,7 @@ function LoginPage() {
     const {
         handleSubmit,
         control,
-    } = useForm();
+    } = useForm({defaultValues:{username:'', password:''}});
 
     const auth = useAuth();
     const navigate = useNavigate();
@@ -22,17 +22,11 @@ function LoginPage() {
     },[])
 
     async function onSubmit(data) {
-        console.log(data);
-        if (data.username === "" || data.password === "") {
+        if (!data.username || !data.password) {
             toast("Please provide a valid input!");
             return;
         }
-        auth.login(data.username, data.password).then((res) => {
-            if (res === 'error') {
-                toast("Login Failed!");
-                return;
-            };    
-        });
+        auth.login(data.username, data.password);
     }
 
     return (
@@ -42,31 +36,34 @@ function LoginPage() {
             justifyContent: 'center',
             minHeight: '80vh',
         }}>
-            <Paper elevation={2} sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap:1,
-                p:2,
-
-            }}>
-                <Typography variant="h5">Sign In</Typography>
-                
-                <FormInputText name="username" control={control} label="Username"/>
-                <FormInputText type="password" name="password" control={control} label="Password"/>
-                <Button type="submit" variant={"contained"} onClick={handleSubmit(onSubmit)}>Sign In</Button>
-                <Button variant={"outlined"} href="#/reset">Forgot Password</Button>
-                
-                <Box sx={{
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Paper elevation={2} sx={{
                     display: 'flex',
                     flexDirection: 'column',
+                    gap:1,
+                    p:2,
+
                 }}>
-                    <Typography variant="caption">
-                        Need an account? 
-                        <Link underline="none" href="#/create"> Create Account</Link>
-                    </Typography>
-                </Box>
+                    <Typography variant="h5">Sign In</Typography>
                     
-            </Paper>
+                    <FormInputText name="username" control={control} label="Username"/>
+                    <FormInputText type="password" name="password" control={control} label="Password"/>
+                    <Button type="submit" variant={"contained"}>Sign In</Button>
+                    
+                    <Button variant={"outlined"} href="#/reset">Forgot Password</Button>
+                    
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}>
+                        <Typography variant="caption">
+                            Need an account? 
+                            <Link underline="none" href="#/create"> Create Account</Link>
+                        </Typography>
+                    </Box>
+                        
+                </Paper>
+            </form>
         </Box>
     )
 }

@@ -13,7 +13,7 @@ import { Button, TextField, InputLabel, Select, MenuItem, FormControl, Slider, T
  * @param {str} label Label for input
  * @returns 
  */
-function FormInputText({ name, control, label, type, defaultValue }) {
+function FormInputText({ name, control, label, type }) {
   return (
     <Controller
       name={name}
@@ -32,7 +32,6 @@ function FormInputText({ name, control, label, type, defaultValue }) {
           value={value}
           fullWidth
           label={label}
-          defaultValue={defaultValue}
           variant="outlined"
         />
       )}

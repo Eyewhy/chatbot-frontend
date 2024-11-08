@@ -13,7 +13,7 @@ function CreateAccountPage() {
     const {
         handleSubmit,
         control,
-    } = useForm();
+    } = useForm({defaultValues:{username:'',email:'',pass1:'',pass2:''}});
 
     const auth = useAuth();
     const navigate = useNavigate();
@@ -42,26 +42,29 @@ function CreateAccountPage() {
             justifyContent: 'center',
             minHeight: '80vh',
         }}>
-            <Paper elevation={2} sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap:1,
-                p:2,
+            <form onSubmit={handleSubmit(onSubmit)}> 
+                <Paper elevation={2} sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap:1,
+                    p:2,
 
-            }}>
-                <Typography variant="h5">Create Account</Typography>
-                
-                <FormInputText name="username" control={control} label="Username"/>
-                <FormInputText type="email" name="email" control={control} label="Email"/>
-                <FormInputText type="password" name="pass1" control={control} label="Password"/>
-                <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                <Button type="submit" variant="contained" onClick={handleSubmit(onSubmit)}>Create Account</Button>
-                <Button variant="outlined" href="#/">Back to Login</Button>
-                
-                <Typography variant="caption">
-                    Password must not be too similar to email <br/> or username.
-                </Typography>
-            </Paper>
+                }}>
+                    <Typography variant="h5">Create Account</Typography>
+                    
+                    <FormInputText name="username" control={control} label="Username"/>
+                    <FormInputText type="email" name="email" control={control} label="Email"/>
+                    <FormInputText type="password" name="pass1" control={control} label="Password"/>
+                    <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
+                    <Button type="submit" variant="contained">Create Account</Button>
+                    <Button variant="outlined" href="#/">Back to Login</Button>
+                    
+                    <Typography variant="caption">
+                        Password must not be too similar to email <br/> or username.
+                    </Typography>
+                </Paper>    
+            </form>
+            
         </Box>
     )
 }

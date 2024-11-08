@@ -112,7 +112,7 @@ function Navbar () {
             </Box>
             <Link
               variant="h6"
-              href="#/search"
+              href={useAuth().isAdmin() ? "#/admin":"#/search"}
               sx={{
                 mr: 2,
                 fontWeight: 700,

@@ -17,21 +17,21 @@ const AuthProvider = ({ children }) => {
      * @returns { string } token || 'error'
      */
     const login = async (username, password) => {
-        const res = await loginRequest(username, password).then((res) => {
-            if (res === 'error') return 'error';
-            
-            setUser(username);
-            setToken(res);
-            localStorage.setItem("site", res);
-            localStorage.setItem("user", username);
-            navigate("/search");
+        const res = await loginRequest(username, password);
+        if (res === 'error') return 'error';
 
-            return res;
-        });
+        setUser(username);
+        setToken(res);
+        localStorage.setItem("site", res);
+        localStorage.setItem("user", username);
+
         const userInfo = await userRequest();
-        console.log(userInfo);
+
         setIsAdmin(userInfo['is_admin']);
         localStorage.setItem("admin", userInfo['is_admin']);
+
+        if (userInfo['is_admin']) navigate('/admin'); else navigate('/search');
+        
         return res;
     }
 

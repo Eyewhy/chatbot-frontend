@@ -17,11 +17,14 @@ function AccountPage() {
         handleSubmit,
         control,
         setValue,
-    } = useForm();
+    } = useForm({defaultValues:{username:'username', email:'email'}});
 
     useEffect(() => {
         ( async () => {
             let data = await userRequest();
+            // check for expired token
+            console.log(data);
+            if (data === 'error') auth.logout();
             console.log(data);
             setData(data);
             setValue('username', data['username']);
@@ -58,30 +61,35 @@ function AccountPage() {
                     flexDirection: 'column',
                     gap:5,
                 }}>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap:1
-                    }}>
+                    <form onSubmit={handleSubmit(submitDetails)}>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap:1
+                        }}>
 
-                        <FormInputText name="username" control={control} label="Username" defaultValue="username"/>
-                        <FormInputText name="email" control={control} label="Email" defaultValue="email"/>
-                        <Button type="submit" variant="contained" color="info" onClick={handleSubmit(submitDetails)}>Change Details</Button>
-                    </Box>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap:1
-                    }}>
-                        <Typography variant="h5">Change Password</Typography>
-                        
-                        <FormInputText type="password" name="pass1" control={control} label="New Password"/>
-                        <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
-                        <Button type="submit" variant="contained" onClick={handleSubmit(submitPassword)}>Change Password</Button>
-                        <Typography variant="caption">
-                            Password must not be too similar to email or username.
-                        </Typography>
-                    </Box>
+                            <FormInputText name="username" control={control} label="Username"/>
+                            <FormInputText name="email" control={control} label="Email"/>
+                            <Button type="submit" variant="contained" color="info">Change Details</Button>
+                        </Box>
+                    </form>
+                    <form onSubmit={handleSubmit(submitPassword)}>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap:1
+                        }}>
+                            <Typography variant="h5">Change Password</Typography>
+                            
+                            <FormInputText type="password" name="pass1" control={control} label="New Password"/>
+                            <FormInputText type="password" name="pass2" control={control} label="Confirm Password"/>
+                            <Button type="submit" variant="contained">Change Password</Button>
+                            <Typography variant="caption">
+                                Password must not be too similar to email or username.
+                            </Typography>
+                        </Box>    
+                    </form>
+                    
                     <Box sx={{
                         display:'flex',
                         flexDirection:'column',
