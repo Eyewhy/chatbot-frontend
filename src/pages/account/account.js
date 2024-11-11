@@ -6,7 +6,7 @@ import { FormInputText } from "../../components/formComponents";
 import { Header } from "../../components/mui";
 import { Typography, Button, Box } from "@mui/material";
 
-import { userRequest, changePasswordRequest, editUserRequest } from "../../api/auth";
+import { userRequest, userDeleteRequest, changePasswordRequest, editUserRequest } from "../../api/auth";
 import { useAuth } from "../../services/authProvider";
 
 function AccountPage() {
@@ -45,6 +45,12 @@ function AccountPage() {
                 toast('Password change successful. Please return to the login page.')
             }
         });
+    }
+
+    async function deleteUser() {
+        if (!window.confirm('Are you sure you want to delete your account?')) return 'error';
+        userDeleteRequest();
+        auth.logout();
     }
 
 
@@ -90,17 +96,11 @@ function AccountPage() {
                         </Box>    
                     </form>
                     
-                    <Box sx={{
-                        display:'flex',
-                        flexDirection:'column',
-                        gap:1
-                    }}>
-                        {useAuth().isAdmin() ? 
-                            <Button type="submit" color="info" variant="outlined" href="#/admin/organization">Manage Organization (Admin only)</Button>
-                        :""
-                        }
-                        <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>    
-                    </Box>    
+                    <Button type="submit" color="error" variant="contained" onClick={auth.logout}>Logout</Button>
+
+                    <Typography />
+                    <Button type="submit" color="error" variant="outlined" onClick={deleteUser}>Delete My Account</Button>
+
                 </Box>    
             </Box>
             

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
  * Logs the user in.
  * @param {String} username 
  * @param {String} password 
- * @returns {String} token
+ * @returns {Promise<String>} token
  */
 async function loginRequest(username, password) {
     const body = {
@@ -61,6 +61,10 @@ async function userRequest() {
     return apiRequest('user/', 'GET');
 }
 
+async function userDeleteRequest() {
+    return apiRequest('user', 'DELETE');
+}
+
 async function editUserRequest(username, email) {
     const body = {username: username.toLowerCase(), email: email}
     return apiRequest('user/', 'POST', body, false).then((res) => {
@@ -69,4 +73,4 @@ async function editUserRequest(username, email) {
     });
 }
 
-export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, createConfirmRequest, changePasswordRequest, registerRequest, userRequest, editUserRequest };
+export { loginRequest, logoutRequest, resetRequest, resetConfirmRequest, createConfirmRequest, changePasswordRequest, registerRequest, userRequest, userDeleteRequest, editUserRequest };

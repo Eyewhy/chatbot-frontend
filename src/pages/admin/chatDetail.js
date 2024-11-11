@@ -1,11 +1,11 @@
-import React, { createRef, useState, useEffect } from "react";
+import React, { createRef, useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
 import { Header } from "../../components/mui";
-import { Button, Paper } from "@mui/material";
+import { Box, Button, Paper } from "@mui/material";
 
 import { chatRequest } from "../../api/admin/get";
 import { deleteChatbotUser } from "../../api/admin/others";
@@ -13,6 +13,10 @@ import messagesToChat from "../../services/messagesToChat";
 
 function ChatDetail () {
     const messageListReferance = createRef();
+
+    const messageListEndRef = useRef(null);
+    const messageListStartRef = useRef(null);
+
     const [data, setData] = useState({messages:[]});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -32,10 +36,17 @@ function ChatDetail () {
         })
     }
 
+    const scrollToBottom = () => messageListEndRef.current.scrollIntoView();
+    const scrollToTop = () => messageListStartRef.current.scrollIntoView();
+
     return (
         <>
+            <div ref={messageListStartRef}/>
             <Header text={data.username + "'s chat"} render={
-                <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
+                <>
+                    <Button variant="contained" onClick={scrollToBottom}>Go to Bottom</Button>
+                    <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
+                </>
             }/>
             <Paper elevation={2}>
                 <MessageList
@@ -45,7 +56,11 @@ function ChatDetail () {
                     toBottomHeight={'100%'}
                     dataSource={data['messages']} />    
             </Paper>
+            <Box sx={{display:'flex', justifyContent:'center'}}>
+                <Button variant="contained" onClick={scrollToTop}>Return to Top</Button>
+            </Box>
             
+            <div ref={messageListEndRef}/>
         </>
     )
 }

@@ -15,7 +15,7 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     const token = getToken();
 
     if (method === 'DELETE') {
-        if (!window.confirm('Are you sure you want to delete this entry?')) return 'error';
+        if (!window.confirm('Are you sure you want to delete this item?')) return 'error';
     }
 
     const fetchParams = {

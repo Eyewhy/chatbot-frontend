@@ -21,7 +21,6 @@ function ConfirmAccountPage() {
 
     async function confirmEmail(keyy) {
         createConfirmRequest(keyy).then((res) => {
-            if (res === 'error') return toast("Oops, Verification Failed");
             toast("Email Verified Successfully. Please return to login page.");
             setVerified(true);
         });
