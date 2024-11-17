@@ -54,23 +54,20 @@ function Navbar () {
   };
 
   const NavBox = styled(Box)(({theme}) => ({
-    display: 'flex',
-    justifyContent: 'space-between', 
-    paddingLeft: '15%',
-    paddingRight: '15%',
-    width:'70%',
-    [theme.breakpoints.down('xl')]: {
-      paddingLeft:'2%',
-      paddingRight:'2%',
-      width:'96%'
-    },
+    
 
   }))
 
   return (
     <AppBar position="static">
       <Toolbar disableGutters>
-        <NavBox>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'space-between', 
+          paddingLeft: {xs: '2%', xl: '15%'},
+          paddingRight: {xs: '2%', xl: '15%'},
+          width:{xs: '96%', xl: '70%'},
+        }}>
           <Box sx={{
             display:'flex',
             alignItems: 'center',
@@ -139,7 +136,7 @@ function Navbar () {
               <AccountCircle />
             </IconButton>
           </Box>  
-        </NavBox>
+        </Box>
       </Toolbar>
     </AppBar>
   );
