@@ -14,8 +14,10 @@ import { cleanHelperSearch, processAgencyData } from "../services/helperSearch";
 import { useAuth } from "../services/authProvider";
 
 function HelperSearch() {
+    const INCREMENT = 12;
     const [search, setSearch] = useState({});
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState(['loading...']);
+    const [display, setDisplay] = useState([]);
     const [agencies, setAgencies] = useState({});
 
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -30,8 +32,15 @@ function HelperSearch() {
 
     async function getData(params) {
         params = cleanHelperSearch(params, agencies);
-        let data = await searchForHelper(auth.checkLoggedIn(), params)
-        setResults(data);
+        await searchForHelper(auth.checkLoggedIn(), params).then((data) => {
+            setResults(data);
+            setDisplay(data.slice(0,INCREMENT));
+        })
+    }
+
+    const getDisplay = () => { 
+        console.log(display);
+        setDisplay(results.slice(0, display.length+INCREMENT));
     }
 
     function setSearchParam(param, value) {
@@ -41,6 +50,11 @@ function HelperSearch() {
         getData(search);
     }
 
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+        getDisplay();
+    };
+
     useEffect(() => {
         const getAgencyData = async () => {
             let agencyData = await publicOrganizationRequest();
@@ -48,9 +62,14 @@ function HelperSearch() {
             setAgencies(agencyData);    
         }
         
-        getData({});
-        getAgencyData();
-    },[])
+        if (results[0] === 'loading...') {
+            getData({});
+            getAgencyData();
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [display, results, search])
 
     return (<>
         <Header text={`${results.length} Maids found in Singapore`} />
@@ -105,7 +124,7 @@ function HelperSearch() {
             </Box>
             
             <Grid2 container spacing={2} sx={{px:1}}>
-                {results.map((helper) => {
+                {display.map((helper) => {
                     return (<Grid2 key={helper['id']} size={{lg:3, md:4, sm:4, xs:6}}>
                         <HelperCard key={helper['id']} data={helper}/>
                     </Grid2>)
