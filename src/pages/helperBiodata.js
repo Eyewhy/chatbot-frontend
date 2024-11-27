@@ -114,7 +114,11 @@ function HelperBiodata () {
           {data['image'] ?
             <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
           :
-            <Paper elevation={2} sx={{height:'300px', width:'200px'}}>
+            <Paper elevation={2} sx={{
+              height:'300px', width:'200px', 
+              textAlign: 'center', 
+              alignContent: 'center'
+            }}>
               Please Sign In to view image!
             </Paper>
           }
@@ -160,7 +164,14 @@ function HelperBiodata () {
               <InfoTable rows={miscTable} data={data} />
             </Box>
           :
-            <Typography>Please Sign In to view personal details!</Typography>
+            <Box elevation={2} sx={{
+              display:'flex', 
+              justifyContent: 'center', 
+              height: '50vh',
+              p: 2,
+            }}>
+              <HeaderGraphy>Please Sign In to view personal details!</HeaderGraphy>
+            </Box>
           }
         </Paper>
       </Box>
