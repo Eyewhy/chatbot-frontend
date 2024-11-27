@@ -111,7 +111,14 @@ function HelperBiodata () {
           p:2,
         }}>
           <HeaderGraphy>{data['personal_info_name']}</HeaderGraphy>
-          <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
+          {data['image'] ?
+            <Paper component='img' src={data['image']} elevation={2} sx={{height:'300px', width:'200px'}}/>
+          :
+            <Paper elevation={2} sx={{height:'300px', width:'200px'}}>
+              Please Sign In to view image!
+            </Paper>
+          }
+          
           <InfoTable rows={mainInfoTable} data={data}/>
           <Button fullWidth variant="contained" color="info" startIcon={<AddIcon />} onClick={addToShortlist}>Add to Shortlist</Button>
         </Paper>
@@ -124,33 +131,37 @@ function HelperBiodata () {
         width: {md:'550px'},
       }}>
         <Paper elevation={2}>
-          <Box sx={{
-            display:'flex',
-            flexDirection:'column',
-            gap:2,
-            p:2,
-          }}>
-            <HeaderGraphy>Personal Information</HeaderGraphy>
-            <InfoTable rows={personalInfoTable} data={data} width='50%' />
+          {data['Reference'] ?
+            <Box sx={{
+              display:'flex',
+              flexDirection:'column',
+              gap:2,
+              p:2,
+            }}>
+              <HeaderGraphy>Personal Information</HeaderGraphy>
+              <InfoTable rows={personalInfoTable} data={data} width='50%' />
 
-            <HeaderGraphy >Salary</HeaderGraphy>
-            <InfoTable rows={salaryTable} data={data} width='50%' />
+              <HeaderGraphy >Salary</HeaderGraphy>
+              <InfoTable rows={salaryTable} data={data} width='50%' />
 
-            <HeaderGraphy>Family</HeaderGraphy>
-            <InfoTable rows={familyTable} data={data} width='50%' />
+              <HeaderGraphy>Family</HeaderGraphy>
+              <InfoTable rows={familyTable} data={data} width='50%' />
 
-            <HeaderGraphy>Skills</HeaderGraphy>
-            <SkillTable data={data} />
+              <HeaderGraphy>Skills</HeaderGraphy>
+              <SkillTable data={data} />
 
-            <HeaderGraphy>Employment</HeaderGraphy>
-            <InfoTable rows={employmentTable} data={data} />
+              <HeaderGraphy>Employment</HeaderGraphy>
+              <InfoTable rows={employmentTable} data={data} />
 
-            <HeaderGraphy>Medical Information</HeaderGraphy>
-            <MedicalTable data={data} />
+              <HeaderGraphy>Medical Information</HeaderGraphy>
+              <MedicalTable data={data} />
 
-            <HeaderGraphy>Remarks</HeaderGraphy>
-            <InfoTable rows={miscTable} data={data} />
-          </Box>
+              <HeaderGraphy>Remarks</HeaderGraphy>
+              <InfoTable rows={miscTable} data={data} />
+            </Box>
+          :
+            <Typography>Please Sign In to view personal details!</Typography>
+          }
         </Paper>
       </Box>
       <Box sx={{

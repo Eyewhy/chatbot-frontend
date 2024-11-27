@@ -30,7 +30,7 @@ export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
         },{
             type: 'select',
             name: 'agency',
-            label: 'Agengy',
+            label: 'Agency',
             options: Object.keys(agencies)
         },{
             type: 'slider',
