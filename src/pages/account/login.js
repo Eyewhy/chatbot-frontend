@@ -46,7 +46,7 @@ function LoginPage() {
                 }}>
                     <Typography variant="h5">Sign In</Typography>
                     
-                    <FormInputText name="username / email" control={control} label="Username"/>
+                    <FormInputText name="username" control={control} label="Username / E-mail"/>
                     <FormInputText type="password" name="password" control={control} label="Password"/>
                     <Button type="submit" variant={"contained"}>Sign In</Button>
                     
