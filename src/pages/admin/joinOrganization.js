@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../services/authProvider";
 
 import { FormInputText } from "../../components/formComponents";
 import { Typography, Box, Button, Paper } from "@mui/material";
 
 import { addToOrganizationRequest } from "../../api/admin/organization";
+import { toast } from "react-toastify";
 
 function JoinOrganizationPage() {
     const {
@@ -13,11 +14,14 @@ function JoinOrganizationPage() {
         control,
     } = useForm({name:'',pass:''});
 
-    const navigate = useNavigate();
+    const auth = useAuth();
 
     async function onSubmit(data) {
         addToOrganizationRequest(data.name, data.pass).then((res) => {
-            if (res !== 'error') navigate('/admin/referral')
+            if (res !== 'error') {
+                toast('Join Successful! Please login again to reload the page.');
+                auth.logout();
+            }
         });
     }
 
