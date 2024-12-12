@@ -8,12 +8,18 @@ import { Link, Button } from "@mui/material";
 import { chatUserRequest } from "../../api/admin/get";
 import { deleteChatbotUser } from "../../api/admin/others";
 
+import { formatChatList } from "../../services/format";
+
 function ChatPage () {
     const columns = useMemo(() => [
         {
             Header: "Username",
             accessor: "username",
             Cell: props => <Link href={`#/admin/chats/${props.row.original.id}`}>{props.value}</Link>
+        },
+        {
+            Header: "ID/Number",
+            accessor: "number"
         },
         {
             Header: "Last Message",
@@ -41,9 +47,11 @@ function ChatPage () {
 
     useEffect(() => {
         ( async () => {
-            let data = await chatUserRequest();
-            console.log(data);
-            setData(data);
+            await chatUserRequest().then((data) => {
+                formatChatList(data);
+                console.log(data);
+                setData(data);
+            });
         })();
     },[state])
 

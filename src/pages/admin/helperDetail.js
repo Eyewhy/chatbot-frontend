@@ -8,7 +8,7 @@ import { FormUploadButton } from "../../components/formComponents";
 
 import { helperRequest } from "../../api/admin/get";
 import { updateHelper, deleteHelper,uploadHelperImage } from "../../api/admin/others";
-import { timeAgo } from "../../services/timeAgo";
+import { timeAgo } from "../../services/format";
 
 function HelperDetail () {
   const [data, setData] = useState({personal_info_type:'new', personal_info_nationality:'thai'});

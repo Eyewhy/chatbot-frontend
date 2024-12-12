@@ -5,11 +5,11 @@ import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
 import { Header } from "../../components/mui";
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 
 import { chatRequest } from "../../api/admin/get";
 import { deleteChatbotUser } from "../../api/admin/others";
-import messagesToChat from "../../services/messagesToChat";
+import { messagesToChat, getChatId } from "../../services/format";
 
 function ChatDetail () {
     const messageListReferance = createRef();
@@ -23,10 +23,13 @@ function ChatDetail () {
 
     useEffect(() => {
         ( async () => {
-            let data = await chatRequest(id);
-            data['messages'] = messagesToChat(data['messages']);
-            console.log(data);
-            setData(data);
+            await chatRequest(id).then((data) => {
+                getChatId(data);
+                data['messages'] = messagesToChat(data['messages']);
+                console.log(data);
+                setData(data);
+            });
+            
         })();
     },[id]);
     
@@ -42,8 +45,9 @@ function ChatDetail () {
     return (
         <>
             <div ref={messageListStartRef}/>
-            <Header text={data.username + "'s chat"} render={
+            <Header text={`${data.username}'s chat (${data['number']})`} render={
                 <>
+                    <Typography></Typography>
                     <Button variant="contained" onClick={scrollToBottom}>Go to Bottom</Button>
                     <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>
                 </>

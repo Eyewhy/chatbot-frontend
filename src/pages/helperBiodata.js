@@ -11,7 +11,7 @@ import { HeaderGraphy } from "../components/mui";
 
 import { publicHelperRequest, publicOrganizationRequest } from "../api/public";
 import { useAuth } from "../services/authProvider";
-import { timeAgo } from "../services/timeAgo";
+import { timeAgo } from "../services/format";
 import { useShortlist } from "../services/shortlistProvider";
 
 function HelperBiodata () {
