@@ -119,7 +119,7 @@ function HelperBiodata () {
               textAlign: 'center', 
               alignContent: 'center'
             }}>
-              Please Sign In to view image!
+              Image Unavailable.
             </Paper>
           }
           
@@ -170,7 +170,9 @@ function HelperBiodata () {
               height: '50vh',
               p: 2,
             }}>
-              <HeaderGraphy>Please Sign In to view personal details!</HeaderGraphy>
+              <HeaderGraphy>
+                Please Sign In to view personal details!
+              </HeaderGraphy>
             </Box>
           }
         </Paper>

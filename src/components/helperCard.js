@@ -43,7 +43,7 @@ function HelperCard({ data }) {
                     <ImgPaper component='img' elevation={2} src={data['image']} />   
                 :
                     <ImgPaper elevation={2}>
-                        Please Sign In to View Image
+                        Image Unavailable.
                     </ImgPaper>   
                 }
                 

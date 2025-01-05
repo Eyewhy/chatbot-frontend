@@ -41,14 +41,14 @@ async function uploadQna(file) {
 
     return fileRequest('qnadocument/', file).then((res) => {
         if (res === 'error') return toast("Oops, upload failed. Is it an acceptable type?");
-        toast("Uploaded succesfully.");
+        toast("Uploaded succesfully. Remember to update documents later.");
     })
 }
 
 async function deleteQna(id) {
     return apiRequest(`qnadocument/${id}`, 'DELETE', null, false).then((res) => {
         if (res === 'error') return toast("Oops, delete failed.");
-        toast("Deleted successfully. Remember to update later.");
+        toast("Deleted successfully. Remember to update documents later.");
     })
 }
 

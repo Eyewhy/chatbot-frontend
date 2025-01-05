@@ -49,8 +49,9 @@ function AccountPage() {
 
     async function deleteUser() {
         if (!window.confirm('Are you sure you want to delete your account?')) return 'error';
-        userDeleteRequest();
-        auth.logout();
+        userDeleteRequest().then((res)=>{
+            auth.logout();
+        });
     }
 
 

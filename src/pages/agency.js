@@ -47,7 +47,7 @@ function AgencyData () {
           gap:2,
           p:2,
         }}>
-          <HeaderGraphy>{data['name']}</HeaderGraphy>
+          <HeaderGraphy>{data['full_name']}</HeaderGraphy>
           <Paper component='img' src={data['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
 
           <AgencyTable data={data}/>

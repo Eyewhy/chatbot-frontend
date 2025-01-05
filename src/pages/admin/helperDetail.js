@@ -31,10 +31,11 @@ function HelperDetail () {
       'biodata': data['biodata'],
       'id': data['id'],
       'time': data['time'],
-      'image': data['image']
+      'image': data['image'],
+      'blurred_image': data['blurred_image'],
     };
 
-    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image'];
+    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image', 'blurred_image'];
     deleteFields.forEach(item => {
       delete data[item];
     });

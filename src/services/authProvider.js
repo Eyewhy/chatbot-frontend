@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("admin", userInfo['is_admin']);
         console.log(localStorage.getItem('admin'));
 
-        if (userInfo['is_admin']) navigate('/admin'); else navigate('/search');
+        if (userInfo['is_admin']) navigate('/admin/chats'); else navigate('/search');
         
         return res;
     }

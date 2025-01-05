@@ -23,6 +23,9 @@ function Navbar () {
     },{
       name: 'Agencies',
       href: '#/organization'
+    },{
+      name:'Blog',
+      href: 'https://blog.helper4.me'
     }
   ]
   const adminSites = [
