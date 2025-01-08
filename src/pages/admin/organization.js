@@ -143,6 +143,9 @@ function OrganizationPage () {
                 <TextInputField label="Passphrase" data={data} setData={setNewData} accessor="passphrase" />
             </TableRow>
             <TableRow>
+                <TextInputField colSpan={2} label="Full Name" data={data} setData={setNewData} accessor="full_name" />
+            </TableRow>
+            <TableRow>
                 <LargeTextInputField colSpan={2} label="Description" data={data} setData={setNewData} accessor="description" />
             </TableRow>
             <TableRow>

@@ -1,9 +1,6 @@
-import { useState } from "react";
-
-import { useAuth } from "../services/authProvider";
+import { useState, useEffect } from "react";
 
 import { AppBar, Toolbar, Button, Link, Box, IconButton, Menu, MenuItem } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,7 +12,6 @@ import MenuIcon from "@mui/icons-material/Menu";
  * @returns 
  */
 function Navbar () {
-  const auth = useAuth();
   const sites = [
     {
       name: 'Search',
@@ -46,8 +42,31 @@ function Navbar () {
       href: '#/admin/organization',
     }
   ];
+  const chatbotSites = [
+    {
+      name: 'Chats',
+      href: '#/admin/chats',
+    },{
+      name: 'Q&A Documents',
+      href: '#/admin/qna',
+    },{
+      name: 'Organization',
+      href: '#/admin/organization',
+    }
+  ];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [orgType, setOrgType] = useState(localStorage.getItem('org_type'));
+
+  useEffect(() => {
+    const onStorage = () => {
+      console.log(localStorage.getItem('org_type'));
+      setOrgType(localStorage.getItem('org_type'));
+    };
+
+    window.addEventListener('storage', onStorage);
+    return () => {window.removeEventListener('storage', onStorage);};
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -55,11 +74,6 @@ function Navbar () {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  const NavBox = styled(Box)(({theme}) => ({
-    
-
-  }))
 
   return (
     <AppBar position="static">
@@ -96,23 +110,30 @@ function Navbar () {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs:'flex', md:'none'}}}
               >
-                {useAuth().isAdmin() ?
+                { orgType == 'helper_agency' ?
                   adminSites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
                   })
-                :
+                : orgType == '' ?
                   sites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
-                  })}
+                  })
+                :
+                  chatbotSites.map((site) => {
+                    return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
+                      <Button href={site['href']}>{site['name']}</Button>
+                    </MenuItem>
+                  })
+                }
               </Menu>
             </Box>
             <Link
               variant="h6"
-              href={useAuth().isAdmin() ? "#/admin":"#/search"}
+              href={ orgType ? "#/admin":"#/search"}
               sx={{
                 mr: 2,
                 fontWeight: 700,
@@ -121,14 +142,19 @@ function Navbar () {
               }}>
               Helper Chatbot</Link>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-              {useAuth().isAdmin() ?
-              adminSites.map((site) => {
-                return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
-              })
+              { orgType == 'helper_agency' ?
+                adminSites.map((site) => {
+                  return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+                })
+              : orgType == '' ?
+                sites.map((site) => {
+                  return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+                })
               :
-              sites.map((site) => {
-                return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
-              })}   
+                chatbotSites.map((site) => {
+                  return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
+                })
+              }   
             </Box>
           </Box>
           <Box>

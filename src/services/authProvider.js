@@ -1,13 +1,15 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { loginRequest, logoutRequest, userRequest } from "../api/auth"
+import { publicOrganizationRequest } from "../api/public";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(localStorage.getItem("user") || null);
     const [token, setToken] = useState(localStorage.getItem("site") || "");
-    const [_isAdmin, setIsAdmin] = useState(localStorage.getItem("admin")==='true' || false);
+    const [organization, setOrganization] = useState(Number(localStorage.getItem("organization")) || 0);
+    const [orgType, setOrgType] = useState(localStorage.getItem("org_type") || "");
     const navigate = useNavigate();
 
     /**
@@ -27,13 +29,18 @@ const AuthProvider = ({ children }) => {
 
         const userInfo = await userRequest();
 
-        console.log(userInfo['is_admin']);
-        setIsAdmin(userInfo['is_admin']);
-        localStorage.setItem("admin", userInfo['is_admin']);
-        console.log(localStorage.getItem('admin'));
+        setOrganization(userInfo['organization']);
+        localStorage.setItem("organization", userInfo['organization']);
 
-        if (userInfo['is_admin']) navigate('/admin/chats'); else navigate('/search');
-        
+        if (userInfo['organization']) {
+            await publicOrganizationRequest(userInfo['organization']).then((org) => {
+                setOrgType(org['organization_type']);
+                localStorage.setItem('org_type', org['organization_type']);
+                navigate('/admin/chats');
+            });
+        } else navigate('/search');
+
+        window.dispatchEvent(new Event('storage'));
         return res;
     }
 
@@ -41,10 +48,12 @@ const AuthProvider = ({ children }) => {
         await logoutRequest().then(() => {
             setUser(null);
             setToken("");
-            setIsAdmin(false);
+            setOrganization(false);
             localStorage.removeItem("site");
             localStorage.removeItem("user");
-            localStorage.setItem("admin", false);
+            localStorage.setItem("organization", 0);
+            localStorage.setItem("org_type", '');
+            window.dispatchEvent(new Event('storage'));
             navigate("/");
         }) 
     }
@@ -53,21 +62,23 @@ const AuthProvider = ({ children }) => {
         return (token === "") ? false : true;
     }
 
-    const isAdmin = () => { return _isAdmin; };
+    const getOrganization = () => { return localStorage.getItem('organization'); };
+    const getOrgType = () => { return localStorage.getItem('org_type'); };
 
     return (
-        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, isAdmin }}>
+        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, getOrganization, getOrgType }}>
             {children}
         </AuthContext.Provider>
     );
 
 };
 
-const getToken = () => { return localStorage.getItem("site")}
+const getToken = () => { return localStorage.getItem("site")};
+const getOrgType = () => {return localStorage.getItem("org_type")};
 /**
- * methods: .token, .user, .login(), .logout(), .checkLoggedIn(), .getUserInfo(), isAdmin
+ * methods: .token, .user, .login(), .logout(), .checkLoggedIn(), .getUserInfo(), getOrganization
  */
 const useAuth = () => { return useContext(AuthContext); };
 
 export default AuthProvider;
-export { useAuth, getToken };
+export { useAuth, getToken, getOrgType };
