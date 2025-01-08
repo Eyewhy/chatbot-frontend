@@ -33,10 +33,11 @@ function OrganizationPage () {
     }
   ],[]);
 
-  const orgTable = [
-    ['Biodata Scans', 'documents_scanned'],
-    ['Q&A Refreshes', 'embeddings_generated']
-  ]
+  const orgTable = localStorage.getItem('org_type') == 'helper_agency' ?
+    [['Biodata Scans', 'documents_scanned'],
+      ['Q&A Refreshes', 'embeddings_generated']] 
+  :
+    [['Q&A Refreshes', 'embeddings_generated']];
 
   const [data, setData] = useState({});
   const [otherData, setOtherData] = useState({members:[]});
