@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
+import { useAuth } from "../services/authProvider";
 
 import { AppBar, Toolbar, Button, Link, Box, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle"
@@ -56,17 +58,8 @@ function Navbar () {
   ];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [orgType, setOrgType] = useState(localStorage.getItem('org_type'));
 
-  useEffect(() => {
-    const onStorage = () => {
-      console.log(localStorage.getItem('org_type'));
-      setOrgType(localStorage.getItem('org_type'));
-    };
-
-    window.addEventListener('storage', onStorage);
-    return () => {window.removeEventListener('storage', onStorage);};
-  }, []);
+  const auth = useAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -110,13 +103,13 @@ function Navbar () {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs:'flex', md:'none'}}}
               >
-                { orgType == 'helper_agency' ?
+                { auth.orgType == 'helper_agency' ?
                   adminSites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
                   })
-                : orgType == '' ?
+                : auth.orgType == '' ?
                   sites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
@@ -133,7 +126,7 @@ function Navbar () {
             </Box>
             <Link
               variant="h6"
-              href={ orgType ? "#/admin":"#/search"}
+              href={ auth.orgType ? "#/admin":"#/search"}
               sx={{
                 mr: 2,
                 fontWeight: 700,
@@ -142,11 +135,11 @@ function Navbar () {
               }}>
               Helper Chatbot</Link>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-              { orgType == 'helper_agency' ?
+              { auth.orgType == 'helper_agency' ?
                 adminSites.map((site) => {
                   return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
                 })
-              : orgType == '' ?
+              : auth.orgType == '' ?
                 sites.map((site) => {
                   return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
                 })

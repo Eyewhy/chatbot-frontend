@@ -77,6 +77,7 @@ function HelperBiodata () {
   useEffect(() => {( async () => {
     let res = await publicHelperRequest(auth.checkLoggedIn(), id);
     timeAgo(res);
+    console.log(res);
     setData(res);
     let res2 = await publicOrganizationRequest(res['organization']);
     setAgency(res2);
@@ -135,7 +136,7 @@ function HelperBiodata () {
         width: {md:'550px'},
       }}>
         <Paper elevation={2}>
-          {data['Reference'] ?
+          {data['personal_info_ref'] ?
             <Box sx={{
               display:'flex',
               flexDirection:'column',

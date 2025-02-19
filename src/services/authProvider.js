@@ -40,7 +40,6 @@ const AuthProvider = ({ children }) => {
             });
         } else navigate('/search');
 
-        window.dispatchEvent(new Event('storage'));
         return res;
     }
 
@@ -49,11 +48,11 @@ const AuthProvider = ({ children }) => {
             setUser(null);
             setToken("");
             setOrganization(false);
+            setOrgType("");
             localStorage.removeItem("site");
             localStorage.removeItem("user");
             localStorage.setItem("organization", 0);
-            localStorage.setItem("org_type", '');
-            window.dispatchEvent(new Event('storage'));
+            localStorage.setItem("org_type", "");
             navigate("/");
         }) 
     }
@@ -62,11 +61,8 @@ const AuthProvider = ({ children }) => {
         return (token === "") ? false : true;
     }
 
-    const getOrganization = () => { return localStorage.getItem('organization'); };
-    const getOrgType = () => { return localStorage.getItem('org_type'); };
-
     return (
-        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, getOrganization, getOrgType }}>
+        <AuthContext.Provider value={{ token, user, login, logout, checkLoggedIn, organization, orgType }}>
             {children}
         </AuthContext.Provider>
     );
@@ -76,7 +72,7 @@ const AuthProvider = ({ children }) => {
 const getToken = () => { return localStorage.getItem("site")};
 const getOrgType = () => {return localStorage.getItem("org_type")};
 /**
- * methods: .token, .user, .login(), .logout(), .checkLoggedIn(), .getUserInfo(), getOrganization
+ * methods: .token, .user, .login(), .logout(), .checkLoggedIn(), .getUserInfo(), .organization, .orgType
  */
 const useAuth = () => { return useContext(AuthContext); };
 
