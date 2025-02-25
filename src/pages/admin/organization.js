@@ -10,6 +10,8 @@ import { FormUploadButton } from "../../components/formComponents";
 
 import { organizationDetailRequest, updateOrganization, deleteUserFromOrganizationRequest, uploadOrganizationImage } from "../../api/admin/organization";
 
+import { websiteVersion } from "../../App";
+
 function OrganizationPage () {
   const columns = useMemo(() => [
     {
@@ -33,11 +35,11 @@ function OrganizationPage () {
     }
   ],[]);
 
-  const orgTable = localStorage.getItem('org_type') == 'helper_agency' ?
-    [['Biodata Scans', 'documents_scanned'],
-      ['Q&A Refreshes', 'embeddings_generated']] 
+  const orgTable = websiteVersion === 'chatbot' ?
+    [['Q&A Refreshes', 'embeddings_generated']]
   :
-    [['Q&A Refreshes', 'embeddings_generated']];
+    [['Biodata Scans', 'documents_scanned'],
+      ['Q&A Refreshes', 'embeddings_generated']];
 
   const [data, setData] = useState({});
   const [otherData, setOtherData] = useState({members:[]});

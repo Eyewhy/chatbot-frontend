@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 // Auth
 import AuthProvider from './services/authProvider'
-import { PrivateRoute, AdminRoute } from './services/route';
+import { PrivateRoute, AdminRoute, WebsiteRoute } from './services/route';
 
 import ShortlistProvider from './services/shortlistProvider';
 
@@ -49,7 +49,14 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const backend = 'https://backend.acei.com.sg'
+const backend = 'https://backend.acei.com.sg';
+
+/**one of "helper_agency", "chatbot"*/
+const websiteVersion = 'helper_agency';
+const websites = {
+  helper_agency: 'https://www.helper4.me',
+  chatbot: 'https://chatbot.acei.com.sg'
+}
 
 function App() {
   const MainBox = styled(Box)(({theme}) => ({
@@ -71,17 +78,19 @@ function App() {
           <Box component="main" sx={{width:'100vw'}}>
             <MainBox>
               <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/reset" element={<ForgotPasswordPage />} />
                 <Route path="/reset/confirm/:uid/:token" element={<ForgotPasswordConfirmPage />}/>
                 <Route path="/create" element={<CreateAccountPage />}/>
                 <Route path="/create/confirm/:keyy" element={<ConfirmAccountPage />}/>
 
-                <Route path="/search" element={<HelperSearch/>} />
-                <Route path="/biodata/:id" element={<HelperBiodata />}/>
-                <Route path="/organization" element={<AgencySearch />}/>
-                <Route path="/organization/:id" element={<AgencyData />}/>
-                <Route path="/shortlist" element={<HelperShortlist />}/>
+                <Route element={<WebsiteRoute />}>
+                  <Route path="/search" element={<HelperSearch/>} />
+                  <Route path="/biodata/:id" element={<HelperBiodata />}/>
+                  <Route path="/organization" element={<AgencySearch />}/>
+                  <Route path="/organization/:id" element={<AgencyData />}/>
+                  <Route path="/shortlist" element={<HelperShortlist />}/>  
+                </Route>
 
                 <Route element={<PrivateRoute />}>
                   <Route path="/account" element={<AccountPage/>} />
@@ -91,10 +100,13 @@ function App() {
                     <Route path="/admin/organization" element={<OrganizationPage/>} />
                     <Route path="/admin/chats" element={<ChatPage/>} />
                     <Route path="/admin/chats/:id" element={<ChatDetail/>} />
-                    <Route path="/admin/helper" element={<HelperPage/>} />
-                    <Route path="/admin/helper/:id" element={<HelperDetail/>} />
                     <Route path="/admin/qna" element={<QnaPage/>} />
-                    <Route path="/admin/referral" element={<ReferralPage/>} />
+
+                    <Route element={<WebsiteRoute />}>
+                      <Route path="/admin/referral" element={<ReferralPage/>} />
+                      <Route path="/admin/helper" element={<HelperPage/>} />
+                      <Route path="/admin/helper/:id" element={<HelperDetail/>} />  
+                    </Route>
                   </Route>
                 </Route>  
                 <Route path="*" element={<Navigate to="/search" replace/>} />
@@ -108,4 +120,4 @@ function App() {
 }
 
 export default App; 
-export { backend } ;
+export { backend, websiteVersion, websites } ;

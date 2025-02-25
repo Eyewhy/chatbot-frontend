@@ -1,11 +1,13 @@
 import { useState } from "react";
 
-import { useAuth } from "../services/authProvider";
-
 import { AppBar, Toolbar, Button, Link, Box, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MenuIcon from "@mui/icons-material/Menu";
+
+import { useAuth } from "../services/authProvider";
+import { websiteVersion } from "../App";
+
 
 /**
  * 
@@ -23,7 +25,7 @@ function Navbar () {
       href: '#/organization'
     },{
       name:'Blog',
-      href: 'https://blog.helper4.me'
+      href: 'https://blog.helper4.me/wp/'
     }
   ]
   const adminSites = [
@@ -56,6 +58,10 @@ function Navbar () {
       href: '#/admin/organization',
     }
   ];
+  const websiteNames = {
+    chatbot: 'Chatbot Management',
+    helper_agency: 'helper4.me'
+  };
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -103,20 +109,20 @@ function Navbar () {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs:'flex', md:'none'}}}
               >
-                { auth.orgType == 'helper_agency' ?
-                  adminSites.map((site) => {
+                { websiteVersion === 'chatbot' ?
+                  chatbotSites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
                   })
-                : auth.orgType == '' ?
+                : auth.organization === 0 ?
                   sites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
                   })
                 :
-                  chatbotSites.map((site) => {
+                  adminSites.map((site) => {
                     return <MenuItem key={site['name']} onClick={handleCloseNavMenu}>
                       <Button href={site['href']}>{site['name']}</Button>
                     </MenuItem>
@@ -126,25 +132,25 @@ function Navbar () {
             </Box>
             <Link
               variant="h6"
-              href={ auth.orgType ? "#/admin":"#/search"}
+              href={ auth.organization ? "#/admin":"#/search"}
               sx={{
                 mr: 2,
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',
               }}>
-              Helper Chatbot</Link>
+              {websiteNames[websiteVersion]}</Link>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-              { auth.orgType == 'helper_agency' ?
-                adminSites.map((site) => {
+              { websiteVersion === 'chatbot' ?
+                chatbotSites.map((site) => {
                   return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
                 })
-              : auth.orgType == '' ?
+              : auth.organization === 0 ?
                 sites.map((site) => {
                   return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
                 })
               :
-                chatbotSites.map((site) => {
+                adminSites.map((site) => {
                   return <Button key={site['name']} href={site['href']} sx={{px:1, color:'inherit'}}>{site['name']}</Button>
                 })
               }   
