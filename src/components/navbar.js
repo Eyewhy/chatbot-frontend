@@ -157,9 +157,11 @@ function Navbar () {
             </Box>
           </Box>
           <Box>
-            <IconButton sx={{color:'inherit'}} size="large" href="#/shortlist">
-              <ShoppingBagIcon />
-            </IconButton>
+            { websiteVersion === 'chatbot' ? "" :
+              <IconButton sx={{color:'inherit'}} size="large" href="#/shortlist">
+                <ShoppingBagIcon />
+              </IconButton>
+            }
             <IconButton sx={{color:'inherit'}} size="large" href="#/account">
               <AccountCircle />
             </IconButton>
