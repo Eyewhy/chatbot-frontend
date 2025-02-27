@@ -53,15 +53,20 @@ import { styled } from '@mui/material/styles';
 const backend = 'https://backend.acei.com.sg';
 
 /**one of "helper_agency", "chatbot"*/
-const websiteVersion = 'helper_agency';
+let websiteVersion = 'helper_agency';
 const CHATBOT_ID = 6;
 
 const websites = {
-  helper_agency: 'https://www.helper4.me',
-  chatbot: 'https://chatbot.acei.com.sg'
+  helper_agency: 'www.helper4.me',
+  chatbot: 'chatbot.acei.com.sg'
+}
+
+for (const [key,value] of Object.entries(websites)) {
+  if (window.location.hostname === value) websiteVersion = key;
 }
 
 function App() {
+
   const MainBox = styled(Box)(({theme}) => ({
     paddingLeft: '15%',
     paddingRight: '15%',

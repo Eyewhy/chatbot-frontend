@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
                 if (org['organization_type'] !== websiteVersion) {
                     // clear token if wrong website
                     clearToken();
-                    window.location.href = websites[org['organization_type']];
+                    window.location.href = 'https://' + websites[org['organization_type']];
                 }
                 navigate('/admin/chats');
             });
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             // deny access if chatbot 
             if (websiteVersion === 'chatbot') {
                 clearToken();
-                window.location.href = websites['helper_agency'];
+                window.location.href = 'https://' + websites['helper_agency'];
             }
             navigate('/search');
         }
