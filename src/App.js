@@ -43,6 +43,7 @@ import QnaPage from './pages/admin/qna';
 import ReferralPage from './pages/admin/referral';
 
 import Navbar from './components/navbar';
+import ChatWidget from './components/chatWidget';
 
 import React from 'react';
 
@@ -53,6 +54,8 @@ const backend = 'https://backend.acei.com.sg';
 
 /**one of "helper_agency", "chatbot"*/
 const websiteVersion = 'helper_agency';
+const CHATBOT_ID = 6;
+
 const websites = {
   helper_agency: 'https://www.helper4.me',
   chatbot: 'https://chatbot.acei.com.sg'
@@ -112,6 +115,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/search" replace/>} />
               </Routes>  
           </MainBox></Box>
+          <ChatWidget />
         </ShortlistProvider></AuthProvider>
       </Router>
       <ToastContainer theme="light"/>
@@ -120,4 +124,4 @@ function App() {
 }
 
 export default App; 
-export { backend, websiteVersion, websites } ;
+export { backend, websiteVersion, websites, CHATBOT_ID } ;

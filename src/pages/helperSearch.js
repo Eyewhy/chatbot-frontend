@@ -72,7 +72,7 @@ function HelperSearch() {
     }, [display, results, search])
 
     return (<>
-        <Header text={`${results.length} Maids found in Singapore`} />
+        <Header text="Find your perfect domestic helper match with helper4.me. Try out our Gen AI Chatbot to help with your search!" />
         <Box sx={{
             display:'flex',
             flexDirection:'column',

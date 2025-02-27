@@ -70,7 +70,7 @@ async function userRequest() {
 }
 
 async function userDeleteRequest() {
-    return apiRequest('user', 'DELETE');
+    return apiRequest('user/', 'DELETE');
 }
 
 async function editUserRequest(username, email) {

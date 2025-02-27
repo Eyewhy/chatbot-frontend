@@ -167,13 +167,16 @@ function HelperBiodata () {
           :
             <Box elevation={2} sx={{
               display:'flex', 
-              justifyContent: 'center', 
+              flexDirection: 'column',
+              justifyContent: 'top', 
               height: '50vh',
-              p: 2,
+              p:2,
+              gap: 1
             }}>
               <HeaderGraphy>
                 Please Sign In to view personal details!
               </HeaderGraphy>
+              <Button variant="contained" href="#/login">Sign in Here</Button>
             </Box>
           }
         </Paper>
