@@ -52,3 +52,11 @@
 .rcw-client .rcw-message-text {
   background-color: #1976d2 !important;
 }
+
+.rcw-conversation-container .rcw-close-button {
+  background-color: #1976d2 !important;
+}
+
+.rcw-conversation-container.active {
+  max-width: 100% !important;
+}
