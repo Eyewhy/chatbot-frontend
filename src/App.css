@@ -57,6 +57,9 @@
   background-color: #1976d2 !important;
 }
 
-.rcw-conversation-container.active {
-  max-width: 100% !important;
+@media screen and (max-width: 800px) {
+  .rcw-conversation-container {
+    max-width: 100% !important;
+    padding-top: 12%;
+  }
 }
