@@ -12,6 +12,7 @@ import { publicOrganizationRequest } from "../api/public";
 import { cleanHelperSearch, processAgencyData } from "../services/helperSearch";
 
 import { useAuth } from "../services/authProvider";
+import { properHelperInfo } from "../services/format";
 
 function HelperSearch() {
     const INCREMENT = 12;
@@ -33,6 +34,7 @@ function HelperSearch() {
     async function getData(params) {
         params = cleanHelperSearch(params, agencies);
         await searchForHelper(auth.checkLoggedIn(), params).then((data) => {
+            for (const helper of data) properHelperInfo(helper);
             setResults(data);
             setDisplay(data.slice(0,INCREMENT));
         })

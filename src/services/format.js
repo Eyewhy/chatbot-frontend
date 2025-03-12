@@ -48,4 +48,11 @@ function formatTimeSync (itemList, attr='time'){
 
 function timeAgo (item, attr='time') {item[attr] = format(new Date(item[attr]));};
 
-export { formatTime, messagesToChat, timeAgo, formatTimeSync, formatChatList, getChatId }
+function properHelperInfo(data) {
+    const keys = ['personal_info_type','personal_info_nationality','skills_spoken_language_categories']
+    for (const key of keys) {
+        if (!(key in data)) continue;
+        data[key] = data[key].charAt(0).toUpperCase() + data[key].slice(1);
+    }
+}
+export { properHelperInfo, formatTime, messagesToChat, timeAgo, formatTimeSync, formatChatList, getChatId }
