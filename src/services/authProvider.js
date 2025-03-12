@@ -64,9 +64,8 @@ const AuthProvider = ({ children }) => {
         await logoutRequest().then(() => {
             clearToken();
             setUser(null);
-            setOrganization(false);
             localStorage.removeItem("user");
-            localStorage.setItem("organization", 0);
+            // we keep the organization information.
             navigate("/login");
         }) 
     }

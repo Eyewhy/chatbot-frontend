@@ -2,6 +2,7 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 import { CHATBOT_ID } from '../App';
 import { chatRequest, newChatRequest } from '../api/chat';
+import { toast } from 'react-toastify';
 
 let chatHistory = null;
 let id = null;
@@ -37,6 +38,10 @@ async function getChat() {
 async function sendMessage(message) {
     addMessage(true, message);
     const res = await chatRequest(id,message);
+    if (!res) {
+        toast('Error, Please try again later.');
+        return 'error';
+    }
     addMessage(false, res);
     return res;
 }

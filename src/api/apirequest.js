@@ -44,7 +44,6 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         return data;
     } catch (e) {
         console.log(e);
-
         return 'error';
     };
 }

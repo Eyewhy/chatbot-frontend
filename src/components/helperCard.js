@@ -57,7 +57,9 @@ function HelperCard({ data }) {
             }}> 
                 <Box>
                     <Typography>{data['personal_info_name']}</Typography>
-                    <Typography>{data['personal_info_nationality']} maid</Typography>
+                    <Typography>{
+                        data['personal_info_nationality'].charAt(0).toUpperCase() + data['personal_info_nationality'].slice(1)
+                    }</Typography>
                     <Typography>Type: {data['personal_info_type']}</Typography>
                 </Box>
                 {(useShortlist().inShortlist(data) === -1) ?
