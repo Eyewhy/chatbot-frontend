@@ -1,7 +1,7 @@
 import { FormInputSelect, FormInputSlider } from "../components/formComponents"
 import { MenuItem } from "@mui/material";
 
-export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
+export default function HelperSearchBar({ setSearchParam, menu }) {
     const salaryRange = [550,1500];
     const recencyRange = [1,30];
     const salaryText = (value) => (value === salaryRange[1]) ? 'Ꝏ' : `$${value}`;
@@ -27,11 +27,6 @@ export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
             name: 'language',
             label: 'Language',
             options: ["English", "Chinese", "Malay", "Hindi", "Tamil"]
-        },{
-            type: 'select',
-            name: 'agency',
-            label: 'Agency',
-            options: Object.keys(agencies)
         },{
             type: 'slider',
             name: 'salary',
@@ -65,3 +60,11 @@ export default function HelperSearchBar({ setSearchParam, agencies, menu }) {
         )
     })
 }
+/* AGENCY STUFF
+        ,{
+            type: 'select',
+            name: 'agency',
+            label: 'Agency',
+            options: Object.keys(agencies)
+        }
+        */

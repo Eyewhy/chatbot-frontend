@@ -19,7 +19,6 @@ function HelperSearch() {
     const [search, setSearch] = useState({});
     const [results, setResults] = useState(['loading...']);
     const [display, setDisplay] = useState([]);
-    const [agencies, setAgencies] = useState({});
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const handleOpenNavMenu = (event) => {
@@ -32,7 +31,7 @@ function HelperSearch() {
     const auth = useAuth();
 
     async function getData(params) {
-        params = cleanHelperSearch(params, agencies);
+        params = cleanHelperSearch(params);
         await searchForHelper(auth.checkLoggedIn(), params).then((data) => {
             for (const helper of data) properHelperInfo(helper);
             setResults(data);
@@ -58,15 +57,8 @@ function HelperSearch() {
     };
 
     useEffect(() => {
-        const getAgencyData = async () => {
-            let agencyData = await publicOrganizationRequest();
-            agencyData = processAgencyData(agencyData);
-            setAgencies(agencyData);    
-        }
-        
         if (results[0] === 'loading...') {
             getData({});
-            getAgencyData();
         }
         
         window.addEventListener('scroll', handleScroll);
@@ -94,9 +86,11 @@ function HelperSearch() {
                     gap:2,
                     width:'100%'
                 }}>
-                    <HelperSearchBar setSearchParam={setSearchParam} agencies={agencies} menu={false} />
+                    <HelperSearchBar setSearchParam={setSearchParam} menu={false} />
                 </Box>
-                <Box sx={{display: {xs: 'flex', md: 'none', alignItems:'center'}}}>
+                <Box sx={{
+                    display: {xs: 'flex', md: 'none', alignItems:'center'}
+                }}>
                     <IconButton
                         size="large"
                         aria-label="Menu Appbar"
@@ -119,7 +113,7 @@ function HelperSearch() {
                         sx={{ display: {xs:'flex', md:'none'}}}
                     >
                         <Box sx={{px:1}}>
-                            <HelperSearchBar setSearchParam={setSearchParam} agencies={agencies} nemu={true} />    
+                            <HelperSearchBar setSearchParam={setSearchParam} menu={true} />    
                         </Box>
                     </Menu>
                 </Box>
@@ -137,3 +131,18 @@ function HelperSearch() {
 }
 
 export default HelperSearch
+
+/* AGENCY STUFF
+    const [agencies, setAgencies] = useState({});
+
+    useEffect(()=> {
+        const getAgencyData = async () => {
+            let agencyData = await publicOrganizationRequest();
+            agencyData = processAgencyData(agencyData);
+            setAgencies(agencyData);    
+        }
+
+        if ... getAgencyData();
+    )}
+        
+*/
