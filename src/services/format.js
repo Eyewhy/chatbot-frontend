@@ -19,7 +19,7 @@ function getChatId (chat) {
 function messagesToChat (messageList) {
     const chatList = [];
     messageList.forEach ((message) => {
-        if (message['text'].slice(0,6) == 'Tool "') return;
+        if (message['text'].slice(0,6) === 'Tool "') return;
         chatList.push({
             'position': (message['human_message']) ? 'right' : 'left',
             'type': 'text',
