@@ -1,4 +1,4 @@
-import { Paper, Typography, Link, Box, IconButton } from "@mui/material";
+import { Paper, Typography, Link, Box, IconButton, Button } from "@mui/material";
 import { styled } from '@mui/material/styles'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -60,10 +60,13 @@ function HelperCard({ data }) {
                     <Typography>{data['personal_info_type']} Maid</Typography>
                     <Typography>ID {data['id']}</Typography>
                 </Box>
-                {(useShortlist().inShortlist(data) === -1) ?
-                    <IconButton size="medium" aria-label="Add to Shortlist" color="primary" onClick={addToShortlist}>
-                        <AddIcon fontSize="medium"/>
-                    </IconButton>
+                {(shortlist.inShortlist(data) === -1) ?
+                    <Button 
+                        size="large"
+                        onClick={addToShortlist}
+                        endIcon={<AddIcon />}
+                    > Add </Button>
+                    
                 :
                     <IconButton size="medium" aria-label="Remove from Shortlist" color="primary" onClick={removeFromShortlist}>
                         <RemoveIcon fontSize="medium"/>

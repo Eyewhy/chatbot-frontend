@@ -4,12 +4,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 function InfoTable ({rows, data, width}) {
     return <TableContainer component={Paper}>
-        <Table size="small">
+        <Table size="small" >
             <TableBody>
             {rows.map((item) => {
                 return <TableRow key={item[0]}>
-                    <TableCell width={width}>{item[0]}</TableCell>
-                    <TableCell width={width}>{data[item[1]]}</TableCell>
+                    <TableCell width={width} sx={{padding:'6px 10px'}}>{item[0]}</TableCell>
+                    <TableCell width={width} sx={{padding:'6px 10px'}}>{data[item[1]]}</TableCell>
                 </TableRow>
             })}
             </TableBody>
@@ -116,7 +116,7 @@ function SkillTable ({data}) {
 
 function AgencyTable ({data}) {
     const tableRows = [    
-        ['Name', 'name'],
+        ['Name', 'full_name'],
         ['Phone', 'contact_number'],
     ]
 
@@ -125,13 +125,16 @@ function AgencyTable ({data}) {
             <TableBody>
             {tableRows.map((item) => {
                 return <TableRow key={item[0]}>
-                    <TableCell>{item[0]}</TableCell>
-                    <TableCell sx={{whiteSpace: 'pre-wrap'}}>{data[item[1]]}</TableCell>
+                    <TableCell sx={{padding:'6px 10px'}}>{item[0]}</TableCell>
+                    <TableCell sx={{
+                        whiteSpace: 'pre-wrap',
+                        padding: '6px 10px'
+                    }}>{data[item[1]]}</TableCell>
                 </TableRow>
             })}
             <TableRow>
-                <TableCell>Website</TableCell>
-                <TableCell><Link href={data['website']}>{data['name']}</Link></TableCell>
+                <TableCell sx={{padding:'6px 10px'}}>Website</TableCell>
+                <TableCell sx={{padding:'6px 10px'}}><Link href={data['website']}>{data['website']}</Link></TableCell>
             </TableRow>
             </TableBody>
         </Table>

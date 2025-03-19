@@ -123,7 +123,7 @@ function App() {
           <ChatWidget />
         </ShortlistProvider></AuthProvider>
       </Router>
-      <ToastContainer theme="light"/>
+      <ToastContainer theme="light" position="top-center" autoClose={2000}/>
     </div>
   );
 }

@@ -6,7 +6,10 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useAuth } from "../services/authProvider";
+import { useShortlist } from "../services/shortlistProvider";
 import { websiteVersion } from "../App";
+
+import logo from "./image.png";
 
 
 /**
@@ -24,8 +27,11 @@ function Navbar () {
       name: 'Agencies',
       href: '#/organization'
     },{
-      name:'Blog',
+      name: 'Blog',
       href: 'https://blog.helper4.me/wp/'
+    },{
+      name: 'FAQ',
+      href: 'https://blog.helper4.me/wp/faq'
     }
   ]
   const adminSites = [
@@ -58,14 +64,11 @@ function Navbar () {
       href: '#/admin/organization',
     }
   ];
-  const websiteNames = {
-    chatbot: 'Chatbot Management',
-    helper_agency: 'helper4.me'
-  };
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const auth = useAuth();
+  const shortlist = useShortlist();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -138,8 +141,13 @@ function Navbar () {
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',
+                alignContent: 'center',
+                lineHeight:0
               }}>
-              {websiteNames[websiteVersion]}</Link>
+              { websiteVersion === 'chatbot' ? "Chatbot Management":
+                <Box component="img" src={logo} sx={{height:'60px'}}/>
+              }
+            </Link>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
               { websiteVersion === 'chatbot' ?
                 chatbotSites.map((site) => {
@@ -156,15 +164,22 @@ function Navbar () {
               }   
             </Box>
           </Box>
-          <Box>
+          <Box sx={{display:'flex', alignItems:'center'}}>
             { websiteVersion === 'chatbot' ? "" :
-              <IconButton sx={{color:'inherit'}} size="large" href="#/shortlist">
-                <ShoppingBagIcon />
-              </IconButton>
+                <Button 
+                  sx={{color:'inherit'}} 
+                  size="large"
+                  href="#/shortlist"
+                  startIcon={<ShoppingBagIcon />}
+                >
+                  {shortlist.shortlist.length} Shortlisted
+                </Button>
             }
-            <IconButton sx={{color:'inherit'}} size="large" href="#/account">
-              <AccountCircle />
-            </IconButton>
+            <Box alignContent='center'>
+              <IconButton sx={{color:'inherit'}} size="large" href="#/account">
+                <AccountCircle />
+              </IconButton>  
+            </Box>
           </Box>  
         </Box>
       </Toolbar>

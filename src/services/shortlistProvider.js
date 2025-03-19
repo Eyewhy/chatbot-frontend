@@ -5,10 +5,6 @@ const ShortlistContext = createContext();
 const ShortlistProvider = ({ children }) => {
     const [shortlist, _setShortlist] = useState([]);
 
-    function getShortlist() {
-        return shortlist;
-    }
-
     function setShortlist(list) {
         _setShortlist(list);
     }
@@ -37,7 +33,7 @@ const ShortlistProvider = ({ children }) => {
     }
 
     return (
-        <ShortlistContext.Provider value={{ getShortlist, setShortlist, inShortlist, addToShortlist, removeFromShortlist }}>
+        <ShortlistContext.Provider value={{ shortlist, setShortlist, inShortlist, addToShortlist, removeFromShortlist }}>
             {children}
         </ShortlistContext.Provider>
     );
@@ -45,7 +41,7 @@ const ShortlistProvider = ({ children }) => {
 };
 
 /**
- * methods: getShortlist, setShortlist, inShortlist addToShortlist, removeFromShortlist
+ * methods: .shortlist, setShortlist, inShortlist addToShortlist, removeFromShortlist
  */
 const useShortlist = () => { return useContext(ShortlistContext); };
 

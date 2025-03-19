@@ -8,14 +8,13 @@ import HelperCard from "../components/helperCard"
 import HelperSearchBar from "../components/helperSearchBar";
 
 import { searchForHelper } from "../api/helperSearch";
-import { publicOrganizationRequest } from "../api/public";
-import { cleanHelperSearch, processAgencyData } from "../services/helperSearch";
+import { cleanHelperSearch } from "../services/helperSearch";
 
 import { useAuth } from "../services/authProvider";
 import { properHelperInfo } from "../services/format";
 
 function HelperSearch() {
-    const INCREMENT = 12;
+    const INCREMENT = 24;
     const [search, setSearch] = useState({});
     const [results, setResults] = useState(['loading...']);
     const [display, setDisplay] = useState([]);
@@ -66,7 +65,7 @@ function HelperSearch() {
     }, [display, results, search])
 
     return (<>
-        <Header text="Find your perfect domestic helper match with helper4.me. Try out our Gen AI Chatbot to help with your search!" />
+        <Header text="Find your perfect helper with Helper4me. Try our AI Chatbot!" />
         <Box sx={{
             display:'flex',
             flexDirection:'column',

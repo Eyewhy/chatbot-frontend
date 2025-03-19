@@ -31,6 +31,9 @@ const AuthProvider = ({ children }) => {
         // user has organization, is an 'admin' user
         if (userInfo['organization']) {
             await publicOrganizationRequest(userInfo['organization']).then((org) => {
+                // brute force change admin type
+                if (org['organization_type'] === 'admin') org['organization_type'] = 'helper_agency';
+
                 // check if using the right site
                 if (org['organization_type'] !== websiteVersion) {
                     // clear token if wrong website

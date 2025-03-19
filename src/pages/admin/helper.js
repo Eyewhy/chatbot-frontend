@@ -16,6 +16,10 @@ function HelperPage () {
             Cell: props => <Link href={`#/admin/helper/${props.value}`}>{props.value}</Link>
         },
         {
+            Header: "Reference No.",
+            accessor: "personal_info_ref",
+        },
+        {
             Header: "Name",
             accessor: "personal_info_name",
         },
