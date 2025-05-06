@@ -4,19 +4,6 @@ import { toast } from "react-toastify";
 import { formatTime } from "../../services/format";
 
 /**
- * GET individual user's chat.
- * @param {int} user_id The user's ID that you want the chat of
- * @returns the chat.
- */
-async function chatRequest(user_id) {
-    return apiRequest(`message/${user_id}/`, 'GET');
-}
-
-async function chatUserRequest() {
-    return formatTime(apiRequest(`chatbotuser/`, 'GET'));
-}
-
-/**
  * GET helperInfo
  * @param {int} helper_id 
  * @returns helperInfo
@@ -61,4 +48,4 @@ async function refreshQnaRequest() {
 }
 
 
-export { chatRequest, chatUserRequest, helperRequest, referralRequest, qnaRequest, refreshQnaRequest};
+export { helperRequest, referralRequest, qnaRequest, refreshQnaRequest};

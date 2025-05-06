@@ -48,10 +48,10 @@ const AuthProvider = ({ children }) => {
         if (userInfo['organization'] === 0) {
             // deny access if chatbot 
             if (websiteVersion === 'chatbot') {
-                clearToken();
-                window.location.href = 'https://' + websites['helper_agency'];
+                navigate('/admin/join');
+            } else {
+                navigate('/search');
             }
-            navigate('/search');
         }
 
         setUser(username);

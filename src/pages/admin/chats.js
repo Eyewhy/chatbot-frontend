@@ -5,8 +5,7 @@ import Table from "../../components/table";
 import { Header } from "../../components/mui"
 import { Link, Button } from "@mui/material";
 
-import { chatUserRequest } from "../../api/admin/get";
-import { deleteChatbotUser } from "../../api/admin/others";
+import { chatUserRequest, deleteChatbotUser } from "../../api/admin/chat";
 
 import { formatChatList } from "../../services/format";
 

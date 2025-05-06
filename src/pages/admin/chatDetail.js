@@ -5,10 +5,9 @@ import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
 import { Header } from "../../components/mui";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 
-import { chatRequest } from "../../api/admin/get";
-import { deleteChatbotUser } from "../../api/admin/others";
+import { chatRequest, deleteChatbotUser, sendAdminMessage } from "../../api/admin/chat";
 import { messagesToChat, getChatId } from "../../services/format";
 
 function ChatDetail () {
@@ -18,19 +17,21 @@ function ChatDetail () {
     const messageListStartRef = useRef(null);
 
     const [data, setData] = useState({messages:[]});
+    const [message, setMessage] = useState('');
     const { id } = useParams();
     const navigate = useNavigate();
 
+    async function getData() {
+        await chatRequest(id).then((data) => {
+            getChatId(data);
+            data['messages'] = messagesToChat(data['messages']);
+            console.log(data);
+            setData(data);
+        });
+    }
+
     useEffect(() => {
-        ( async () => {
-            await chatRequest(id).then((data) => {
-                getChatId(data);
-                data['messages'] = messagesToChat(data['messages']);
-                console.log(data);
-                setData(data);
-            });
-            
-        })();
+        getData();
     },[id]);
     
     const deleteButton = () => {
@@ -39,11 +40,18 @@ function ChatDetail () {
         })
     }
 
+    const sendButton = () => {
+        console.log(message);
+        if (message.length === 0) return;
+        sendAdminMessage(id, message);
+        setTimeout(getData, 1000);
+    }
+
     const scrollToBottom = () => messageListEndRef.current.scrollIntoView();
     const scrollToTop = () => messageListStartRef.current.scrollIntoView();
 
     return (
-        <>
+        <Box sx={{display: 'flex', gap:2, flexDirection: 'column'}}>
             <div ref={messageListStartRef}/>
             <Header text={`${data.username}'s chat (${data['number']})`} render={
                 <>
@@ -60,12 +68,17 @@ function ChatDetail () {
                     toBottomHeight={'100%'}
                     dataSource={data['messages']} />    
             </Paper>
-            <Box sx={{display:'flex', justifyContent:'center'}}>
+            <Box sx={{display: 'flex', flexDirection: 'row', gap: 2}}>
+                <TextField fullWidth onChange={(e) => {setMessage(e.target.value);}}/>
+                <Button variant="contained" onClick={sendButton}>Send</Button>
+            </Box>
+            
+            <Box sx={{display: 'flex', justifyContent:'center'}}>
                 <Button variant="contained" onClick={scrollToTop}>Return to Top</Button>
             </Box>
             
             <div ref={messageListEndRef}/>
-        </>
+        </Box>
     )
 }
 

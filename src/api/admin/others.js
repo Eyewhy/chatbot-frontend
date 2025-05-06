@@ -52,13 +52,6 @@ async function deleteQna(id) {
     })
 }
 
-async function deleteChatbotUser(id) {
-    return apiRequest(`chatbotuser/${id}`, 'DELETE', null, false).then((res) => {
-        if (res === 'error') return toast("Oops, delete failed.");
-        toast("Deleted successfully.");
-    })
-}
-
 async function deleteReferral(id) {
     return apiRequest(`referral/${id}`, 'DELETE', null, false).then((res) => {
         if (res === 'error') return toast("Oops, delete failed.");
@@ -67,4 +60,4 @@ async function deleteReferral(id) {
 }
 
 
-export { uploadHelper, updateHelper, uploadHelperImage, deleteHelper, uploadQna, deleteQna, deleteChatbotUser, deleteReferral }
+export { uploadHelper, updateHelper, uploadHelperImage, deleteHelper, uploadQna, deleteQna, deleteReferral }
