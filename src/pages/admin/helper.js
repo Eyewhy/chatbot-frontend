@@ -5,8 +5,7 @@ import { Header } from "../../components/mui";
 import { FormUploadButton } from "../../components/formComponents";
 import { Link, Button } from "@mui/material";
 
-import { helperRequest } from "../../api/admin/get";
-import { uploadHelper, deleteHelper } from "../../api/admin/others";
+import { helperRequest, uploadHelper, deleteHelper, toggleHelperVisibility } from "../../api/admin/helper";
 
 function HelperPage () {
     const columns = useMemo(() => [
@@ -33,6 +32,13 @@ function HelperPage () {
             Cell: props => <Link href={props.row.original.biodata}>{props.value}</Link>
         },
         {
+            Header: "Visibility",
+            accessor: "visibility",
+            Cell: props => <Button variant="outlined" color={props.value ? "success": "warning"} onClick={(e) => {
+                visibilityButton(props.row.original.id, props.value);
+            }}>{props.value ? "Yes": "No"}</Button>
+        },
+        {
             Header: "Delete",
             accessor: "biodata",
             Cell: props => <Button variant="outlined" color="error" onClick={(e) => {
@@ -42,25 +48,32 @@ function HelperPage () {
     ],[]);
 
     const [data, setData] = useState([]);
-    const [state, setState] = useState(false);
+
+    async function getData() {
+        let data = await helperRequest();
+        console.log(data);
+        setData(data);
+    }
 
     useEffect(() => {
-        ( async () => {
-            let data = await helperRequest();
-            console.log(data);
-            setData(data);
-        })();
-    },[state]);
+        getData();
+    },[]);
 
     const deleteButton = (id) => { deleteHelper(id).then((res) => {
-        if (res !== 'error') setState(!state);
+        if (res !== 'error') setTimeout(getData, 200);
     }); };
 
+    const visibilityButton = (id, visibility) => {
+        console.log(id, visibility)
+        toggleHelperVisibility(id, !visibility).then((res) => {
+            if (res !== 'error') setTimeout(getData, 200);
+        })
+    }
 
     const handleFileChange = (event) => {
         if (!event.target.files) return;
         uploadHelper(event.target.files[0]).then((res) => {
-            if (res !== 'error') setState(!state);
+            if (res !== 'error') setTimeout(getData, 200);
         });
     }
     

@@ -6,24 +6,25 @@ import { SkillToggle, BooleanToggle, TextInputField, NumberField, OptionField, H
 import { Button, Typography, Box, TableContainer, Table, TableBody, TableRow, Paper } from "@mui/material";
 import { FormUploadButton } from "../../components/formComponents";
 
-import { helperRequest } from "../../api/admin/get";
-import { updateHelper, deleteHelper,uploadHelperImage } from "../../api/admin/others";
+import { helperRequest, updateHelper, deleteHelper,uploadHelperImage, toggleHelperVisibility } from "../../api/admin/helper";
 import { timeAgo } from "../../services/format";
 
 function HelperDetail () {
   const [data, setData] = useState({personal_info_type:'new', personal_info_nationality:'thai'});
   const [otherData, setOtherData] = useState({});
-  const [state, setState] = useState(false);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
-  useEffect(() => {( async () => {
+  async function getData() {
     let data = await helperRequest(id);
     setOtherData(splitData(data));
     setData(data);
-  })();
-  }, [state]);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const splitData = (data) => {
     timeAgo(data);
@@ -33,9 +34,10 @@ function HelperDetail () {
       'time': data['time'],
       'image': data['image'],
       'blurred_image': data['blurred_image'],
+      'visibility': data['visibility'],
     };
 
-    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image', 'blurred_image'];
+    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image', 'blurred_image', 'visibility'];
     deleteFields.forEach(item => {
       delete data[item];
     });
@@ -44,7 +46,7 @@ function HelperDetail () {
   }
 
   const save = () => { updateHelper(id, data).then((res) => {
-    if (res !== 'error') setState(!state);
+    if (res !== 'error') setTimeout(getData, 200);
   }); }
 
   const deleteButton = () => { deleteHelper(id).then((res) => {
@@ -60,8 +62,15 @@ function HelperDetail () {
   const handleFileChange = (event) => {
     if (!event.target.files) return;
     uploadHelperImage(id, event.target.files[0]).then((res) => {
-      if (res !== 'error') setState(!state);
+      if (res !== 'error') setTimeout(getData, 200);
     });
+  }
+
+  const visibilityButton = () => {
+    console.log(id, otherData['visibility'])
+    toggleHelperVisibility(id, !otherData['visibility']).then((res) => {
+      if (res !== 'error') setTimeout(getData, 200);
+    })
   }
 
   return (
@@ -97,6 +106,9 @@ function HelperDetail () {
           
 
           <Button variant="outlined" color="info" href={otherData['biodata']}>View Biodata</Button>
+
+          <Button variant="contained" color={otherData['visibility'] ? "success":"warning"} onClick={visibilityButton}>Currently {otherData['visibility'] ? "Visible":"Hidden"}</Button>
+
           <Button variant="contained" color="success" onClick={save}>Save</Button>      
         </Paper>
         <Button variant="contained" color="error" onClick={deleteButton}>Delete</Button>

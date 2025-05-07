@@ -3,17 +3,6 @@ import { toast } from "react-toastify";
 
 import { formatTime } from "../../services/format";
 
-/**
- * GET helperInfo
- * @param {int} helper_id 
- * @returns helperInfo
- */
-async function helperRequest(id=null) {
-    if (id === null) 
-        return formatTime(apiRequest('helperinfo/', 'GET'));
-    else
-        return apiRequest(`helperinfo/${id}/`, 'GET');
-}
 
 /**
  * GET referral
@@ -48,4 +37,4 @@ async function refreshQnaRequest() {
 }
 
 
-export { helperRequest, referralRequest, qnaRequest, refreshQnaRequest};
+export { referralRequest, qnaRequest, refreshQnaRequest};
