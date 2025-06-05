@@ -16,6 +16,10 @@ async function chatUserRequest() {
     return formatTime(apiRequest(`chatbotuser/`, 'GET'));
 }
 
+async function chatUserRecentRequest() {
+    return formatTime(apiRequest(`chatbotuser/0/100`, 'GET'));
+}
+
 async function deleteChatbotUser(id) {
     return apiRequest(`chatbotuser/${id}/`, 'DELETE', null, false).then((res) => {
         if (res === 'error') return toast("Oops, delete failed.");
@@ -33,4 +37,4 @@ async function sendAdminMessage(id, message) {
     });
 }
 
-export { chatRequest, chatUserRequest, deleteChatbotUser, sendAdminMessage }
+export { chatRequest, chatUserRequest, chatUserRecentRequest, deleteChatbotUser, sendAdminMessage }

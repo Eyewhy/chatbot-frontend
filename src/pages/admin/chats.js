@@ -3,9 +3,9 @@ import React, { useMemo, useState, useEffect } from "react";
 import Table from "../../components/table";
 
 import { Header } from "../../components/mui"
-import { Link, Button } from "@mui/material";
+import { Link, Button, Typography, Box } from "@mui/material";
 
-import { chatUserRequest, deleteChatbotUser } from "../../api/admin/chat";
+import { chatUserRequest, chatUserRecentRequest, deleteChatbotUser } from "../../api/admin/chat";
 
 import { formatChatList } from "../../services/format";
 
@@ -46,13 +46,21 @@ function ChatPage () {
 
     useEffect(() => {
         ( async () => {
-            await chatUserRequest().then((data) => {
+            await chatUserRecentRequest().then((data) => {
                 formatChatList(data);
-                console.log(data);
                 setData(data);
             });
         })();
     },[state])
+
+    const getAllButton = () => {
+        ( async () => {
+            await chatUserRequest().then((data) => {
+                formatChatList(data);
+                setData(data);
+            })
+        })();
+    }
 
     const deleteButton = (id) => {
         deleteChatbotUser(id).then((res) => {
@@ -62,7 +70,12 @@ function ChatPage () {
 
     return (
         <>
-            <Header text="Recently Active Users"/>
+            <Header text="Recently Active Users" render={
+                <Box sx={{display:'flex', alignItems:'center', gap:2}}>
+                    <Typography>Showing last {data.length} users</Typography>
+                    <Button variant="contained" onClick={getAllButton}>Get all Users</Button>
+                </Box>
+            }/>
             <Table columns={columns} data={data} />
         </>
     )

@@ -40,7 +40,9 @@ async function sendMessage(message) {
     const res = await chatRequest(id,message);
     if (!res) {
         toast('Error, Please try again later.');
-        return 'error';
+        const error_message = "Oops, an error occured. Please try again later."
+        addMessage(false, error_message)
+        return error_message;
     }
     addMessage(false, res);
     return res;

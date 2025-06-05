@@ -66,7 +66,11 @@ async function fileRequest(url, file) {
     try {
         let res = await fetch(`${backend}/${url}`, fetchParams)
         console.log(res);
-        if (res.ok === false) return 'error';
+        if (res.ok === false) {
+            let res_text = await res.text();
+            processResText(res_text);
+            return 'error';
+        }
 
         return res; // end here if no parsing required
     } catch (e) {

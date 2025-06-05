@@ -53,7 +53,7 @@ import { styled } from '@mui/material/styles';
 const backend = 'https://backend.acei.com.sg';
 
 /**one of "helper_agency", "chatbot"*/
-let websiteVersion = 'helper_agency';
+let websiteVersion = 'chatbot';
 const CHATBOT_ID = 6;
 
 const websites = {
