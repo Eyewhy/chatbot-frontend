@@ -41,16 +41,6 @@ function HelperBiodata () {
     ['Compensation Fee', 'salary_rest_days_per_month_compensate_fee'],
   ]
 
-  const employmentTable = [
-    ['Overseas Date', 'employment_history_overseas_date'],
-    ['Country', 'employment_history_overseas_country'],
-    ['Employer', 'employment_history_overseas_employer'],
-    ['Work Duties', 'employment_history_overseas_work_duties'],
-    ['Singapore Experience', 'employment_history_singapore_previous_work_experience'],
-    ['Work Permit Number', 'employment_history_singapore_work_permit_no'],
-    ['Feedback', 'employment_history_feedback_from_previous_employers']
-  ]
-
   const miscTable = [
     ['Rest Day Preference', 'remarks_preference_for_rest_day'],
     ['Remarks', 'remarks_additional_remarks'],
@@ -158,7 +148,23 @@ function HelperBiodata () {
               <SkillTable data={data} />
 
               <HeaderGraphy>Employment</HeaderGraphy>
-              <InfoTable rows={employmentTable} data={data} />
+              {Array.isArray(data['employment_histories']) && data['employment_histories'].length > 0 ? (
+                data['employment_histories'].map((job, idx) => (
+                  <InfoTable 
+                    rows={[
+                      ['Start Date', 'start_date'],
+                      ['End Date', 'end_date'],
+                      ['Country', 'country'],
+                      ['Employer', 'employer'],
+                      ['Work Duties', 'work_duties'],
+                      ['Feedback', 'feedback_from_previous_employers']
+                    ]}
+                    data={job}
+                  />
+                ))
+              ) : (
+                <Typography>No employment history available.</Typography>
+              )}
 
               <HeaderGraphy>Medical Information</HeaderGraphy>
               <MedicalTable data={data} />

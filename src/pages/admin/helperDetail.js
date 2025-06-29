@@ -7,17 +7,20 @@ import { Button, Typography, Box, TableContainer, Table, TableBody, TableRow, Pa
 import { FormUploadButton } from "../../components/formComponents";
 
 import { helperRequest, updateHelper, deleteHelper,uploadHelperImage, toggleHelperVisibility } from "../../api/admin/helper";
+import { addEmploymentHistory, updateEmploymentHistory, deleteEmploymentHistory } from "../../api/admin/employmentHistory";
 import { timeAgo } from "../../services/format";
 
 function HelperDetail () {
   const [data, setData] = useState({personal_info_type:'new', personal_info_nationality:'thai'});
   const [otherData, setOtherData] = useState({});
+  const [employmentHistory, setEmploymentHistory] = useState([]);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
   async function getData() {
     let data = await helperRequest(id);
+    setEmploymentHistory(Array.isArray(data['employment_histories']) ? data['employment_histories'] : []);
     setOtherData(splitData(data));
     setData(data);
   }
@@ -37,7 +40,7 @@ function HelperDetail () {
       'visibility': data['visibility'],
     };
 
-    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image', 'blurred_image', 'visibility'];
+    let deleteFields = ['biodata', 'id', 'time', 'organization', 'scanned', 'image', 'blurred_image', 'visibility','employment_histories'];
     deleteFields.forEach(item => {
       delete data[item];
     });
@@ -72,6 +75,44 @@ function HelperDetail () {
       if (res !== 'error') setTimeout(getData, 200);
     })
   }
+
+  // Employment history handlers
+  const handleEmploymentChange = (idx, field, value) => {
+    const updated = [...employmentHistory];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setEmploymentHistory(updated);
+  };
+
+  const handleEmploymentSave = (idx) => {
+    const entry = employmentHistory[idx];
+    console.log(entry)
+    if (entry.id) {
+      const id = entry.id
+      delete entry.id;
+      delete entry.helper;
+      updateEmploymentHistory(id, entry).then((res) => getData());
+    } else {
+      entry.helper = id;
+      addEmploymentHistory(entry).then((res) => getData());
+    }
+  };
+
+  const handleEmploymentDelete = (idx) => {
+    const entry = employmentHistory[idx];
+    if (entry.id) {
+      deleteEmploymentHistory(entry.id).then((res) => getData());
+    } else {
+      // Remove unsaved entry from UI
+      setEmploymentHistory(employmentHistory.filter((_, i) => i !== idx));
+    }
+  };
+
+  const handleAddEmployment = () => {
+    setEmploymentHistory([
+      ...employmentHistory,
+      { start_date: '', end_date: '', country: '', employer: '', work_duties: '', feedback_from_previous_employers: ''}
+    ]);
+  };
 
   return (
     <Box sx={{
@@ -194,24 +235,6 @@ function HelperDetail () {
               <TextInputField label="Others" data={data} setData={setNewData} accessor="skills_other_skills" />
             </TableRow>
 
-            <Head>Employment (Singapore)</Head>
-            <TableRow>
-              <BooleanToggle label="Previous Work Experience" data={data} setData={setNewData} accessor="employment_history_singapore_previous_work_experience" />
-              <TextInputField label="Work Permit Number" data={data} setData={setNewData} accessor="employment_history_singapore_work_permit_no" />
-            </TableRow>
-            <Head>Employment (Overseas)</Head>
-            <TableRow>
-              <TextInputField label="Date" data={data} setData={setNewData} accessor="employment_history_overseas_date" />
-              <TextInputField label="Country" data={data} setData={setNewData} accessor="employment_history_overseas_country" />
-            </TableRow>
-            <TableRow>
-              <TextInputField label="Employer" data={data} setData={setNewData} accessor="employment_history_overseas_employer" />
-              <TextInputField label="Work Duties" data={data} setData={setNewData} accessor="employment_history_overseas_work_duties" />
-            </TableRow>
-            <TableRow>
-              <TextInputField label="Feedback from Employers" data={data} setData={setNewData} accessor="employment_history_feedback_from_previous_employers" />
-            </TableRow>
-
             <Head>Illness</Head>
             <TableRow>
               <TextInputField label="Dietary Restrictions" data={data} setData={setNewData} accessor="medical_history_dietary_restrictions" />
@@ -251,6 +274,35 @@ function HelperDetail () {
             <TableRow>
               <TextInputField label="Preference for Rest Day" data={data} setData={setNewData} accessor="remarks_preference_for_rest_day" />
               <TextInputField label="Addtional Remarks" data={data} setData={setNewData} accessor="remarks_additional_remarks" />
+            </TableRow>
+
+            <Head>Employment History (Save and Delete Separately)</Head>
+            {employmentHistory.map((job, idx) => (
+              <React.Fragment key={job.id || idx+999}>
+                <TableRow>
+                  <TextInputField label="Start Date" data={job} setData={(a, v) => handleEmploymentChange(idx, 'start_date', v)} accessor="start_date" />
+                  <TextInputField label="End Date" data={job} setData={(a, v) => handleEmploymentChange(idx, 'end_date', v)} accessor="end_date" />
+                </TableRow>
+                <TableRow>
+                  <TextInputField label="Country" data={job} setData={(a, v) => handleEmploymentChange(idx, 'country', v)} accessor="country" />
+                  <TextInputField label="Employer" data={job} setData={(a, v) => handleEmploymentChange(idx, 'employer', v)} accessor="employer" />
+                </TableRow>
+                <TableRow>
+                  <TextInputField label="Work Duties" data={job} setData={(a, v) => handleEmploymentChange(idx, 'work_duties', v)} accessor="work_duties" />
+                  <TextInputField label="Feedback" data={job} setData={(a, v) => handleEmploymentChange(idx, 'feedback_from_previous_employers', v)} accessor="feedback_from_previous_employers" />
+                </TableRow>
+                <TableRow>
+                  <td colSpan={2}>
+                    <Button variant="contained" color="success" size="small" sx={{mr:1}} onClick={() => handleEmploymentSave(idx)}>Save</Button>
+                    <Button variant="contained" color="error" size="small" onClick={() => handleEmploymentDelete(idx)}>Delete</Button>
+                  </td>
+                </TableRow>
+              </React.Fragment>
+            ))}
+            <TableRow>
+              <td colSpan={2}>
+                <Button variant="outlined" color="primary" onClick={handleAddEmployment}>Add Employment History</Button>
+              </td>
             </TableRow>
           </TableBody>
         </Table></TableContainer>
