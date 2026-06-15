@@ -1,4 +1,4 @@
-import { Paper, Typography, Link, Box, IconButton, Button } from "@mui/material";
+import { Paper, Typography, Link, Box, IconButton, Button, Chip } from "@mui/material";
 import { styled } from '@mui/material/styles'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -37,6 +37,7 @@ function HelperCard({ data }) {
             alignItems: 'center',
             gap:2
         }}>
+        
 
             <Link href={`#/biodata/${data['id']}`}>
                 {data['image'] ? 
@@ -60,19 +61,20 @@ function HelperCard({ data }) {
                     <Typography>{data['personal_info_type']} Maid</Typography>
                     <Typography>ID {data['id']}</Typography>
                 </Box>
-                {(shortlist.inShortlist(data) === -1) ?
-                    <Button 
-                        size="large"
-                        onClick={addToShortlist}
-                        endIcon={<AddIcon />}
-                    > Add </Button>
-                    
-                :
-                    <IconButton size="medium" aria-label="Remove from Shortlist" color="primary" onClick={removeFromShortlist}>
-                        <RemoveIcon fontSize="medium"/>
-                    </IconButton>
-                }
-                
+                <Box sx={{display:'flex', alignItems:'center', gap:1}}>
+                    {data.notified ? <Chip label="Notified" color="success" size="small" /> : null}
+                    {(shortlist.inShortlist(data) === -1) ?
+                        <Button 
+                            size="large"
+                            onClick={addToShortlist}
+                            endIcon={<AddIcon />}
+                        > Add </Button>
+                        :
+                        <IconButton size="medium" aria-label="Remove from Shortlist" color="primary" onClick={removeFromShortlist}>
+                            <RemoveIcon fontSize="medium"/>
+                        </IconButton>
+                    }
+                </Box>
             </Box>
         </Paper>
     )
