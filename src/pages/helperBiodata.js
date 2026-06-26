@@ -8,6 +8,7 @@ import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
 import { InfoTable, SkillTable, MedicalTable, AgencyTable } from "../components/tables";
 import { HeaderGraphy } from "../components/mui";
+import ContactAgencySection from "../components/contactAgency";
 
 import { publicHelperRequest, publicOrganizationRequest } from "../api/public";
 import { useAuth } from "../services/authProvider";
@@ -198,30 +199,31 @@ function HelperBiodata () {
         gap:2,
         width: {md:'280px'}
       }}>
-        <Link href={`#/organization/${data['organization']}`} underline="none">
-          <Paper elevation={2} sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap:2,
-            p:2,
-          }}>
-            <Typography>Maid Agency Info</Typography>
-
-            <Paper component='img' src={agency['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
-            <AgencyTable data={agency}/>
-
+        <Paper elevation={2} sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap:2,
+          p:2,
+        }}>
+          <Link href={`#/organization/${data['organization']}`} underline="none">
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap:1
+              alignItems: 'center',
+              gap:2,
             }}>
+              <Typography>Maid Agency Info</Typography>
+
+              <Paper component='img' src={agency['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
+              <AgencyTable data={agency}/>
 
               <Button variant="outlined" color="primary">View Agency Info</Button>
-              <Button variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
             </Box>
-          </Paper>
-        </Link>
+          </Link>
+
+          <ContactAgencySection defaultMessage={`Hi, I would like to contact the agency about ${data['personal_info_name'] || 'this helper'}.`} />
+        </Paper>
       </Box>
     </Box> 
   </>)

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Paper, Box, Typography, Button } from "@mui/material";
-import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 
 import { AgencyTable, AgencyAddressTable } from "../components/tables";
 import HelperCard from "../components/helperCard";
+import ContactAgencySection from "../components/contactAgency";
 
 import { publicOrganizationRequest } from "../api/public";
 import { searchForHelper } from "../api/helperSearch";
@@ -51,7 +51,7 @@ function AgencyData () {
       flexDirection: {xs:'column', md:'row'},
       display:'flex',
       justifyContent: 'center',
-      mt:2,
+      mt:4,
       gap: 2
     }}>
       <Box sx={{
@@ -74,7 +74,7 @@ function AgencyData () {
           <Paper component='img' src={data['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
 
           <AgencyTable data={data}/>
-          <Button fullWidth variant="contained" color="success" startIcon={<AddIcCallIcon />}>Contact Agency</Button>
+          <ContactAgencySection defaultMessage="Hi, I would like to get in touch with your agency about available helpers." />
         </Paper>
       </Box>
 
