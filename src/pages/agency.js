@@ -74,7 +74,7 @@ function AgencyData () {
           <Paper component='img' src={data['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
 
           <AgencyTable data={data}/>
-          <ContactAgencySection defaultMessage="Hi, I would like to get in touch with your agency about available helpers." />
+          <ContactAgencySection organizationId={data?.id} defaultMessage="Hi, I would like to get in touch with your agency about available helpers." />
         </Paper>
       </Box>
 

@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { Button, Paper, Typography, TextField, Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import { Button, Typography, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
@@ -7,7 +7,7 @@ import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import { useAuth } from "../services/authProvider";
 import apiRequest from "../api/apirequest";
 
-function ContactAgencySection({ defaultMessage }) {
+function ContactAgencySection({ defaultMessage, organizationId }) {
   const [contactMethod, setContactMethod] = useState("");
   const [body, setBody] = useState(defaultMessage || "");
   const [loading, setLoading] = useState(false);
@@ -22,24 +22,33 @@ function ContactAgencySection({ defaultMessage }) {
   }, [defaultMessage]);
 
   const handleSend = async () => {
-    if (!signedIn) {
-      window.location.href = "#/login";
+    if (sent || loading) return;
+    if (!organizationId) {
+      toast("Organization ID is required.");
+      return;
+    }
+
+    if (!signedIn && (!contactMethod || contactMethod.trim() === "")) {
+      toast("Please enter your contact info before sending.");
       return;
     }
 
     setLoading(true);
     setSent(true);
     const payload = {
+      organization_id: organizationId,
       contact_method: contactMethod || undefined,
       body: body || undefined,
     };
 
-    const res = await apiRequest("user/notify_admin/", "POST", payload, true, true);
+    const res = await apiRequest("user/notify_admin/", "POST", payload, true, signedIn);
     setLoading(false);
 
     if (res !== "error") {
       toast("Contact request sent.");
       setContactMethod("");
+    } else {
+      setSent(false);
     }
   };
 
@@ -47,7 +56,7 @@ function ContactAgencySection({ defaultMessage }) {
     <>
       <Typography>Contact Agency</Typography>
       <TextField
-        label="Contact method (optional)"
+        label={signedIn ? "Contact method (optional)" : "Email / Phone"}
         size="small"
         fullWidth
         value={contactMethod}
@@ -62,22 +71,16 @@ function ContactAgencySection({ defaultMessage }) {
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />
-      {signedIn ? (
-        <Button
-          fullWidth
-          variant="contained"
-          color="success"
-          onClick={handleSend}
-          disabled={loading || sent}
-          startIcon={<AddIcCallIcon />}
-        >
-          {loading ? "Sending…" : sent ? "Request Sent" : "Contact Agency"}
-        </Button>
-      ) : (
-        <Button fullWidth variant="contained" color="info" onClick={() => (window.location.href = "#/login") } startIcon={<AddIcCallIcon />}>
-          Contact Agency
-        </Button>
-      )}
+      <Button
+        fullWidth
+        variant="contained"
+        color="success"
+        onClick={handleSend}
+        disabled={loading || sent}
+        startIcon={<AddIcCallIcon />}
+      >
+        {loading ? "Sending…" : sent ? "Request Sent" : "Contact Agency"}
+      </Button>
     </>
   );
 }

@@ -222,7 +222,10 @@ function HelperBiodata () {
             </Box>
           </Link>
 
-          <ContactAgencySection defaultMessage={`Hi, I would like to contact the agency about ${data['personal_info_name'] || 'this helper'}.`} />
+          <ContactAgencySection
+            organizationId={data['organization']}
+            defaultMessage={`Hi, I would like to contact the agency about ${data['personal_info_name'] || 'this helper'}.`}
+          />
         </Paper>
       </Box>
     </Box> 
