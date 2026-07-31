@@ -33,8 +33,16 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         let res = await fetch(`${backend}/${url}`, fetchParams)
         console.log(res);
         if (res.ok === false) {
+            if (res.status === 403) {
+                toast("Error: You are not authorized to perform this action.");
+                return 'error';
+            }
+            if (res.status === 404) {
+                toast("Error: The requested resource was not found.");
+                return 'error';
+            }
             let res_text = await res.text();
-            processResText(res_text);
+            toast(processResText(res_text));
             return 'error';
         }
 
@@ -68,7 +76,7 @@ async function fileRequest(url, file) {
         console.log(res);
         if (res.ok === false) {
             let res_text = await res.text();
-            processResText(res_text);
+            toast(processResText(res_text));
             return 'error';
         }
 
@@ -80,7 +88,6 @@ async function fileRequest(url, file) {
 }
 
 function processResText(res_text) {
-    // check for json object
     if (res_text[0] === '{') {
         res_text = JSON.parse(res_text);
         res_text = res_text[Object.keys(res_text)[0]];
@@ -89,7 +96,7 @@ function processResText(res_text) {
         res_text = 'Please login again!';
         window.location.href = '#/account';
     }
-    toast(`Error: ${res_text}`);
+    return res_text;
 }
 
 export default apiRequest

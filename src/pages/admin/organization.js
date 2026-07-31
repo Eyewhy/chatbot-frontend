@@ -69,7 +69,7 @@ function OrganizationPage () {
       image: data['image']
     };
 
-    let deleteFields = ['id', 'admin_username', 'documents_scanned', 'embeddings_generated', 'members', 'image'];
+    let deleteFields = ['id', 'admin_username', 'documents_scanned', 'embeddings_generated', 'members', 'image', 'organization_type'];
     deleteFields.forEach(item => {
       delete data[item];
     });
