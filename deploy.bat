@@ -1,1 +1,1 @@
-npm run build && scp -r C:\Users\ivany\chatbot\chatbot-frontend\build/* ec2-user@18.136.141.171:/home/ec2-user/html && ssh ec2 -t "sudo rm -rf /var/www/chatbot.acei.com.sg/html && sudo cp -rf html /var/www/chatbot.acei.com.sg/html && sudo chown -R nginx:nginx /var/www/chatbot.acei.com.sg/html"
+npm run build && scp -r C:\Users\ivany\chatbot\chatbot-frontend\build/* ec2:/home/ec2-user/html && ssh ec2 -t "sudo rm -rf /var/www/chatbot.acei.com.sg/html && sudo cp -rf html /var/www/chatbot.acei.com.sg/html && sudo chown -R nginx:nginx /var/www/chatbot.acei.com.sg/html"

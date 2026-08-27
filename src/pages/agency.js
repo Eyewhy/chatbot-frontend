@@ -15,6 +15,7 @@ import { useAuth } from "../services/authProvider";
 
 function AgencyData () {
   const INCREMENT = 24;
+  const SCROLL_THRESHOLD = 300;
   const [data, setData] = useState({});
   const [helpers, setHelpers] = useState([]);
   const [displayHelpers, setDisplayHelpers] = useState([]);
@@ -37,7 +38,10 @@ function AgencyData () {
   };
 
   const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    const distanceFromBottom = document.documentElement.offsetHeight - (
+      window.innerHeight + document.documentElement.scrollTop
+    );
+    if (distanceFromBottom > SCROLL_THRESHOLD) return;
     addMoreHelpers();
   };
 

@@ -15,6 +15,7 @@ import { properHelperInfo } from "../services/format";
 
 function HelperSearch() {
     const INCREMENT = 24;
+    const SCROLL_THRESHOLD = 400;
     const [search, setSearch] = useState({});
     const [results, setResults] = useState(['loading...']);
     const [display, setDisplay] = useState([]);
@@ -39,19 +40,20 @@ function HelperSearch() {
     }
 
     const getDisplay = () => { 
-        console.log(display);
-        setDisplay(results.slice(0, display.length+INCREMENT));
+        setDisplay((currentDisplay) => results.slice(0, currentDisplay.length + INCREMENT));
     }
 
     function setSearchParam(param, value) {
         search[param] = value;
         setSearch(search);
-        console.log(search);
         getData(search);
     }
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+        const distanceFromBottom = document.documentElement.offsetHeight - (
+            window.innerHeight + document.documentElement.scrollTop
+        );
+        if (distanceFromBottom > SCROLL_THRESHOLD || display.length >= results.length) return;
         getDisplay();
     };
 
