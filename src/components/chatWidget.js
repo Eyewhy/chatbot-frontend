@@ -28,7 +28,7 @@ export default function ChatWidget() {
         (websiteVersion === 'helper_agency' && auth.organization === 0) ?
         <Widget 
             handleNewUserMessage={handleNewUserMessage}
-            title="Chat with Chatbot"
+            title="Helper4.me AI Assistant"
             subtitle="Find your perfect domestic helper match"
         />
         : ""

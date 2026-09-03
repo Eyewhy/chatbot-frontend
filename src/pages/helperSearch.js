@@ -67,7 +67,7 @@ function HelperSearch() {
     }, [display, results, search])
 
     return (<>
-        <Header text="Find your perfect helper with Helper4me. Try our AI Chatbot!" />
+        <Header text="Find your perfect helper with Helper4me. Chat with our AI assistant." />
         <Box sx={{
             display:'flex',
             flexDirection:'column',
