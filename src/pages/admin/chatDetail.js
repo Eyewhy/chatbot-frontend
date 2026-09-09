@@ -1,7 +1,6 @@
 import React, { createRef, useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import 'react-chat-elements/dist/main.css'
 import { MessageList } from 'react-chat-elements'
 
 import { Header } from "../../components/mui";
