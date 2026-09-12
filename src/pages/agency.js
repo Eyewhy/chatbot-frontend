@@ -75,7 +75,30 @@ function AgencyData () {
           p:2,
         }}>
           <HeaderGraphy>{data['full_name']}</HeaderGraphy>
-          <Paper component='img' src={data['image']} elevation={2} sx={{height:'200px', width:'200px'}}/>
+          <Box
+            sx={{
+              width: '200px',
+              height: '200px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+              backgroundColor: 'grey.100',
+              borderRadius: 1,
+            }}
+          >
+            <Paper
+              component='img'
+              src={data['image']}
+              elevation={2}
+              sx={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          </Box>
 
           <AgencyTable data={data}/>
           <ContactAgencySection organizationId={data?.id} defaultMessage="Hi, I would like to get in touch with your agency about available helpers." />

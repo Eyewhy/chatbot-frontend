@@ -2,15 +2,28 @@ import { Paper, Typography, Link, Box } from "@mui/material";
 import { styled } from '@mui/material/styles'
 
 function AgencyCard({ data }) {
-    const ImgPaper = styled(Paper)(({theme}) => ({
+    const ImgContainer = styled(Box)(({theme}) => ({
+        width: '200px',
         height: '200px',
-        width:'200px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.grey[100],
+        borderRadius: theme.shape.borderRadius,
+        [theme.breakpoints.down('md')]: {
+            width: '100px',
+            height: '100px',
+        },
+    }))
+
+    const ImgPaper = styled(Paper)(({theme}) => ({
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        display: 'block',
         textAlign: 'center',
         alignContent: 'center',
-        [theme.breakpoints.down('md')]: {
-            height: '100px',
-            width: '100px',
-        },
     }))
 
     return (
@@ -23,13 +36,15 @@ function AgencyCard({ data }) {
         }}>
 
             <Link href={`#/organization/${data['id']}`}>
-                {data['image'] ? 
-                    <ImgPaper component='img' elevation={2} src={data['image']} />   
-                :
-                    <ImgPaper elevation={2}>
-                        Image Unavailable
-                    </ImgPaper>   
-                }
+                <ImgContainer>
+                    {data['image'] ? 
+                        <ImgPaper component='img' elevation={2} src={data['image']} />   
+                    :
+                        <ImgPaper elevation={2} sx={{display: 'flex', alignItems:'center', justifyContent:'center'}}>
+                            Image Unavailable
+                        </ImgPaper>   
+                    }
+                </ImgContainer>
             </Link>
             
             <Box sx={{
