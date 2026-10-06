@@ -38,7 +38,20 @@ function Pie( { data, prop} ) {
         return res;
     }
     return (
-        <PieChart series={[{data:count(data, prop)}]} height={120} width={310}/>
+        <PieChart 
+            series={[{ data: count(data, prop) }]} 
+            height={120} 
+            width={310}
+            margin={{ top: 10, bottom: 10, left: 10, right: 120 }}
+            slotProps={{
+                legend: {
+                    direction: 'column',
+                    position: { vertical: 'middle', horizontal: 'right' },
+                    labelStyle: { fontSize: 12 },
+                    itemGap: 4,
+                },
+            }}
+        />
     )
 }
 
