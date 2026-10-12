@@ -22,13 +22,13 @@ function Header ( {text, render} ) {
     )
 }
 
-function Pie( { data, prop} ) {
-
-    const countBy = (arr, prop) => arr.reduce((prev, curr) => (prev[curr[prop]] = ++prev[curr[prop]] || 1, prev), {});
+function Pie({ data, prop }) {
+    const countBy = (arr, prop) => 
+        arr.reduce((prev, curr) => (prev[curr[prop]] = ++prev[curr[prop]] || 1, prev), {});
 
     const count = (data, prop) => {
         const counted = countBy(data, prop);
-        const res = []
+        const res = [];
         for (const [key, value] of Object.entries(counted)) {
             res.push({
                 value: value,
@@ -36,23 +36,32 @@ function Pie( { data, prop} ) {
             });
         };
         return res;
-    }
+    };
+
+    const chartData = count(data, prop);
+    const showLegend = chartData.length <= 3;
+
     return (
         <PieChart 
-            series={[{ data: count(data, prop) }]} 
+            series={[{ data: chartData }]} 
             height={120} 
             width={310}
-            margin={{ top: 10, bottom: 10, left: 10, right: 120 }}
+            margin={{ 
+                top: 10, 
+                bottom: 10, 
+                left: 10, 
+                right: showLegend ? 120 : 10 // Reduces right margin to give chart more space when legend is hidden
+            }}
             slotProps={{
-                legend: {
+                legend: showLegend ? {
                     direction: 'column',
                     position: { vertical: 'middle', horizontal: 'right' },
                     labelStyle: { fontSize: 12 },
                     itemGap: 4,
-                },
+                } : { hidden: true }
             }}
         />
-    )
+    );
 }
 
 
