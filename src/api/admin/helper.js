@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 
 import { formatTime } from "../../services/format";
 
+const PDF_EXTENSIONS = ['pdf','PDF'];
+
 /**
  * GET helperInfo
  * @param {int} helper_id 
@@ -16,17 +18,19 @@ async function helperRequest(id=null) {
 }
 
 async function uploadHelper(file) {
-    if (file.name.split('.').pop() !== 'pdf') return toast("Please upload a pdf!");
+    const renamed_file = new File([file], file.name.toLowerCase(), {type: file.type});
+    if (!PDF_EXTENSIONS.includes(renamed_file.name.split('.').pop())) return toast("Please upload a pdf!");
     toast("File uploaded. Scanning may take a minute.")
-    return fileRequest('helperinfo/', file).then((res) => {
+    return fileRequest('helperinfo/', renamed_file).then((res) => {
         if (res === 'error') return toast("Oops, upload failed. Is it a pdf?");
         toast("Biodata scanned succesfully.");
     })
 }
 
 async function uploadHelperImage(id, file) {
-    if (! ['jpg', 'jpeg'].includes(file.name.split('.').pop())) return toast("Please upload a jpg/jpeg!");
-    return fileRequest(`helperinfo/${id}/image/`, file).then((res) => {
+    const renamed_file = new File([file], file.name.toLowerCase(), {type: file.type});
+    if (! ['jpg', 'jpeg'].includes(renamed_file.name.split('.').pop())) return toast("Please upload a jpg/jpeg!");
+    return fileRequest(`helperinfo/${id}/image/`, renamed_file).then((res) => {
         if (res === 'error') return toast("Oops, upload failed. Is it a jpeg?");
         toast("Image updated succesfully.");
     })
