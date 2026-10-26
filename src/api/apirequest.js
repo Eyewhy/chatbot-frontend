@@ -40,6 +40,10 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
                 toast("Error: The requested resource was not found.");
                 return 'error';
             }
+            if (res.status === 500) {
+                toast("Error: Internal server error. Please try again later.");
+                return 'error';
+            }
             let res_text = await res.text();
             toast(processResText(res_text));
             return 'error';
@@ -75,7 +79,6 @@ async function fileRequest(url, file) {
             toast(processResText(res_text));
             return 'error';
         }
-
         return res; // end here if no parsing required
     } catch (e) {
         return 'error';
@@ -83,9 +86,17 @@ async function fileRequest(url, file) {
 }
 
 function processResText(res_text) {
-    if (res_text[0] === '{') {
-        res_text = JSON.parse(res_text);
-        res_text = res_text[Object.keys(res_text)[0]];
+    if (typeof res_text === 'string' && res_text.trim().startsWith('{')) {
+        try {
+            res_text = JSON.parse(res_text);
+        } catch (e) {
+            // Not valid JSON, keep as is
+        }
+    }
+    if (typeof res_text === 'object' && res_text !== null) {
+        const firstKey = Object.keys(res_text)[0];
+        const firstVal = res_text[firstKey];
+        res_text = Array.isArray(firstVal) ? firstVal[0] : firstVal;
     }
     if (res_text === 'Invalid token.') {
         res_text = 'Please login again!';
