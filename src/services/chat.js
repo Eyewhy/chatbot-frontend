@@ -14,7 +14,6 @@ async function getFingerprint() {
     const fingerprint = await fp.get().then((res)=>res['visitorId']);
     id = CHATBOT_ID*(10**12) + Number('0x' + fingerprint)%(10**12);
     localStorage.setItem('chatbot_id', id);
-    console.log('Chatbot Id:' + id);
 }
 
 async function getChat() {

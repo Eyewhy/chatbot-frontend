@@ -31,7 +31,6 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
     }
     try {
         let res = await fetch(`${backend}/${url}`, fetchParams)
-        console.log(res);
         if (res.ok === false) {
             if (res.status === 403) {
                 toast("Error: You are not authorized to perform this action.");
@@ -51,14 +50,12 @@ async function apiRequest(url, method, body=null, parse_json=true, auth=true) {
         let data = await res.json(); // end here if parsing required
         return data;
     } catch (e) {
-        console.log(e);
         return 'error';
     };
 }
 
 async function fileRequest(url, file) {
     const token = getToken();
-    console.log(file.name);
     const fetchParams = {
         method: "POST",
         body: file,
@@ -73,7 +70,6 @@ async function fileRequest(url, file) {
     }
     try {
         let res = await fetch(`${backend}/${url}`, fetchParams)
-        console.log(res);
         if (res.ok === false) {
             let res_text = await res.text();
             toast(processResText(res_text));
@@ -82,7 +78,6 @@ async function fileRequest(url, file) {
 
         return res; // end here if no parsing required
     } catch (e) {
-        console.log(e);
         return 'error';
     };
 }

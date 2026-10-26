@@ -25,7 +25,6 @@ function ChatDetail () {
         await chatRequest(id).then((data) => {
             getChatId(data);
             data['messages'] = messagesToChat(data['messages']);
-            console.log(data);
             setData(data);
         });
     }
@@ -41,7 +40,6 @@ function ChatDetail () {
     }
 
     const sendButton = () => {
-        console.log(message);
         if (message.length === 0) return;
         sendAdminMessage(id, message);
         setTimeout(getData, 1000);

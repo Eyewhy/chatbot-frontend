@@ -83,7 +83,6 @@ function OrganizationPage () {
 
   const setNewData = (accessor, value) => {
     data[accessor] = value;
-    console.log(data);
     setData({...data});
   }
 
@@ -95,7 +94,6 @@ function OrganizationPage () {
   }
 
   const deleteButton = (id) => { deleteUserFromOrganizationRequest(id).then((res) => {
-    console.log(res);
     if (res !== 'error') {
       setState(!state);
     }

@@ -23,9 +23,7 @@ function AccountPage() {
         ( async () => {
             let data = await userRequest();
             // check for expired token
-            console.log(data);
             if (data === 'error') auth.logout();
-            console.log(data);
             setData(data);
             setValue('username', data['username']);
             setValue('email', data['email']);

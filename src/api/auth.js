@@ -19,7 +19,6 @@ async function loginRequest(username, password) {
     } else {
         body['username'] = username;
     }
-    console.log(body);
     const res = await apiRequest('auth/login/', 'POST', body, true, false);
     if (res === 'error') return 'error';
     return 'Token ' + res['key'];

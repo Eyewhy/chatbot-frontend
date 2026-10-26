@@ -51,7 +51,6 @@ function HelperPage () {
 
     async function getData() {
         let data = await helperRequest();
-        console.log(data);
         setData(data);
     }
 
@@ -64,7 +63,6 @@ function HelperPage () {
     }); };
 
     const visibilityButton = (id, visibility) => {
-        console.log(id, visibility)
         toggleHelperVisibility(id, !visibility).then((res) => {
             if (res !== 'error') setTimeout(getData, 200);
         })

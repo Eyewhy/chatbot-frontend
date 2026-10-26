@@ -70,7 +70,6 @@ function HelperBiodata () {
     let res = await publicHelperRequest(auth.checkLoggedIn(), id);
     timeAgo(res);
     properHelperInfo(res);
-    console.log(res);
     setData(res);
     let res2 = await publicOrganizationRequest(res['organization']);
     setAgency(res2);

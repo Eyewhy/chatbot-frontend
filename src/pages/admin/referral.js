@@ -59,7 +59,6 @@ function ReferralPage() {
         ( async () => {
             let data = await referralRequest();
             if (data === 'error') navigate('/admin/join');
-            console.log(data);
             setData(data);
         })();
     },[state]);

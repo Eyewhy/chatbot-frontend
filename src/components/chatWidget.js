@@ -12,7 +12,6 @@ export default function ChatWidget() {
     useEffect(()=>{
         const getId = async () => {
             let messages = await getChat();
-            console.log(messages);
             messages.forEach(element => {
                 if (element['human_message']) addUserMessage(element['text']);
                 else addResponseMessage(element['text']);

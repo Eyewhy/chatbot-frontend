@@ -58,7 +58,6 @@ function HelperDetail () {
 
   const setNewData = (accessor, value) => {
     data[accessor] = value;
-    console.log(data);
     setData({...data});
   }
 
@@ -70,7 +69,6 @@ function HelperDetail () {
   }
 
   const visibilityButton = () => {
-    console.log(id, otherData['visibility'])
     toggleHelperVisibility(id, !otherData['visibility']).then((res) => {
       if (res !== 'error') setTimeout(getData, 200);
     })
@@ -85,7 +83,6 @@ function HelperDetail () {
 
   const handleEmploymentSave = (idx) => {
     const entry = employmentHistory[idx];
-    console.log(entry)
     if (entry.id) {
       const id = entry.id
       delete entry.id;

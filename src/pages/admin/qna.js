@@ -34,7 +34,6 @@ function QnaPage () {
     useEffect(() => {
         ( async () => {
             let data = await qnaRequest();
-            console.log(data);
             setData(data);
         })();
     },[state])
