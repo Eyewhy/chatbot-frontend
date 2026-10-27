@@ -20,10 +20,7 @@ async function loginRequest(username, password) {
         body['username'] = username;
     }
     const res = await apiRequest('auth/login/', 'POST', body, true, false);
-    if (res === 'error') {
-        toast("Oops, login failed. Please check your credentials and try again.");
-        return 'error';
-    }
+    if (res === 'error') return 'error';
     return 'Token ' + res['key'];
 }
 
